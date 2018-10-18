@@ -55,14 +55,20 @@ app.post('/api/order', (req,res) => { //Post new order
     .catch(error =>res.json({error: error.message}));
 });
 
-// //order route: get open orders
-// app.get('/orders', (req,res) => res.json(getOpenOrders()));
+app.get('/api/order', (req,res) => { //Get all open orders
+  db.many(`SELECT * FROM "order"`)
+    .then(data => res.json(data))
+    .catch(error => res.json({error: error.message}));
+});
 
-
-
-// //order route: patch order status
-// app.patch('/orders/:orderId', (req,res) => res.json(patchOrder(req.params.orderId, req.body)));
-
+app.patch('/api/order/:orderId', (req,res) => { //Update order status
+  const orderId = req.params.orderId;
+  const newStatus = req.body.status;
+  db.one(`UPDATE "order" SET status = $1 WHERE id = $2
+          RETURNING *`, [newStatus, orderId])
+    .then(data => res.json(data))
+    .catch(error => res.json({error: error.message}));
+});
 
 //START LISTENING//
 app.listen(8080, function(){
