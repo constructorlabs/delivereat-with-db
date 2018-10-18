@@ -7,6 +7,10 @@ const app = express();
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
+const Telegraf = require('telegraf');
+const bot = new Telegraf(process.env.BOT_TOKEN);
+bot.startPolling();
+
 const pgp = require('pg-promise')();
 const db = pgp({
   host: 'localhost',
@@ -51,7 +55,10 @@ app.post('/api/order', (req,res) => { //Post new order
         }))
       .then(() => orderId);
     })
-    .then(data => res.json(data))
+    .then(data => {
+      bot.telegram.sendMessage(process.env.CHAT_ID, `Thank you for placing an order with Zing. Your order number is ${data}. One of our surprisingly attractive baristas is preparing your coffee now.`);
+      res.json(data);
+    })
     .catch(error =>res.json({error: error.message}));
 });
 
