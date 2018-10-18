@@ -42,17 +42,17 @@ app.post('/api/order', (req,res) => { //Post new order
           VALUES ($1, $2)
           RETURNING id`, [status, date.toLocaleString()])
     .then(data => {
-      contents.forEach(item => {
-        const orderId = data.id;
+      const orderId = data.id;
+      return Promise.all(contents.map(item => {
         const menuId = item[0];
         const quantity = item[1];
-        db.one(`INSERT INTO menu_order (order_id, menu_id, quantity)
-                VALUES ($1, $2, $3)
-                RETURNING id`, [orderId, menuId, quantity])
-          .then(data => res.json(data))
-          .catch(error =>res.json({error: error.message}));
-      });
-    });
+        return db.none(`INSERT INTO menu_order (order_id, menu_id, quantity)
+                        VALUES ($1, $2, $3)`, [orderId, menuId, quantity]);
+        }))
+      .then(() => orderId);
+    })
+    .then(data => res.json(data))
+    .catch(error =>res.json({error: error.message}));
 });
 
 // //order route: get open orders
