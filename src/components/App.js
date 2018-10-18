@@ -85,13 +85,17 @@ class App extends React.Component {
       body: JSON.stringify(this.state.order.contents),
       headers: {'Content-Type': 'application/json'}})
     .then(res => res.json())
-    .then(response => console.log('Success:', JSON.stringify(response)))
+    .then(response => {
+      this.setState({ stage: 'checkout',
+                      orderId: response,
+                      order: {
+                        contents: [],
+                        total: 0 } });
+      console.log('Success:', JSON.stringify(response));
+    })
     .catch(error => console.error('Error:', error));
 
-    this.setState({ stage: 'checkout',
-                    order: {
-                      contents: [],
-                      total: 0} });
+    
   }
 
   render() {
@@ -128,6 +132,7 @@ class App extends React.Component {
         </div>}
         {(stage === 'checkout') && 
         <Checkout 
+          orderId={this.state.orderId}
           changeStage={this.changeStage}/>}
       </div>
     );
