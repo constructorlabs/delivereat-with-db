@@ -16,6 +16,10 @@ app.use(bodyParser.json());
 app.use("/static", express.static("static"));
 app.set("view engine", "hbs");
 
+app.get("/", function(req, res) {
+  res.render('index')
+});
+
 app.get("/menu", function(req, res) {
   db.any("select * from menu")
     .then(data => res.json(data))
@@ -28,16 +32,18 @@ app.post("/order", function(req, res) {
   const orderItems = req.body;
   db.one('insert into "order" values(default) returning id')
     .then(data => {
-      orderItems.forEach(item => {
+
+      return Promise.all(orderItems.map(item => {
         const { menu_id, quantity } = item;
-        db.none(
+        return db.none(
           `insert into menu_order(menu_id, order_id,quantity)
           VALUES($1, $2, $3)`,
           [menu_id, data.id, quantity]
         )
-      })
+      }))
+      .then(()=> data.id)
     })
-    .then(() => res.json({ order: "new order accepted" }))
+    .then(orderId => res.json({ order_id: orderId, message: "new order accepted" }))
     .catch(error => res.status(400).json({ error: error.message }));
 });
 
