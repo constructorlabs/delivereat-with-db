@@ -1,6 +1,7 @@
 import React from 'react';
 import MenuItems from './MenuItems';
 import '../styles/App.scss';
+import ViewPurchase from './ViewPurchase';
 
 class App extends React.Component {
   constructor(){
@@ -15,8 +16,8 @@ class App extends React.Component {
 
     this.state = { 
       menu: {},
-      getPurchaseID: null,
-      displayPurchaseByID: null
+      getPurchaseId: null,
+      displayPurchaseById: null
     }
   }
 
@@ -54,52 +55,39 @@ class App extends React.Component {
   ///////////////////////////////////////////*/
  
   handlePurchaseId (event) {
-    this.setState({ getPurchaseID: event.target.value  })
+    this.setState({ getPurchaseId: event.target.value  })
   }
+
   getPurchaseById (event) {
     event.preventDefault();
-    const id = this.state.getPurchaseID;
+    const id = this.state.getPurchaseId;
     fetch(`/api/purchase/${id}`)
     .then(response => response.json())
     .then(purchase => {
-      this.setState({ displayPurchaseByID: purchase })
+      this.setState({ displayPurchaseById: purchase })
     })
     .catch(error => res.json({ error: error.message }));
   }
 
   render() {
 
-    const inputPurchaseId = 
-    <form onSubmit={this.getPurchaseById}>
-      <h2>View your order:</h2>
-      ID: <input onChange={this.handlePurchaseId} type="text" name="purchaseId" />
-      <button type="submit">Show purchase</button>
-    </form>
-
-    const displayPurchaseID = this.state.displayPurchaseByID &&
-    Object.values(this.state.displayPurchaseByID).map(item => {
-        const purchaseID = `purchaseId-${item.id}`;
-        return (
-        <ul key={purchaseID}>
-          <li>purchase_id: {item.purchase_id}</li>
-          <li>menu_id: {item.menu_id}</li>
-          <li>quantity: {item.quantity}</li>
-          <li>menu_purchase_id: {item.id}</li>
-        </ul>)
-    });
+    const viewPurchase = 
+    <ViewPurchase 
+      getPurchaseById={this.getPurchaseById}
+      handlePurchaseId={this.handlePurchaseId}
+      displayPurchaseById={this.state.displayPurchaseById}
+    />
 
     const menuItems = this.state.menu && 
     <MenuItems 
       menuArray={this.getMenuArray()}
       getMenuItembyId={this.getMenuItembyId}
       getCurrency={this.getCurrency}
-
-
     />
+
     return (
       <React.Fragment>
-        {/* { inputPurchaseId }
-        { displayPurchaseID } */}
+        { viewPurchase }
         { menuItems }
       </React.Fragment>
     )
