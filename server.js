@@ -43,13 +43,13 @@ app.get('/api/menu/:menuItemId', (req,res) => { //Get menu item by id
 app.post('/api/order', (req,res) => { //Post new order
   const status = 'new';
   const date = new Date();
-  const contents = req.body;
-  db.one(`INSERT INTO "order" (status, time) 
-          VALUES ($1, $2)
-          RETURNING id`, [status, date.toLocaleString()])
+  const {items,phone} = req.body;
+  db.one(`INSERT INTO "order" (status, time, phone) 
+          VALUES ($1, $2, $3)
+          RETURNING id`, [status, date.toLocaleString(), phone])
     .then(data => {
       const orderId = data.id;
-      return Promise.all(contents.map(item => {
+      return Promise.all(items.map(item => {
         const menuId = item[0];
         const quantity = item[1];
         return db.none(`INSERT INTO menu_order (order_id, menu_id, quantity)
@@ -64,7 +64,7 @@ app.post('/api/order', (req,res) => { //Post new order
         .create({
           body: checkoutMsg,
           from: '+447481339376',
-          to: '+447729112295'
+          to: phone
         })
         .then(message => console.log(message.sid))
         .done();

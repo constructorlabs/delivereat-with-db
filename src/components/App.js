@@ -15,8 +15,8 @@ class App extends React.Component {
     this.state = {stage: 'splash',
                   menu: '',
                   order: {
-                    contents: [],
-                    total: 0,
+                    id: '',
+                    items: [],
                     phone: '' },
                   readyToCheckout: false};
 
@@ -46,26 +46,23 @@ class App extends React.Component {
   }
 
   addToOrder(menuItemId) {
-    let contents = this.state.order.contents;
-    if (contents.length === 0) {
-      contents = [[menuItemId, 1]];
-    } else if (!contents.map(item => item[0]).includes(menuItemId)) {
-      contents.push([menuItemId,1]);
+    let items = this.state.order.items;
+    if (items.length === 0) {
+      items = [[menuItemId, 1]];
+    } else if (!items.map(item => item[0]).includes(menuItemId)) {
+      items.push([menuItemId,1]);
     } else {
-      contents = contents.map(item => {
+      items = items.map(item => {
         if (item[0] === menuItemId) {
           return [item[0],item[1] + 1];
         } else {
           return item;
         }})}
-    const total = this.calculateTotal(contents);
-    this.setState({order: {
-                    contents,
-                    total }});
+    this.setState({order: {items}});
   }
 
   removeFromOrder(menuItemId) {
-    const contents = this.state.order.contents
+    const items = this.state.order.items
     .map(item => {
       if (item[0] === menuItemId) {
         return [item[0], item[1] - 1];
@@ -73,28 +70,25 @@ class App extends React.Component {
         return item;
       }})
     .filter(item => item[1] !== 0);
-    if (!contents.length) {
+    if (!items.length) {
       this.setState({stage: 'menu'});
     }
-    const total = this.calculateTotal(contents);
-    this.setState({order: {
-                    contents,
-                    total }});
+    this.setState({order: {items}});
   }
 
   checkout() {
     if (this.state.readyToCheckout) {
       fetch('/api/order', {
         method: 'POST',
-        body: JSON.stringify(this.state.order.contents),
+        body: JSON.stringify(this.state.order),
         headers: {'Content-Type': 'application/json'}})
       .then(res => res.json())
       .then(response => {
         this.setState({ stage: 'checkout',
-                        orderId: response,
                         order: {
-                          contents: [],
-                          total: 0 },
+                          id: response,
+                          items: [],
+                          phone: ''},
                         readyToCheckout: false });
         console.log('Success:', JSON.stringify(response));
       })
@@ -106,16 +100,22 @@ class App extends React.Component {
     const readyToCheckout = this.state.readyToCheckout;
     if (text[0] !== '0' && text.length === 10 && !isNaN(text)) {
       if (!readyToCheckout) {
-        this.setState({readyToCheckout: true })}
+        const order = Object.assign({}, this.state.order, {phone: '+44' + text});
+        this.setState({readyToCheckout: true,
+                       order});
+      }
     } else {
       if (readyToCheckout) {
-        this.setState({readyToCheckout: false })}
+        const order = Object.assign({}, this.state.order, {phone: ''});
+        this.setState({readyToCheckout: false,
+                       order});
+      }
     }
   }
   
-
   render() {
     const stage = this.state.stage;
+    const total = this.calculateTotal(this.state.order.items);
 
     return (
       <div className='app'>
@@ -135,8 +135,9 @@ class App extends React.Component {
               menu={this.state.menu} 
               addToOrder={this.addToOrder} 
               removeFromOrder={this.removeFromOrder}/>}
-            {(!!this.state.order.contents.length) && 
+            {(!!this.state.order.items.length) && 
             <Basket 
+              total={total}
               stage={stage}
               menu={this.state.menu} 
               changeStage={this.changeStage} 
@@ -150,7 +151,7 @@ class App extends React.Component {
         </div>}
         {(stage === 'checkout') && 
         <Checkout 
-          orderId={this.state.orderId}
+          orderId={this.state.order.id}
           changeStage={this.changeStage}/>}
       </div>
     );
