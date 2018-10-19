@@ -1,7 +1,8 @@
 import React from 'react';
 import MenuItem from './MenuItem';
 
-function MenuItems ({ menuArray, getCurrency, addToCurrentPurchase }) {
+function MenuItems ({ menuArray, getCurrency, currentPurchase, receiveCurrentPurchase }) {
+
     const courses = ["starter", "main", "dessert"];
     const menuDisplay = courses.map(course => {
         const menuSection = menuArray.filter(itemObject => {
@@ -12,7 +13,8 @@ function MenuItems ({ menuArray, getCurrency, addToCurrentPurchase }) {
                     key={itemObj.id}
                     item={itemObj}
                     getCurrency={getCurrency}
-                    addToCurrentPurchase={addToCurrentPurchase}
+                    currentPurchase={currentPurchase}
+                    receiveCurrentPurchase={receiveCurrentPurchase}
                 />
         })
         return (

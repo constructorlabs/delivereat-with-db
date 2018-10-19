@@ -1,7 +1,7 @@
 import React from 'react';
 import MenuItems from './MenuItems';
-import ViewPurchase from './ViewPurchase'; 
-import ViewAllPurchases from './ViewAllPurchases';
+import ViewPurchaseById from './ViewPurchaseById'; 
+import ViewPurchase from './ViewPurchase';
 import '../styles/App.scss';
 
 class App extends React.Component {
@@ -11,8 +11,8 @@ class App extends React.Component {
     this.getCurrency = this.getCurrency.bind(this);
     this.getMenuArray = this.getMenuArray.bind(this);
     this.getMenuItembyId = this.getMenuItembyId.bind(this);
-    this.addToCurrentPurchase = this.addToCurrentPurchase.bind(this);
-
+    // this.addToCurrentPurchase = this.addToCurrentPurchase.bind(this);
+    this.receiveCurrentPurchase = this.receiveCurrentPurchase.bind(this);
     this.handlePurchaseId = this.handlePurchaseId.bind(this);
     this.getPurchaseById = this.getPurchaseById.bind(this);
     this.getAllPurchases = this.getAllPurchases.bind(this);
@@ -71,34 +71,10 @@ class App extends React.Component {
     return this.state.menu[id];
   }
 
-  addToCurrentPurchase (amount, id) {
-    
-    let currentPurchase;
-
-    const initialCurrentPurchase = { items:
-      { [id]: {id: id, quantity: amount} }
-    }
-
-    if (!this.state.currentPurchase) {
-        currentPurchase = initialCurrentPurchase
-      } else {
-      if (amount > 0) {
-        currentPurchase = Object.assign({}, this.state.currentPurchase, {
-          items: Object.assign({}, this.state.currentPurchase.items, {
-            [id]: {id: id, quantity: amount}
-          })
-        });
-      } else {
-        currentPurchase = this.state.currentPurchase
-        delete currentPurchase.items[id]
-      }
-    }
-    
+  receiveCurrentPurchase (currentPurchase) {
     this.setState({
-      currentPurchase: currentPurchase
+      currentPurchase
     })
-    // name: "Dave",
-    // tel: "07901 972 811"
   }
 
   /* get purchase by id
@@ -151,16 +127,17 @@ class App extends React.Component {
 
   render() {
 
-    const viewPurchase = 
-    <ViewPurchase 
+    const viewPurchaseById = 
+    <ViewPurchaseById 
       getPurchaseById={this.getPurchaseById}
       handlePurchaseId={this.handlePurchaseId}
       displayPurchaseById={this.state.displayPurchaseById}
     />    
     
     const viewAllPurchases = this.state.currentPurchase &&
-    <ViewAllPurchases 
+    <ViewPurchase 
       currentPurchase={this.state.currentPurchase}
+      getCurrency={this.getCurrency}
       menu={this.state.menu}
     />
 
@@ -169,12 +146,13 @@ class App extends React.Component {
       menuArray={this.getMenuArray()}
       getMenuItembyId={this.getMenuItembyId}
       getCurrency={this.getCurrency}
-      addToCurrentPurchase={this.addToCurrentPurchase}
+      currentPurchase={this.state.currentPurchase}
+      receiveCurrentPurchase={this.receiveCurrentPurchase}
     />
 
     return (
       <React.Fragment>
-        { viewPurchase }
+        { viewPurchaseById }
         { viewAllPurchases }
         { menuItems }
       </React.Fragment>
