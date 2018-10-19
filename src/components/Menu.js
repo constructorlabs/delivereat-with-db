@@ -4,7 +4,8 @@ import MenuItem from './MenuItem';
 function Menu({menu, receiveItemOrder, removeItemOrder}) {
 
   function getMenuItem() {
-    return menu.map(menuitem => {
+    const menuArr = Object.values(menu)
+    return menuArr.map(menuitem => {
      return <MenuItem 
       menuitem={menuitem} 
       key={menuitem.id} 

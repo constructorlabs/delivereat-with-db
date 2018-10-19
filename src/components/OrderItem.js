@@ -1,16 +1,14 @@
 import React from 'react';
 
-function OrderItem({currentorderitem}){
-
-    // const pricedisplay = currentorderitem.price.toFixed(2);
-
-    return (
+function OrderItem({orderItem}) {
+  
+  return (
       <li>
-        <span>Order item to be returned here</span>
-        {/* <span>{currentorderitem.quantity}</span> * <strong>{currentorderitem.item}</strong> : &pound;{pricedisplay} */}
+        <p>{orderItem.name} * {orderItem.quantity} @ &pound;{orderItem.price}<br/>
+        Subtotal: &pound;{orderItem.subtotal}
+        </p> 
       </li>
     )
-  
-}
+  }
 
 export default OrderItem;

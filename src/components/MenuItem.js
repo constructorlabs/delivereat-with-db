@@ -6,7 +6,7 @@ class MenuItem extends React.Component {
     super();
 
     this.state = {
-      menuitemQuantity: 0,
+      quantity: 0,
       added: false, 
       error: false
     };
@@ -18,7 +18,7 @@ class MenuItem extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    if (this.state.menuitemQuantity <= 0) {
+    if (this.state.quantity <= 0) {
       this.setState({
         error: !this.state.error
       });
@@ -38,13 +38,13 @@ class MenuItem extends React.Component {
   }
 
   handleClick(event) {
-   if (event.target.value === "-" && this.state.menuitemQuantity > 0) {
+   if (event.target.value === "-" && this.state.quantity > 0) {
       this.setState({
-        menuitemQuantity: this.state.menuitemQuantity - 1
+        quantity: this.state.quantity - 1
       });
     } else if (event.target.value === "+") {
       this.setState({
-        menuitemQuantity: this.state.menuitemQuantity + 1
+        quantity: this.state.quantity + 1
       });
       if (this.state.error === true) {
         this.setState({
@@ -54,12 +54,13 @@ class MenuItem extends React.Component {
     }
   }
 
+  // packaging a menuitem object
   itemOrder() {
-      const order = {
+      const menuitem = {
       id: this.props.menuitem.id,
-      quantity: this.state.menuitemQuantity
+      quantity: this.state.quantity
     };
-    this.props.receiveItemOrder(order);
+    this.props.receiveItemOrder(menuitem);
   }
 
   render(){
@@ -71,8 +72,10 @@ class MenuItem extends React.Component {
       'show--error': this.state.error
     });    
     
-    let price = (this.props.menuitem.price * this.state.menuitemQuantity);
-    const pricedisplay = this.props.menuitem.price.toFixed(2);
+    let price = (Number(this.props.menuitem.price) * Number(this.state.quantity));
+    const pricedisplay = this.props.menuitem.price;
+   //console.log(this.props.menuitem.name, this.props.menuitem.price)
+    // console.log(typeof pricedisplay)
 
     return (
       <li className="menuitem">
@@ -80,14 +83,14 @@ class MenuItem extends React.Component {
 
             <div className="quantity">
               <input className="quantity__change" onClick={this.handleClick} value="-" type="button"/>
-              <input className="quantity__display" type="text" size='1' value={this.state.menuitemQuantity} readOnly/>
+              <input className="quantity__display" type="text" size='1' value={this.state.quantity} readOnly/>
               <input className="quantity__change" onClick={this.handleClick} value="+" type="button"/>
             </div>
 
             <div className="menuitem__details">
               <div className="menuitem__select">
                 <label className="menuitem__item">{this.props.menuitem.name} 
-                <span className="menuitem__price">&nbsp;&pound;{pricedisplay}</span>
+                <span className="menuitem__price">&nbsp;&pound; {pricedisplay}</span>
                 </label>
                 <button type="submit" className={buttonclasses}></button>
                 <span className={errorclasses}>Please select quantity</span>

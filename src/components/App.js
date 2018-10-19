@@ -9,15 +9,16 @@ class App extends React.Component {
     super();
 
     this.state = {
-      menu: [],
+      menu: {},
       currentOrder: null,
-      // order: []
+      order: []
     }
     this.receiveItemOrder = this.receiveItemOrder.bind(this)
     this.removeItemOrder = this.removeItemOrder.bind(this)
     this.fetchMenu = this.fetchMenu.bind(this)
     this.sendOrderToApi = this.sendOrderToApi.bind(this)
-    // this.fetchOrders = this.fetchOrders.bind(this)
+    this.getMenuById = this.getMenuById.bind(this)
+    this.fetchOrders = this.fetchOrders.bind(this)
   }
 
    /* -- FETCH MENU -- */
@@ -33,9 +34,8 @@ class App extends React.Component {
   componentDidMount(){
     this.fetchMenu()
   }
-
-  receiveItemOrder(order) {
-    const updatedOrder = Object.assign({}, this.state.currentOrder, { [order.id]: order } )
+  receiveItemOrder(menuitem) {
+    const updatedOrder = Object.assign({}, this.state.currentOrder, { [menuitem.id]: menuitem } )
     this.setState({currentOrder: updatedOrder})
   } 
   removeItemOrder(id) {
@@ -57,32 +57,35 @@ class App extends React.Component {
     })
       .then(response => response.json())
       .then(order => {
-        alert(`We are making stuff for you! Your order ID is ${order.orderid}`)
+        alert(`We are making stuff for you! Your order ID is ${order.orderId}`)
       });
   }
 
-
   /* -- FETCH ALL ORDERS - */
+  fetchOrders() {
+    const api = "/api/order/"
+    fetch(api)
+      .then(response => response.json())
+      .then(content => {
+        this.setState({orders: content})
+      })
+  }
 
-  // fetchOrder() {
-  //   const api = "/api/order/"
-  //   fetch(api)
-  //     .then(response => response.json())
-  //     .then(content => {
-  //       this.setState({orders: content})
-  //     })
-  // }
+  // Menu by ID function
+  getMenuById(id) {
+    return id
+  }
 
   render(){
 
     const currentOrderHasFood = this.state.currentOrder && Object.values(this.state.currentOrder).find(item => typeof item === "object");
 
-    const currentOrderComponent =
-    <Order 
-    menu={this.state.menu}
-    currentOrder={this.state.currentOrder}
-    sendOrderToApi={this.sendOrderToApi}
-    />
+      const currentOrderComponent =
+      <Order 
+      menu={this.state.menu}
+      currentOrder={this.state.currentOrder}
+      sendOrderToApi={this.sendOrderToApi}
+      />
 
     return (
       <div className="app container">
@@ -94,6 +97,8 @@ class App extends React.Component {
         </header>
 
         <main className="maincontent">
+
+
             <Menu 
             menu={this.state.menu}
             receiveItemOrder={this.receiveItemOrder} 
@@ -102,9 +107,7 @@ class App extends React.Component {
 
           <section className="customerOrder">
             <h2 className="customerOrder__title">Your Basket</h2>
-
             { currentOrderHasFood ? currentOrderComponent : <p>Your basket is empty</p>}
-      
           </section>
 
           </main>
