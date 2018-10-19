@@ -43,7 +43,7 @@ app.post('/api/orders', (req, res) => {
     const order = req.body
     const orderKeys = Object.keys(order)
     return Promise.all(orderKeys.map(item => {
-      const menuId = order[item].menuId
+      const menuId = order[item].id
       const quantity = order[item].quantity
       return db.none('INSERT INTO order_map (menu_id, quantity, orders_id)VALUES($1, $2, $3)', [menuId, quantity, orderId])
     }))

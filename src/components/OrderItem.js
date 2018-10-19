@@ -11,7 +11,7 @@ class OrderItem extends React.Component{
 
   handleRemove(event){
     event.preventDefault()
-    // this.props.removeFromOrder(this.props.item.menuItem)
+    this.props.removeFromOrder(this.props.item)
 
   }
 

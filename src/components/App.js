@@ -2,6 +2,7 @@ import React from 'react';
 import Menu from './Menu.js'
 import SeeOrder from './SeeOrder.js'
 import OrderReview from './OrderReview.js'
+import OrderConfirmation from './OrderConfirmation.js'
 import '../styles/App.scss';
 
 class App extends React.Component {
@@ -13,11 +14,14 @@ class App extends React.Component {
     this.changeDisplay = this.changeDisplay.bind(this)
     this.calculateTotal = this.calculateTotal.bind(this)
     this.amendQuantity = this.amendQuantity.bind(this)
+    this.removeFromOrder = this.removeFromOrder.bind(this)
+    this.placeOrder = this.placeOrder.bind(this)
 
 
     this.state = {
       menu: {},
       order: {},
+      placedOrder: {},
       display: 'menu' ///'menu' or 'order' or 'confirmation'
     }
 
@@ -47,6 +51,26 @@ class App extends React.Component {
       })
   }
 
+  placeOrder(){
+    const order = this.state.order
+    fetch('/api/orders', {
+      method: 'post',
+      body: JSON.stringify(order),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+      })
+      .then(response => response.json())
+      .then(body => {
+        this.setState({
+          order: {},
+          placedOrder: body
+        })
+        this.changeDisplay('confirmation')
+      })
+  }
+
+
   addToOrder(menuItem, quantity){
     if (!this.state.order[menuItem.id]){
       const orderItem = {
@@ -62,6 +86,14 @@ class App extends React.Component {
       const currentQuantity = this.state.order[menuItem.id].quantity
       this.amendQuantity(menuItem, currentQuantity + 1)
     }
+  }
+
+  removeFromOrder(menuItem){
+    const order = this.state.order
+    delete order[menuItem.id]
+    this.setState({
+      order
+    })
   }
 
   amendQuantity(menuItem, quantity){
@@ -96,7 +128,17 @@ class App extends React.Component {
         }
 
         {this.state.display === 'order'
-          ? <OrderReview menu={this.state.menu} order={this.state.order} amendQuantity={this.amendQuantity}/>
+          ? <OrderReview menu={this.state.menu}
+                         order={this.state.order}
+                         amendQuantity={this.amendQuantity}
+                         calculateTotal={this.calculateTotal}
+                         removeFromOrder={this.removeFromOrder}
+                         placeOrder={this.placeOrder}/>
+          : null
+        }
+
+        {this.state.display === 'confirmation'
+          ? <OrderConfirmation placedOrder={this.state.placedOrder}/>
           : null
         }
 
