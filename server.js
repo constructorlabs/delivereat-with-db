@@ -99,9 +99,29 @@ app.post('/api/purchase', (req, res) =>{
       }))
       .then(() => orderId); // orderId is return when Promise.all is complete
     })
-  .then(orderId => res.json({ orderId: orderId }))
+  .then(orderId => {
+    // sendSMS() here
+    return res.json({ orderId: orderId })
+  })
   .catch(error => res.json({ error: error.message }));
 });
+
+function sendSMS(orderId, customerTel) {
+  // https://www.twilio.com/docs/libraries/node
+
+  var accountSid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'; // Your Account SID from www.twilio.com/console
+  var authToken = 'your_auth_token';   // Your Auth Token from www.twilio.com/console
+
+  var twilio = require('twilio');
+  var client = new twilio(accountSid, authToken);
+
+  client.messages.create({
+      body: `Thank you. Your ID is ${orderId}`,
+      to: customerTel,  // Text this number
+      from: '+447446494074' // From a valid Twilio number
+  })
+  .then((message) => console.log(message.sid));
+}
 
 // get a single purchase from menu_purchase table
 app.get('/api/purchase/:id', function(req, res){

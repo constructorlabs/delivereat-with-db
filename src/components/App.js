@@ -4,9 +4,6 @@ import ViewPurchase from './ViewPurchase';
 import ViewAllPurchases from './ViewAllPurchases';
 import '../styles/App.scss';
 
-// Twillio: welcometotwilio, www.twilio.com
-// https://www.twilio.com/docs/libraries/node
-
 class App extends React.Component {
   constructor(){
     super();
@@ -14,6 +11,7 @@ class App extends React.Component {
     this.getCurrency = this.getCurrency.bind(this);
     this.getMenuArray = this.getMenuArray.bind(this);
     this.getMenuItembyId = this.getMenuItembyId.bind(this);
+    this.addToCurrentPurchase = this.addToCurrentPurchase.bind(this);
 
     this.handlePurchaseId = this.handlePurchaseId.bind(this);
     this.getPurchaseById = this.getPurchaseById.bind(this);
@@ -23,23 +21,10 @@ class App extends React.Component {
     this.state = { 
       menu: {},
       purchases: {},
-      getPurchaseId: null,
+      purchaseIdForGet: null,
+      purchaseIdFromSuccess: null,
       displayPurchaseById: null,
-
-      currentPurchase: {
-        items: {
-          1: { 
-            id: 1,  
-            quantity: 2
-          },
-          2: { 
-            id: 2, 
-            quantity: 4
-          }
-        },
-        name: "Dave",
-        tel: "07901 972 811"
-      }
+      currentPurchase: null
     }
   }
 
@@ -49,7 +34,7 @@ class App extends React.Component {
   componentDidMount () {
     this.getAllMenuItems();
     this.getAllPurchases();
-    this.addSinglePurchase();
+    // this.addSinglePurchase();
   }
 
   /* utilities
@@ -66,7 +51,6 @@ class App extends React.Component {
     return <pre>{JSON.stringify(object, null, 2)}</pre>
   }
   
-
   /* get menu data
   ///////////////////////////////////////////*/
 
@@ -87,16 +71,46 @@ class App extends React.Component {
     return this.state.menu[id];
   }
 
+  addToCurrentPurchase (amount, id) {
+    
+    let currentPurchase;
+
+    const initialCurrentPurchase = { items:
+      { [id]: {id: id, quantity: amount} }
+    }
+
+    if (!this.state.currentPurchase) {
+        currentPurchase = initialCurrentPurchase
+      } else {
+      if (amount > 0) {
+        currentPurchase = Object.assign({}, this.state.currentPurchase, {
+          items: Object.assign({}, this.state.currentPurchase.items, {
+            [id]: {id: id, quantity: amount}
+          })
+        });
+      } else {
+        currentPurchase = this.state.currentPurchase
+        delete currentPurchase.items[id]
+      }
+    }
+    
+    this.setState({
+      currentPurchase: currentPurchase
+    })
+    // name: "Dave",
+    // tel: "07901 972 811"
+  }
+
   /* get purchase by id
   ///////////////////////////////////////////*/
  
   handlePurchaseId (event) {
-    this.setState({ getPurchaseId: event.target.value  })
+    this.setState({ purchaseId: event.target.value  })
   }
 
   getPurchaseById (event) {
     event.preventDefault();
-    const id = this.state.getPurchaseId;
+    const id = this.state.purchaseId;
     fetch(`/api/purchase/${id}`)
     .then(response => response.json())
     .then(purchase => {
@@ -116,8 +130,8 @@ class App extends React.Component {
       headers: { 'Content-Type': 'application/json' }
     }
     ).then(response => response.json()
-    ).then(order => {
-      // console.log(order);
+    ).then(orderId => {
+      this.setState({ purchaseIdFromSuccess: orderId})
       this.getAllPurchases();
     })
     .catch(error => res.json({ error: error.message }));
@@ -144,9 +158,10 @@ class App extends React.Component {
       displayPurchaseById={this.state.displayPurchaseById}
     />    
     
-    const viewAllPurchases = 
+    const viewAllPurchases = this.state.currentPurchase &&
     <ViewAllPurchases 
-      
+      currentPurchase={this.state.currentPurchase}
+      menu={this.state.menu}
     />
 
     const menuItems = this.state.menu && 
@@ -154,6 +169,7 @@ class App extends React.Component {
       menuArray={this.getMenuArray()}
       getMenuItembyId={this.getMenuItembyId}
       getCurrency={this.getCurrency}
+      addToCurrentPurchase={this.addToCurrentPurchase}
     />
 
     return (
