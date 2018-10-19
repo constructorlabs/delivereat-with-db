@@ -5,13 +5,13 @@ import cx from 'classnames';
 import { CSSTransitionGroup } from 'react-transition-group';
 import '../styles/Basket.scss';
 
-function Basket({menu,changeStage,checkout,order,stage,addToOrder,removeFromOrder}) {
+function Basket({menu,changeStage,checkout,order,stage,addToOrder,removeFromOrder,getInput,readyToCheckout}) {
 
   const countItems = order.contents.map(item => item[1]).reduce((a,b)=>(a+b));
   const total = order.total.toFixed(2);
   const basketDetailsClasses = cx('basket-details',{'basket-details--visible': (stage === 'basket')});
   const basketSummaryClasses = cx('basket-summary',{'basket-summary--visible': !(stage === 'basket')})
-  const checkoutClasses = cx('basket-checkout',{'basket-checkout--visible': (stage === 'basket')});
+  const checkoutClasses = cx('basket-checkout',{'basket-checkout--visible': (stage === 'basket'), 'basket-checkout--ready': readyToCheckout});
 
   return (
     <div className={'basket'}>
@@ -31,6 +31,13 @@ function Basket({menu,changeStage,checkout,order,stage,addToOrder,removeFromOrde
         <div className='basket-details__total'>
           <div className='basket-details__total-text'>Order total</div>
           <div className='basket-details__total-price'>{`£${(order.total+2).toFixed(2)}`}</div>
+        </div>
+        <div className='basket-details__phone'>
+          <div className='basket-details__phone-text'>Enter phone number:</div>
+          <div className='basket-details__phone-number'>
+            <div className='basket-details__phone-country'>+44</div>
+            <input className='basket-details__phone-input' type='text' placeholder='Phone number' onChange={(event)=>getInput(event.target.value)}></input>
+          </div>
         </div>
       </div>
       <div className={basketSummaryClasses} onClick={()=>changeStage('basket')}>

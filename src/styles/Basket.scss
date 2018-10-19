@@ -46,6 +46,34 @@
         padding-left: 1rem;
       }
     }
+
+    &__phone {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #cccccc;
+      padding: 0.5rem 1rem 0.5rem 0;
+      border-left: 6px solid white; 
+      
+      &-number {
+        display: flex;
+        align-items: center;
+      }
+
+      &-text {
+        padding-left: 1rem;
+      }
+
+      &-input {
+        margin-left: 0.5rem;
+        padding-left: 0.5rem;
+        border: 1px solid #cccccc;
+        height: 20px;
+        width: 130px;
+        font-size: inherit;
+        color: inherit;
+      }
+    }
   }
 
   &-summary {
@@ -78,7 +106,11 @@
       font-size: 1.2rem;
       font-weight: 600;
       border-radius: 5px;
-      background: rgb(194, 131, 30);
+      background: rgb(216, 88, 38);
+    }
+
+    &--ready {
+      background: $my-green;
     }
   }
 }

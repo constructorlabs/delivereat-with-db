@@ -11,6 +11,8 @@ const Telegraf = require('telegraf');
 const bot = new Telegraf(process.env.BOT_TOKEN);
 bot.startPolling();
 
+const twilioClient = require('twilio')(process.env.TWILIO_SID, process.env.TWILIO_AUTH_TOKEN);
+
 const pgp = require('pg-promise')();
 const db = pgp({
   host: 'localhost',
@@ -56,7 +58,16 @@ app.post('/api/order', (req,res) => { //Post new order
       .then(() => orderId);
     })
     .then(data => {
-      bot.telegram.sendMessage(process.env.CHAT_ID, `Thank you for placing an order with Zing. Your order number is ${data}. One of our surprisingly attractive baristas is preparing your coffee now.`);
+      const checkoutMsg = `Thank you for placing an order with Zing. Your order number is ${data}. One of our surprisingly attractive baristas is preparing your coffee now.`;
+      bot.telegram.sendMessage(process.env.CHAT_ID, checkoutMsg);
+      twilioClient.messages
+        .create({
+          body: checkoutMsg,
+          from: '+447481339376',
+          to: '+447729112295'
+        })
+        .then(message => console.log(message.sid))
+        .done();
       res.json(data);
     })
     .catch(error =>res.json({error: error.message}));

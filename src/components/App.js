@@ -16,12 +16,15 @@ class App extends React.Component {
                   menu: '',
                   order: {
                     contents: [],
-                    total: 0 }};
+                    total: 0,
+                    phone: '' },
+                  readyToCheckout: false};
 
     this.addToOrder = this.addToOrder.bind(this); 
     this.removeFromOrder = this.removeFromOrder.bind(this);
     this.checkout = this.checkout.bind(this);
     this.changeStage = this.changeStage.bind(this);
+    this.getInput = this.getInput.bind(this);
   }
 
   componentDidMount() {
@@ -80,23 +83,36 @@ class App extends React.Component {
   }
 
   checkout() {
-    fetch('/api/order', {
-      method: 'POST',
-      body: JSON.stringify(this.state.order.contents),
-      headers: {'Content-Type': 'application/json'}})
-    .then(res => res.json())
-    .then(response => {
-      this.setState({ stage: 'checkout',
-                      orderId: response,
-                      order: {
-                        contents: [],
-                        total: 0 } });
-      console.log('Success:', JSON.stringify(response));
-    })
-    .catch(error => console.error('Error:', error));
-
-    
+    if (this.state.readyToCheckout) {
+      fetch('/api/order', {
+        method: 'POST',
+        body: JSON.stringify(this.state.order.contents),
+        headers: {'Content-Type': 'application/json'}})
+      .then(res => res.json())
+      .then(response => {
+        this.setState({ stage: 'checkout',
+                        orderId: response,
+                        order: {
+                          contents: [],
+                          total: 0 },
+                        readyToCheckout: false });
+        console.log('Success:', JSON.stringify(response));
+      })
+      .catch(error => console.error('Error:', error)); 
+    }
   }
+
+  getInput(text) {
+    const readyToCheckout = this.state.readyToCheckout;
+    if (text[0] !== '0' && text.length === 10 && !isNaN(text)) {
+      if (!readyToCheckout) {
+        this.setState({readyToCheckout: true })}
+    } else {
+      if (readyToCheckout) {
+        this.setState({readyToCheckout: false })}
+    }
+  }
+  
 
   render() {
     const stage = this.state.stage;
@@ -127,7 +143,9 @@ class App extends React.Component {
               order={this.state.order} 
               addToOrder={this.addToOrder} 
               removeFromOrder={this.removeFromOrder} 
-              checkout={this.checkout}/>}
+              checkout={this.checkout}
+              getInput={this.getInput}
+              readyToCheckout={this.state.readyToCheckout}/>}
           </div>
         </div>}
         {(stage === 'checkout') && 
