@@ -5,15 +5,29 @@ import '../styles/App.scss';
 class App extends React.Component {
   constructor(){
     super();
+
+    this.getCurrency = this.getCurrency.bind(this);
     this.getMenuArray = this.getMenuArray.bind(this);
     this.getMenuItembyId = this.getMenuItembyId.bind(this);
+
     this.handlePurchaseId = this.handlePurchaseId.bind(this);
     this.getPurchaseById = this.getPurchaseById.bind(this);
+
     this.state = { 
       menu: {},
       getPurchaseID: null,
       displayPurchaseByID: null
     }
+  }
+
+  /* utilities
+  ///////////////////////////////////////////*/
+ 
+  getCurrency (string) {
+    return string.toLocaleString("en-GB", {
+      style: "currency", 
+      currency: "GBP"
+    });
   }
 
   /* get menu data
@@ -28,13 +42,6 @@ class App extends React.Component {
     .catch(error => res.json({ error: error.message }));
   }
 
-  /* get purchase by id
-  ///////////////////////////////////////////*/
- 
-  handlePurchaseId (event) {
-    this.setState({ getPurchaseID: event.target.value  })
-  }
-
   getMenuArray () {
     return Object.values(this.state.menu);
   }
@@ -43,6 +50,12 @@ class App extends React.Component {
     return this.state.menu[id];
   }
 
+  /* get purchase by id
+  ///////////////////////////////////////////*/
+ 
+  handlePurchaseId (event) {
+    this.setState({ getPurchaseID: event.target.value  })
+  }
   getPurchaseById (event) {
     event.preventDefault();
     const id = this.state.getPurchaseID;
@@ -68,10 +81,10 @@ class App extends React.Component {
         const purchaseID = `purchaseId-${item.id}`;
         return (
         <ul key={purchaseID}>
-          <li>menu_purchase_id: {item.id}</li>
-          <li>quantity: {item.quantity}</li>
-          <li>menu_id: {item.menu_id}</li>
           <li>purchase_id: {item.purchase_id}</li>
+          <li>menu_id: {item.menu_id}</li>
+          <li>quantity: {item.quantity}</li>
+          <li>menu_purchase_id: {item.id}</li>
         </ul>)
     });
 
@@ -79,12 +92,15 @@ class App extends React.Component {
     <MenuItems 
       menuArray={this.getMenuArray()}
       getMenuItembyId={this.getMenuItembyId}
+      getCurrency={this.getCurrency}
+
+
     />
     return (
       <React.Fragment>
-        { inputPurchaseId }
-        { displayPurchaseID }
-        {/* { menuItems } */}
+        {/* { inputPurchaseId }
+        { displayPurchaseID } */}
+        { menuItems }
       </React.Fragment>
     )
   }

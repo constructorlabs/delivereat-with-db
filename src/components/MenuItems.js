@@ -1,7 +1,7 @@
 import React from 'react';
 import MenuItem from './MenuItem'
 
-function MenuItems ( {menuArray} ) {
+function MenuItems ( {menuArray, getCurrency} ) {
     const courses = ["starter", "main", "dessert"];
     const menuDisplay = courses.map(course => {
         return ( 
@@ -11,9 +11,10 @@ function MenuItems ( {menuArray} ) {
             })
             .map(itemObject => {
                 // const header = <h1>{course}</h1>
-                return <MenuItem 
+                return <MenuItem
                         key={itemObject.id}
                         item={itemObject}
+                        getCurrency={getCurrency}
                     />
             })
         )}
