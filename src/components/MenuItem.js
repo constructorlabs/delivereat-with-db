@@ -6,9 +6,13 @@ function MenuItem ( {item, getCurrency} ) {
     const img = `../static/images/${item.img}`
     return (
     <section key={item.id} className="menu__item">
+        <img src={img}/>
         <ul>
-            <li><img src={img}/></li>
-            <li>{item.item}, &pound;{getCurrency(item.price)} - {item.course}</li>
+            <li>{item.item}</li>
+            <li>{item.course}</li>
+            <li>&pound;{getCurrency(item.price)}</li>
+            <li><button>-</button> 0 <button>+</button></li>
+
         </ul>
     </section>)
 }

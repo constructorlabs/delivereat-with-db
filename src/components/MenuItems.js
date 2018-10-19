@@ -1,28 +1,40 @@
 import React from 'react';
 import MenuItem from './MenuItem'
 
+function createKey (string, number) {
+    const key = `${string}-${number}`;
+    console.log(key);
+    return key;
+}
+
 function MenuItems ( {menuArray, getCurrency} ) {
     const courses = ["starter", "main", "dessert"];
+    let counter = "";
     const menuDisplay = courses.map(course => {
-        return ( 
-            // const header = <h1>{course}</h1>
-            menuArray.filter(itemObject => {
-                return itemObject.course === course;
-            })
-            .map(itemObject => {
-                // const header = <h1>{course}</h1>
-                return <MenuItem
-                        key={itemObject.id}
-                        item={itemObject}
-                        getCurrency={getCurrency}
-                    />
-            })
+        const header = <h1>{course}</h1>;
+        const menuSection = menuArray.filter(itemObject => {
+            return itemObject.course === course;
+        })
+        .map(itemObj => {
+            counter = itemObj.id;
+            // console.log(JSON.stringify(itemObj))
+            return <MenuItem
+                    key={itemObj.id}
+                    item={itemObj}
+                    getCurrency={getCurrency}
+                />
+        })
+        return (
+            <div key={ createKey (course, counter)}>
+                {header}
+                {menuSection}
+            </div>
         )}
     )
     return (
-        <div>
+        <React.Fragment>
             {menuDisplay}
-        </div>
+        </React.Fragment>
     )
 }
 

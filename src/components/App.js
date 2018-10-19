@@ -4,7 +4,8 @@ import ViewPurchase from './ViewPurchase';
 import ViewAllPurchases from './ViewAllPurchases';
 import '../styles/App.scss';
 
-// Twillio: welcometotwilio, www.twilio.com/
+// Twillio: welcometotwilio, www.twilio.com
+// https://www.twilio.com/docs/libraries/node
 
 class App extends React.Component {
   constructor(){
@@ -61,6 +62,11 @@ class App extends React.Component {
     });
   }
 
+  displayAsJSON (object) {
+    return <pre>{JSON.stringify(object, null, 2)}</pre>
+  }
+  
+
   /* get menu data
   ///////////////////////////////////////////*/
 
@@ -111,7 +117,7 @@ class App extends React.Component {
     }
     ).then(response => response.json()
     ).then(order => {
-      console.log(order);
+      // console.log(order);
       this.getAllPurchases();
     })
     .catch(error => res.json({ error: error.message }));
