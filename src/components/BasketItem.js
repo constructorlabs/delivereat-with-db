@@ -2,7 +2,7 @@ import React from 'react';
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
-
+import "../styles/BasketItem.scss";
 
 library.add(faPlus, faMinus);
 
@@ -18,15 +18,17 @@ const subTotal=price*quantity;
   }
   function handleClickPlus(){
     props.receivePlusQuantity(id);
-    
+
   }
 
 return(
-  <div>
+  <div className="item">
+        <div className="quantity">
 
         <FontAwesomeIcon icon="minus" onClick={handleClickMinus} />
          {quantity}
         <FontAwesomeIcon icon="plus" onClick={handleClickPlus} />
+        </div>
         <p>{name}</p>
         <p>{subTotal.toLocaleString("en-UK", {
           style: "currency",

@@ -44,7 +44,6 @@ class App extends React.Component {
       },
       () => localStorage.setItem("basket", JSON.stringify(this.state.basket))
     );
-
   }
 
   receiveRemoveFromBasket(itemId) {
@@ -67,14 +66,7 @@ class App extends React.Component {
     });
     this.setState({
       basket: updatedBasket
-    });
-
-    // this.setState(
-    //   {
-    //     basket: this.state.basket.filter(item => item.id !== itemId)
-    //   },
-    //   () => localStorage.setItem("basket", JSON.stringify(this.state.basket))
-    // );
+    },() => localStorage.setItem("basket", JSON.stringify(this.state.basket)));
   }
 
   receiveMinusQuantity(itemId) {
@@ -90,50 +82,45 @@ class App extends React.Component {
       .filter(item => item.quantity !== 0);
     this.setState({
       basket: updatedBasket
-    });
+    },() => localStorage.setItem("basket", JSON.stringify(this.state.basket)));
   }
 
-  receiveSubmit(){
-    const orderDetails = this.state.basket.map(
-      item => {
-        return (
-          {menu_id: item.id,
-          quantity:item.quantity
-          }
-        )
-      }
-    )
-    console.log(orderDetails)
+  receiveSubmit() {
+    const orderDetails = this.state.basket.map(item => {
+      return {
+        menu_id: item.id,
+        quantity: item.quantity
+      };
+    });
+
 
     fetch("/order", {
-      method:"POST",
-      headers:{
+      method: "POST",
+      headers: {
         "Content-Type": "application/json; charset=utf-8"
       },
       body: JSON.stringify(orderDetails)
     })
-    .then(response => response.json())
-    .then(body => {
-      alert(`Order is accepted with id ${body.order_id}`);
-      this.setState({
-        basket:[]
-      },
-      () => localStorage.setItem("basket",JSON.stringify(this.state.basket))
-    )
-    })
-    .catch(error => {error: error.message})
+      .then(response => response.json())
+      .then(body => {
+        alert(`Order is accepted with id ${body.order_id}`);
+        this.setState(
+          {
+            basket: []
+          },
+          () =>
+            localStorage.setItem("basket", JSON.stringify(this.state.basket))
+        );
+      })
+      .catch(error => {
+        error: error.message;
+      });
   }
-  // fetch("/order")
-  // .then(response => resonse.json())
-  // .then(body => {
-  //   this.setState({
-  //     order: this.state.order.concat(body)
-  //   })
-  // })
 
   render() {
     return (
-      <div>
+      <div className="wrapper">
+        <h1>Food Heaven</h1>
         <Menu
           menu={this.state.menu}
           basket={this.state.basket}
@@ -142,7 +129,7 @@ class App extends React.Component {
         />
         <MyBasket
           basket={this.state.basket}
-          receiveSubmit ={this.receiveSubmit}
+          receiveSubmit={this.receiveSubmit}
           receivePlusQuantity={this.receivePlusQuantity}
           receiveMinusQuantity={this.receiveMinusQuantity}
         />

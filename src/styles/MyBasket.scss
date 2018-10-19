@@ -1,0 +1,46 @@
+@import "parameters";
+
+.myBasket{
+
+    display: grid;
+    grid-template-columns: 1fr;
+    position:fixed;
+    bottom:0;
+    @extend %button;
+    width: 100vw;
+    justify-content: center;
+    align-items: center;
+
+
+    .basketItems{
+      margin: 0 10px ;
+      border-bottom: white solid 2px;
+    }
+
+    .display{
+      display: grid;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 0;
+      margin-top: 10px;
+    }
+
+    // p{
+    //   display: grid;
+    //   margin: $margin;
+    //   justify-content: center;
+    // }
+    .checkout{
+      display: grid;
+      grid-template-columns: 1fr 2fr 1fr;
+      p{
+        display: grid;
+        justify-content: center;
+        align-items: center;
+        margin: 10px 0;
+      }
+      margin: 0 $margin;
+
+    }
+
+}

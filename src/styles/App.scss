@@ -1,3 +1,34 @@
-body {
-  background-color: Cornsilk;
+@import "parameters";
+
+.wrapper {
+  background-image: url( "/static/cover.jpg");
+  background-repeat: no-repeat;
+  background-size:contain;
+  background-position: top;
+  display: flex;
+  flex-flow: column wrap;
+  font-family: "Open Sans", sans-serif;
+
+
+  h1 {
+    color: $header-font-color;
+    display: flex;
+    justify-content: center;
+    height: 35vh;
+  }
+
+  .nav {
+    color: $button-color;
+
+    padding: $content-padding;
+  }
+}
+
+@media (min-width: 768px) {
+  .wrapper{
+    background-image: url( "/static/environment2.jpg");
+background-size:auto;
+    background-repeat: repeat;
+  }
+
 }

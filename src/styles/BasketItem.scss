@@ -1,0 +1,22 @@
+@import "parameters";
+
+.item {
+  display: grid;
+  grid-template-columns: 1fr 4fr 1fr;
+  justify-content: center;
+  align-items: center;
+
+  %block {
+    display: flex;
+    justify-self: center;
+    align-self: center;
+  }
+  p {
+    @extend %block;
+  }
+
+  .quantity {
+    @extend %block;
+    flex-direction: row;
+  }
+}

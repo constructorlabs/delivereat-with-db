@@ -1,4 +1,5 @@
 import React from "react";
+import "../styles/Food.scss";
 
 class Food extends React.Component {
   constructor() {
@@ -20,7 +21,7 @@ class Food extends React.Component {
   render() {
     const image_link = `/static/${this.props.image}`;
     return (
-      <div>
+      <div className="food">
         <h2>{this.props.name}</h2>
         <img src={image_link} />
         <p>

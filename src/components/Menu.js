@@ -1,5 +1,7 @@
 import React from "react";
 import Food from "./Food";
+import "../styles/Menu.scss";
+
 
 class Menu extends React.Component {
   constructor() {
@@ -8,7 +10,7 @@ class Menu extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="menu">
         {this.props.menu.map(item => {
           return (
             <Food
