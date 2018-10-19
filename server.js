@@ -78,6 +78,20 @@ app.post('/api/purchase', (req, res) =>{
   .catch(error => res.json({ error: error.message }));
 });
 
+app.get('/api/purchase/:id', function(req, res){
+  db.any('SELECT * FROM menu_purchase WHERE purchase_id=$1', [req.params.id])
+    .then(menuPurchase => {
+      if (menuPurchase.length) {
+        return res.json(menuPurchase)
+      } else {
+        res.json({error: `Error: Your order with ID = ${req.params.id} could not be found, please contact us for help`});
+      }
+    })
+    .catch(function(error) {
+        res.json({error: error.message});
+    });
+});
+
 app.listen(8080, function(){
   console.log('Listening on port 8080');
 });
