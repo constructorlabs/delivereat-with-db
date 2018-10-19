@@ -1,5 +1,6 @@
 import React from 'react';
 import Menu from './Menu.js'
+import Header from './Header.js'
 import SeeOrder from './SeeOrder.js'
 import OrderReview from './OrderReview.js'
 import OrderConfirmation from './OrderConfirmation.js'
@@ -19,6 +20,7 @@ class App extends React.Component {
 
 
     this.state = {
+      mostPopular: {},
       menu: {},
       order: {},
       placedOrder: {},
@@ -44,9 +46,12 @@ class App extends React.Component {
     fetch('/api/menu/')
       .then(response => response.json())
       .then(body => {
-        const bodyObject = this.arrayToObject(body)
+        console.log(body)
+        const menuObject = this.arrayToObject(body[0])
+        const popularObject = this.arrayToObject(body[1])
         this.setState({
-          menu: bodyObject
+          menu: menuObject,
+          mostPopular: popularObject
         })
       })
   }
@@ -121,9 +126,9 @@ class App extends React.Component {
   render(){
     return (
       <div>
-        Delivereat app
+      <Header changeDisplay={this.changeDisplay} />
         {this.state.display === 'menu'
-          ? <Menu addToOrder={this.addToOrder} menu={this.state.menu}/>
+          ? <Menu addToOrder={this.addToOrder} menu={this.state.menu} mostPopular={this.state.mostPopular}/>
           : null
         }
 

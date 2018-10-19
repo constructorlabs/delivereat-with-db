@@ -2,7 +2,7 @@ import React from "react"
 
 import MenuItem from "./MenuItem.js"
 
-// import "../styles/Menu.scss"
+import "../styles/Menu.scss"
 
 class Menu extends React.Component{
   constructor(){
@@ -12,6 +12,7 @@ class Menu extends React.Component{
 
   render(){
     const menu = Object.values(this.props.menu)
+    const popular = Object.values(this.props.mostPopular)
     let currentCategory = ""
 
 
@@ -21,6 +22,10 @@ class Menu extends React.Component{
           <h2>Burger Bar</h2>
         </div>
         <div className="menu__items">
+          <h3>Most Popular</h3>
+          {popular.map(item => {
+            return <MenuItem key={item.id} menuItem={item} addToOrder={this.props.addToOrder}/>
+          })}
           {menu.map(item => {
             if (currentCategory !== item.type){
               currentCategory = item.type

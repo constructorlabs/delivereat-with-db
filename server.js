@@ -24,14 +24,29 @@ app.get('/', function(req, res){
 
 
 //get menu
+// app.get('/api/menu/', (req, res) => {
+//   db.any('SELECT * FROM menu')
+//   .then(data => {
+//     res.json(data)
+//   })
+//   .catch(error => {
+//     res.json({error: error.message})
+//   })
+// })
+
 app.get('/api/menu/', (req, res) => {
-  db.any('SELECT * FROM menu')
-  .then(data => {
-    res.json(data)
-  })
-  .catch(error => {
-    res.json({error: error.message})
-  })
+  const menuPromise = db.any('SELECT * FROM MENU')
+  const mostPopPromise = db.any(`SELECT menu.*, COUNT(menu.id)
+                                 FROM menu, order_map
+                                 WHERE order_map.menu_id = menu.id
+                                 GROUP BY menu.id
+                                 ORDER BY count DESC
+                                 LIMIT 5
+                                 `)
+
+  Promise.all([menuPromise, mostPopPromise])
+    .then(data => res.json(data))
+    .catch(error => res.json({error: error.message}))
 })
 
 
