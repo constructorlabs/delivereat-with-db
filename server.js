@@ -17,50 +17,75 @@ const db = pgp({
 
 app.use(bodyParser.json());
 
+// dummy menu object to show object structure
 const menu = {
   1: {
+    course: "starter",
     id: 1,
-    item: "Mixed Salad",
-    price: "6.00",
     img: "mixed-salad.jpg",
-    course: "starter"
+    item: "Mixed Salad",
+    price: "6.00"
   },
   2: {
+    course: "starter",
     id: 2,
-    item: "Fried Chicken",
-    price: "7.00",
     img: "fried-chicken.jpg",
-    course: "starter"
+    item: "Fried Chicken",
+    price: "7.00"
   }
 }
 
+// dummy menu_purchases object to show object structure
 const menu_purchases = {
-  "items": {
-      "1": { 
-          "id": 1, 
-          "quantity": 2 
-      },
-      "2": { 
-          "id": 2, 
-          "quantity": 3 
-      }
+  items: {
+    1: { 
+      id: 1,  
+      quantity: 2
+    },
+    2: { 
+      id: 2, 
+      quantity: 4
+    }
   },
-  "name": "Matt",
-  "tel": "07901 972 811"
+  name: "Matt",
+  tel: "07901 972 811"
 }
 
 app.get('/', function(req, res){
   res.render('index');
 });
 
+// get all menu items from menu table
 app.get('/api/menu', function(req, res){
-    db.any('SELECT * FROM menu')
-      .then(data => res.json(data))
-      .catch(function(error) {
-          res.json({error: error.message});
-      });
+  db.any('SELECT * FROM menu')
+    .then(menu => {
+      const menuObject = menu.reduce((acc, item) => {
+        acc[item.id] = item;
+        return acc;
+      }, {});
+      return res.json(menuObject);
+    })
+    .catch(function(error) {
+        res.json({error: error.message});
+    });
 });
 
+// get all purchases from menu_purchase table
+app.get('/api/purchases', function(req, res){
+  db.any('SELECT * FROM menu_purchase')
+    .then(purchases => {
+      const purchasesObject = purchases.reduce((acc, item) => {
+          acc[item.id] = item
+          return acc;
+        }, {})
+      return res.json(purchasesObject);
+    })
+    .catch(function(error) {
+        res.json({error: error.message});
+    });
+});
+
+// add a single purchase to menu_purchase table
 app.post('/api/purchase', (req, res) =>{
   // 1. insert items, name, tel and time from body request into "purchase" table
   const { items, name, tel } = req.body; 
@@ -78,6 +103,7 @@ app.post('/api/purchase', (req, res) =>{
   .catch(error => res.json({ error: error.message }));
 });
 
+// get a single purchase from menu_purchase table
 app.get('/api/purchase/:id', function(req, res){
   db.any('SELECT * FROM menu_purchase WHERE purchase_id=$1', [req.params.id])
     .then(menuPurchase => {

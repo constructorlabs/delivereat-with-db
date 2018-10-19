@@ -1,7 +1,10 @@
 import React from 'react';
 import MenuItems from './MenuItems';
+import ViewPurchase from './ViewPurchase'; 
+import ViewAllPurchases from './ViewAllPurchases';
 import '../styles/App.scss';
-import ViewPurchase from './ViewPurchase';
+
+// Twillio: welcometotwilio, www.twilio.com/
 
 class App extends React.Component {
   constructor(){
@@ -13,12 +16,39 @@ class App extends React.Component {
 
     this.handlePurchaseId = this.handlePurchaseId.bind(this);
     this.getPurchaseById = this.getPurchaseById.bind(this);
+    this.getAllPurchases = this.getAllPurchases.bind(this);
+    this.addSinglePurchase = this.addSinglePurchase.bind(this);
 
     this.state = { 
       menu: {},
+      purchases: {},
       getPurchaseId: null,
-      displayPurchaseById: null
+      displayPurchaseById: null,
+
+      currentPurchase: {
+        items: {
+          1: { 
+            id: 1,  
+            quantity: 2
+          },
+          2: { 
+            id: 2, 
+            quantity: 4
+          }
+        },
+        name: "Dave",
+        tel: "07901 972 811"
+      }
     }
+  }
+
+  /* initialise
+  ///////////////////////////////////////////*/
+ 
+  componentDidMount () {
+    this.getAllMenuItems();
+    this.getAllPurchases();
+    this.addSinglePurchase();
   }
 
   /* utilities
@@ -33,8 +63,8 @@ class App extends React.Component {
 
   /* get menu data
   ///////////////////////////////////////////*/
- 
-  componentDidMount () {
+
+  getAllMenuItems () {
     fetch("/api/menu")
     .then(response => response.json())
     .then(menu => {
@@ -69,6 +99,36 @@ class App extends React.Component {
     .catch(error => res.json({ error: error.message }));
   }
 
+  /* add a single purchase
+  ///////////////////////////////////////////*/
+
+  addSinglePurchase (event) {
+    //event.preventDefault();
+    fetch('/api/purchase', {
+      method: 'post',
+      body: JSON.stringify(this.state.currentPurchase),
+      headers: { 'Content-Type': 'application/json' }
+    }
+    ).then(response => response.json()
+    ).then(order => {
+      console.log(order);
+      this.getAllPurchases();
+    })
+    .catch(error => res.json({ error: error.message }));
+  }
+
+  /* get all purchases
+  ///////////////////////////////////////////*/
+ 
+  getAllPurchases () {
+    fetch(`/api/purchases`)
+    .then(response => response.json())
+    .then(purchases => {
+      this.setState({ purchases })
+    })
+    .catch(error => res.json({ error: error.message }));
+  }
+
   render() {
 
     const viewPurchase = 
@@ -76,6 +136,11 @@ class App extends React.Component {
       getPurchaseById={this.getPurchaseById}
       handlePurchaseId={this.handlePurchaseId}
       displayPurchaseById={this.state.displayPurchaseById}
+    />    
+    
+    const viewAllPurchases = 
+    <ViewAllPurchases 
+      
     />
 
     const menuItems = this.state.menu && 
@@ -88,6 +153,7 @@ class App extends React.Component {
     return (
       <React.Fragment>
         { viewPurchase }
+        { viewAllPurchases }
         { menuItems }
       </React.Fragment>
     )
