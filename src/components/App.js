@@ -8,9 +8,12 @@ class App extends React.Component {
     super()
 
     this.getMenu = this.getMenu.bind(this)
+    this.addToOrder = this.addToOrder.bind(this)
+
 
     this.state = {
-      menu: {}
+      menu: {},
+      order: {}
     }
 
 
@@ -39,11 +42,37 @@ class App extends React.Component {
       })
   }
 
+  addToOrder(menuItem, quantity){
+    if (!this.state.order[menuItem.id]){
+      const orderItem = {
+        [menuItem.id]: {
+          id: menuItem.id,
+          quantity
+        }
+      }
+      this.setState({
+        order: Object.assign({}, this.state.order, orderItem)
+      })
+    }else{
+      this.amendQuantity(menuItem, quantity)
+    }
+  }
+
+  amendQuantity(menuItem, quantity){
+    const order = this.state.order
+    order[menuItem.id].quantity += quantity
+    this.setState({
+      order
+    })
+
+
+  }
+
   render(){
     return (
       <div>
         Delivereat app
-        <Menu menu={this.state.menu}/>
+        <Menu addToOrder={this.addToOrder} menu={this.state.menu}/>
       </div>
     )
   }
