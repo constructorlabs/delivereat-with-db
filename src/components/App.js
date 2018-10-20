@@ -17,11 +17,11 @@ class App extends React.Component {
     this.getAllPurchases = this.getAllPurchases.bind(this);
     this.addSinglePurchase = this.addSinglePurchase.bind(this);
 
-    this.handleMenuSelection = this.handleMenuSelection.bind(this);
-    this.menuSelectionCheckboxes = this.menuSelectionCheckboxes.bind(this);
+    // this.handleMenuSelection = this.handleMenuSelection.bind(this);
+    // this.menuSelectionCheckboxes = this.menuSelectionCheckboxes.bind(this);
 
     this.state = { 
-      menu: {},
+      menu: null,
       purchases: {},
       purchaseIdForGet: null,
       purchaseIdFromSuccess: null,
@@ -80,18 +80,22 @@ class App extends React.Component {
     return this.state.menu[id];
   }
 
-  handleMenuSelection(course, event) {
-    console.log(course, event.target.checked);
-  }
+  // handleMenuSelection(course, event) {
+  //   console.log(course, event.target.checked);
+  // }
 
-  menuSelectionCheckboxes() {
-    const coursesArray = ["starter", "main", "dessert"];
-    coursesArray.map(course => {
-      const input = course;// <input key={course} type="checkbox" onChange={(event) => this.handleMenuSelection(course, event)} />;
-      console.log(input)
-      return input;
-    })
-  }
+  // menuSelectionCheckboxes() {
+  //   const coursesArray = ["starter", "main", "dessert"];
+  //   // const isChecked = this.state.menu ? `` : `checked`;
+  //   return coursesArray.map(course => {
+  //     const input = 
+  //     <React.Fragment key={course} >
+  //       {course} :
+  //       <input type="checkbox" onChange={(event) => this.handleMenuSelection(course, event)} />&nbsp;
+  //     </React.Fragment>
+  //     return input;
+  //   })
+  // }
 
   // get purchase by id
   ///////////////////////////////////////////
@@ -163,7 +167,7 @@ class App extends React.Component {
       menu={this.state.menu}
     />
 
-    const menuCheckboxes = this.state.menu && this.menuSelectionCheckboxes();
+    // const menuCheckboxes = this.menuSelectionCheckboxes();
 
     const menuItems = this.state.menu && 
       <MenuItems 
@@ -179,7 +183,7 @@ class App extends React.Component {
       <React.Fragment>
         { viewPurchaseById }
         { viewPurchase }
-        { menuCheckboxes }
+        {/* { menuCheckboxes } */}
         { menuItems }
       </React.Fragment>
     )
