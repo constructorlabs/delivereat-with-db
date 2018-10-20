@@ -49,7 +49,8 @@ class MenuItem extends React.Component {
         <section key={this.props.item.id} className="menu__item">
             <img src={imagePath}/>
             <ul>
-                <li>{this.props.item.item} &pound;{this.props.getCurrency(this.props.item.price)}</li>
+            <li>{this.props.item.item}</li>
+            <li>Price: &pound;{this.props.getCurrency(this.props.item.price)}</li>
                 <li>
                     <button onClick={(event) => this.incQuantity(-1, event)}> - </button> 
                         &nbsp;{this.state.quantity}&nbsp;

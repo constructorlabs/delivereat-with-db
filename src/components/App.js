@@ -136,7 +136,9 @@ class App extends React.Component {
 
   togglePurchaseBasket (event) {
     event.preventDefault();
-    this.setState({ purchaseBasketVisible: !this.state.purchaseBasketVisible });
+    if (this.state.currentPurchase) {
+      this.setState({ purchaseBasketVisible: !this.state.purchaseBasketVisible });
+    }
   }
 
   render() {
@@ -175,9 +177,11 @@ class App extends React.Component {
     return (
       <React.Fragment>
         { header }
-        {/* { viewPurchaseById } */}
-        { viewPurchase }
-        { menuItems }
+        <main className="main">
+          {/* { viewPurchaseById } */}
+          { viewPurchase }
+          { menuItems }
+        </main>
       </React.Fragment>
     )
   }

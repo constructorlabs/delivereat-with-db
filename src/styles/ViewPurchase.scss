@@ -1,8 +1,12 @@
-
 .purchase {
     position: absolute;
+    z-index: 10;
     background-color: #fff;
     display: flex;
     flex-direction: column;
+    margin: 0;
     padding: 1rem;
+    min-width: 100%;
+    left: 0; 
+    filter: drop-shadow(0 0 3px unquote('#30303050'));
 }

@@ -7,10 +7,10 @@ function Header ( { currentPurchase, togglePurchaseBasket } ) {
     return (
         <header className="header">
             <h1 className="header__title">Lovely Grubbly<i className="fas fa-1x fa-utensils"></i></h1>
-            <div className="header__basket">
-                <h1 className="header__basket__items">{basketCount}</h1>
+            <div className="header__items">
+                <h1 className="header__items-count">{basketCount}</h1>
                 <h1><a href="#" onClick={togglePurchaseBasket}>
-                        <i className="fas fa-1x fa-shopping-basket"></i>
+                        <i className="fas fa-1x fa-shopping-basket header__items-toggle"></i>
                     </a>
                 </h1>
             </div>

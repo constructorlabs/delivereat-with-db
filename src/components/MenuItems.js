@@ -58,10 +58,10 @@ class MenuItems extends React.Component {
                     />
             })
             return (
-                <div key={course} className="fadein">
-                    {<h1>{this.state.courses[course]}</h1>}
+                <section key={course} className="fadein">
+                    {<h1 className="menu">{this.state.courses[course]}</h1>}
                     {menuSection}
-                </div>
+                </section>
             )}
         )
     }
