@@ -6,17 +6,20 @@
   "scripts": {
     "test": "jest",
     "dev": "webpack --mode development",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
   "babel": {
     "presets": [
       "babel-preset-react",
-      "babel-preset-env"
+      "babel-preset-env",
+      "babel-preset-stage-2"
     ]
   },
   "dependencies": {
+    "babel-preset-stage-2": "^6.24.1",
     "body-parser": "^1.18.3",
     "dotenv": "^6.1.0",
     "express": "^4.16.3",
@@ -44,5 +47,16 @@
     "react-test-renderer": "^16.2.0",
     "webpack": "^4.0.1",
     "webpack-cli": "^2.0.9"
-  }
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chrisphillers/delivereat-with-db.git"
+  },
+  "bugs": {
+    "url": "https://github.com/chrisphillers/delivereat-with-db/issues"
+  },
+  "homepage": "https://github.com/chrisphillers/delivereat-with-db#readme"
 }
