@@ -43,3 +43,14 @@ update menu set image_name='Char Siu Iberico Pork.jpg' where id=7;
 update menu set image_name='Black Mountain Goose.jpg' where id=8;
 update menu set image_name='Strawberry Cheesecake.jpg' where id=9;
 update menu set image_name='Soufflé.jpg' where id=10;
+
+  create table "user" (
+   id serial primary key,
+   name varchar(50) not null,
+   phone text not null
+ );
+
+ alter table "order" add column user_id int;
+ alter table "order"
+  add foreign key (user_id)
+  references "user"(id);

@@ -1,6 +1,11 @@
+//Twilio account SID: AC4aa5aaed7956695d853be993384216c4
+//Aut token: e4bb147560948f6101250d01cb2fcaf8
+//Twilio Service Instance SID: IS925fb186c8a3c96ee666e12c259eddee
+
 import React from "react";
 import Menu from "./Menu";
 import MyBasket from "./MyBasket";
+import User from "./User";
 
 import "../styles/App.scss";
 
@@ -10,7 +15,9 @@ class App extends React.Component {
     this.state = {
       menu: [],
       order: [],
-      basket: []
+      basket: [],
+      userDetails:{},
+      displayUserForm: false
     };
 
     this.receiveAddToBasket = this.receiveAddToBasket.bind(this);
@@ -18,6 +25,7 @@ class App extends React.Component {
     this.receivePlusQuantity = this.receivePlusQuantity.bind(this);
     this.receiveMinusQuantity = this.receiveMinusQuantity.bind(this);
     this.receiveSubmit = this.receiveSubmit.bind(this);
+    this.receiveUserDetails = this.receiveUserDetails.bind(this);
   }
 
   componentDidMount() {
@@ -85,14 +93,27 @@ class App extends React.Component {
     },() => localStorage.setItem("basket", JSON.stringify(this.state.basket)));
   }
 
+  receiveUserDetails(userDetails){
+    this.setState({
+      userDetails:userDetails,
+      displayUserForm:false
+    },console.log(this.state.userDetails))
+  }
+
   receiveSubmit() {
-    const orderDetails = this.state.basket.map(item => {
+    if (Object.values(this.state.userDetails).length == 0 ) {
+      this.setState({
+        displayUserForm: true
+      })
+    } else {
+    let orderDetails={};
+    orderDetails.user= this.state.userDetails;
+    orderDetails.items = this.state.basket.map(item => {
       return {
         menu_id: item.id,
         quantity: item.quantity
       };
     });
-
 
     fetch("/order", {
       method: "POST",
@@ -106,7 +127,8 @@ class App extends React.Component {
         alert(`Order is accepted with id ${body.order_id}`);
         this.setState(
           {
-            basket: []
+            basket: [],
+            userDetails:{}
           },
           () =>
             localStorage.setItem("basket", JSON.stringify(this.state.basket))
@@ -115,6 +137,11 @@ class App extends React.Component {
       .catch(error => {
         error: error.message;
       });
+
+      this.setState({
+        displayUserForm: false
+      })
+  }
   }
 
   render() {
@@ -133,6 +160,11 @@ class App extends React.Component {
           receivePlusQuantity={this.receivePlusQuantity}
           receiveMinusQuantity={this.receiveMinusQuantity}
         />
+        {this.state.displayUserForm?
+        <User
+          receiveUserDetails = {this.receiveUserDetails}
+          displayUserForm = {this.state.displayUserForm}
+        />:null}
       </div>
     );
   }

@@ -30,7 +30,9 @@
     "npm": "^6.4.1",
     "pg-promise": "^8.5.0",
     "react": "^16.2.0",
-    "react-dom": "^16.2.0"
+    "react-dom": "^16.2.0",
+    "react-responsive-modal": "^3.4.0",
+    "twilio": "^3.23.1"
   },
   "devDependencies": {
     "babel-jest": "^22.4.1",
