@@ -1,0 +1,22 @@
+
+$header-colour: #ede2bb;
+$dark-colour: #fdf8ef;
+
+.header {
+    background-color: $header-colour;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 1rem;
+    &__title {
+        font-family: 'Mali', cursive;
+    }
+    &__basket {
+        display: flex;
+        flex-direction: row;
+        &__items {
+          font-size: 120%;
+          opacity: 0.7;
+        }
+    }
+}

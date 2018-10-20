@@ -1,7 +1,8 @@
 import React from 'react';
+import Header from './Header';
 import MenuItems from './MenuItems';
-import ViewPurchaseById from './ViewPurchaseById'; 
 import ViewPurchase from './ViewPurchase';
+import ViewPurchaseById from './ViewPurchaseById'; 
 import '../styles/App.scss';
 
 class App extends React.Component {
@@ -16,9 +17,8 @@ class App extends React.Component {
     this.getPurchaseById = this.getPurchaseById.bind(this);
     this.getAllPurchases = this.getAllPurchases.bind(this);
     this.addSinglePurchase = this.addSinglePurchase.bind(this);
+    this.togglePurchaseBasket = this.togglePurchaseBasket.bind(this);
 
-    // this.handleMenuSelection = this.handleMenuSelection.bind(this);
-    // this.menuSelectionCheckboxes = this.menuSelectionCheckboxes.bind(this);
 
     this.state = { 
       menu: null,
@@ -26,7 +26,8 @@ class App extends React.Component {
       purchaseIdForGet: null,
       purchaseIdFromSuccess: null,
       displayPurchaseById: null,
-      currentPurchase: null
+      currentPurchase: null,
+      purchaseBasketVisible: false
     }
   }
 
@@ -74,28 +75,12 @@ class App extends React.Component {
 
   getMenuArray () {
     return Object.values(this.state.menu);
-  }
+  } 
 
   getMenuItembyId (id) {
     return this.state.menu[id];
   }
 
-  // handleMenuSelection(course, event) {
-  //   console.log(course, event.target.checked);
-  // }
-
-  // menuSelectionCheckboxes() {
-  //   const coursesArray = ["starter", "main", "dessert"];
-  //   // const isChecked = this.state.menu ? `` : `checked`;
-  //   return coursesArray.map(course => {
-  //     const input = 
-  //     <React.Fragment key={course} >
-  //       {course} :
-  //       <input type="checkbox" onChange={(event) => this.handleMenuSelection(course, event)} />&nbsp;
-  //     </React.Fragment>
-  //     return input;
-  //   })
-  // }
 
   // get purchase by id
   ///////////////////////////////////////////
@@ -149,7 +134,18 @@ class App extends React.Component {
     .catch(error => res.json({ error: error.message }));
   }
 
+  togglePurchaseBasket (event) {
+    event.preventDefault();
+    this.setState({ purchaseBasketVisible: !this.state.purchaseBasketVisible });
+  }
+
   render() {
+
+    const header = 
+    <Header
+      currentPurchase={this.state.currentPurchase}
+      togglePurchaseBasket={this.togglePurchaseBasket}
+    />  
 
     // customer views their purchase
     const viewPurchaseById = 
@@ -159,19 +155,16 @@ class App extends React.Component {
       displayPurchaseById={this.state.displayPurchaseById}
     />    
     
-    // view basket (currentPurchase) 
-    const viewPurchase = this.state.currentPurchase &&
+    // view basket (currentPurchase)
+    const viewPurchase = this.state.currentPurchase && this.state.purchaseBasketVisible &&
     <ViewPurchase 
       currentPurchase={this.state.currentPurchase}
       getCurrency={this.getCurrency}
       menu={this.state.menu}
     />
 
-    // const menuCheckboxes = this.menuSelectionCheckboxes();
-
     const menuItems = this.state.menu && 
       <MenuItems 
-        // courses={courses}
         menuArray={this.getMenuArray()}
         getMenuItembyId={this.getMenuItembyId}
         getCurrency={this.getCurrency}
@@ -181,9 +174,9 @@ class App extends React.Component {
 
     return (
       <React.Fragment>
-        { viewPurchaseById }
+        { header }
+        {/* { viewPurchaseById } */}
         { viewPurchase }
-        {/* { menuCheckboxes } */}
         { menuItems }
       </React.Fragment>
     )

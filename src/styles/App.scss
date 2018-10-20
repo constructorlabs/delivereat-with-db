@@ -2,7 +2,6 @@ $border-thickness: 0.05rem;
 $mid-colour: #d2c69e; 
 $dark-colour: #2d2211;
 $light-colour: #fffae8;
-$header-colour: #ede2bb;
 
 * {
   box-sizing: border-box;
@@ -29,14 +28,6 @@ body {
   line-height: 1.7rem;  
 }
 
-.header {
-  background-color: $header-colour;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  padding: 1rem;
-}
-
 h1 {
   color: $dark-colour;
 }
@@ -48,6 +39,17 @@ h1 {
 
 label {
   cursor: pointer;
+}
+
+input, button {
+  font-size: 1rem;
+  margin: 0 0 0.5rem 0;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .fadein {

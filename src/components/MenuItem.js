@@ -24,22 +24,24 @@ class MenuItem extends React.Component {
         const id = this.props.item.id;
         let currentPurchase;
         const initialCurrentPurchase = { [id]: {id: id, quantity: this.state.quantity} }
-        if (!this.props.currentPurchase) {
-            currentPurchase = { items: initialCurrentPurchase }
-          } else {
-          if (this.state.quantity > 0) {
-            currentPurchase = Object.assign({}, this.props.currentPurchase, {
-              items: Object.assign({}, this.props.currentPurchase.items, initialCurrentPurchase )
-            });
-          } else {
-            currentPurchase = this.props.currentPurchase;
-            delete currentPurchase.items[id];
-          }
+        if (this.state.quantity > 0) {
+            if (this.props.currentPurchase) {
+                currentPurchase = Object.assign({}, this.props.currentPurchase, { items: Object.assign({}, this.props.currentPurchase.items, initialCurrentPurchase )});
+            } else {
+                currentPurchase = Object.assign({}, this.props.currentPurchase, { items: Object.assign({}, initialCurrentPurchase )});
+            }
+        } else {
+            if (this.props.currentPurchase) {
+                currentPurchase = this.props.currentPurchase;
+                delete currentPurchase.items[id];
+            } else {
+                return;
+            }
         }
         this.props.receiveCurrentPurchase(currentPurchase);
         // name: "Dave",
         // tel: "07901 972 811"
-      }
+        }
 
     render () {
         const imagePath = `../static/images/${this.props.item.img}`;
