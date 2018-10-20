@@ -11,12 +11,14 @@ class App extends React.Component {
     this.getCurrency = this.getCurrency.bind(this);
     this.getMenuArray = this.getMenuArray.bind(this);
     this.getMenuItembyId = this.getMenuItembyId.bind(this);
-    // this.addToCurrentPurchase = this.addToCurrentPurchase.bind(this);
     this.receiveCurrentPurchase = this.receiveCurrentPurchase.bind(this);
     this.handlePurchaseId = this.handlePurchaseId.bind(this);
     this.getPurchaseById = this.getPurchaseById.bind(this);
     this.getAllPurchases = this.getAllPurchases.bind(this);
     this.addSinglePurchase = this.addSinglePurchase.bind(this);
+
+    this.handleMenuSelection = this.handleMenuSelection.bind(this);
+    this.menuSelectionCheckboxes = this.menuSelectionCheckboxes.bind(this);
 
     this.state = { 
       menu: {},
@@ -28,8 +30,15 @@ class App extends React.Component {
     }
   }
 
-  /* initialise
-  ///////////////////////////////////////////*/
+  // Main features
+  ///////////////////////////////////////////
+  // 1. Customer places an order
+  // 2. Receive confirmation by text with a link to view the order online
+  // 3. Customer can retreive an order by entering their order ID
+  // 4. Admin can view all orders
+
+  // initialise
+  ///////////////////////////////////////////
  
   componentDidMount () {
     this.getAllMenuItems();
@@ -37,8 +46,8 @@ class App extends React.Component {
     // this.addSinglePurchase();
   }
 
-  /* utilities
-  ///////////////////////////////////////////*/
+  // utilities
+  ///////////////////////////////////////////
  
   getCurrency (string) {
     return string.toLocaleString("en-GB", {
@@ -51,8 +60,8 @@ class App extends React.Component {
     return <pre>{JSON.stringify(object, null, 2)}</pre>
   }
   
-  /* get menu data
-  ///////////////////////////////////////////*/
+  // get menu data
+  ///////////////////////////////////////////
 
   getAllMenuItems () {
     fetch("/api/menu")
@@ -71,20 +80,27 @@ class App extends React.Component {
     return this.state.menu[id];
   }
 
-  receiveCurrentPurchase (currentPurchase) {
-    this.setState({
-      currentPurchase
+  handleMenuSelection(course, event) {
+    console.log(course, event.target.checked);
+  }
+
+  menuSelectionCheckboxes() {
+    const coursesArray = ["starter", "main", "dessert"];
+    coursesArray.map(course => {
+      const input = course;// <input key={course} type="checkbox" onChange={(event) => this.handleMenuSelection(course, event)} />;
+      console.log(input)
+      return input;
     })
   }
 
-  /* get purchase by id
-  ///////////////////////////////////////////*/
+  // get purchase by id
+  ///////////////////////////////////////////
  
-  handlePurchaseId (event) {
+  handlePurchaseId (event) { // update purchaseId
     this.setState({ purchaseId: event.target.value  })
   }
 
-  getPurchaseById (event) {
+  getPurchaseById (event) { // fetch from /api/purchase/$id
     event.preventDefault();
     const id = this.state.purchaseId;
     fetch(`/api/purchase/${id}`)
@@ -95,8 +111,12 @@ class App extends React.Component {
     .catch(error => res.json({ error: error.message }));
   }
 
-  /* add a single purchase
-  ///////////////////////////////////////////*/
+  receiveCurrentPurchase (currentPurchase) { // receive currentPurchase from MenuItems
+    this.setState({ currentPurchase })
+  }
+
+  // add a single purchase
+  ///////////////////////////////////////////
 
   addSinglePurchase (event) {
     //event.preventDefault();
@@ -113,8 +133,8 @@ class App extends React.Component {
     .catch(error => res.json({ error: error.message }));
   }
 
-  /* get all purchases
-  ///////////////////////////////////////////*/
+  // get all purchases
+  ///////////////////////////////////////////
  
   getAllPurchases () {
     fetch(`/api/purchases`)
@@ -127,6 +147,7 @@ class App extends React.Component {
 
   render() {
 
+    // customer views their purchase
     const viewPurchaseById = 
     <ViewPurchaseById 
       getPurchaseById={this.getPurchaseById}
@@ -134,26 +155,31 @@ class App extends React.Component {
       displayPurchaseById={this.state.displayPurchaseById}
     />    
     
-    const viewAllPurchases = this.state.currentPurchase &&
+    // view basket (currentPurchase) 
+    const viewPurchase = this.state.currentPurchase &&
     <ViewPurchase 
       currentPurchase={this.state.currentPurchase}
       getCurrency={this.getCurrency}
       menu={this.state.menu}
     />
 
+    const menuCheckboxes = this.state.menu && this.menuSelectionCheckboxes();
+
     const menuItems = this.state.menu && 
-    <MenuItems 
-      menuArray={this.getMenuArray()}
-      getMenuItembyId={this.getMenuItembyId}
-      getCurrency={this.getCurrency}
-      currentPurchase={this.state.currentPurchase}
-      receiveCurrentPurchase={this.receiveCurrentPurchase}
-    />
+      <MenuItems 
+        // courses={courses}
+        menuArray={this.getMenuArray()}
+        getMenuItembyId={this.getMenuItembyId}
+        getCurrency={this.getCurrency}
+        currentPurchase={this.state.currentPurchase}
+        receiveCurrentPurchase={this.receiveCurrentPurchase}
+      />
 
     return (
       <React.Fragment>
         { viewPurchaseById }
-        { viewAllPurchases }
+        { viewPurchase }
+        { menuCheckboxes }
         { menuItems }
       </React.Fragment>
     )

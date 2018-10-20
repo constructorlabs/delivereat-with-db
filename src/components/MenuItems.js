@@ -1,7 +1,11 @@
 import React from 'react';
 import MenuItem from './MenuItem';
 
-function MenuItems ({ menuArray, getCurrency, currentPurchase, receiveCurrentPurchase }) {
+function MenuItems ({  menuArray, getCurrency, currentPurchase, receiveCurrentPurchase }) {
+
+    // function handleClick(course, event) {
+    //     console.log(course, event.target.checked);
+    // }
 
     const courses = ["starter", "main", "dessert"];
     const menuDisplay = courses.map(course => {

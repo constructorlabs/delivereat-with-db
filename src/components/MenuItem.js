@@ -42,17 +42,15 @@ class MenuItem extends React.Component {
       }
 
     render () {
-
-        const img = `../static/images/${this.props.item.img}`;
-
+        const imagePath = `../static/images/${this.props.item.img}`;
         return (
         <section key={this.props.item.id} className="menu__item">
-            <img src={img}/>
+            <img src={imagePath}/>
             <ul>
                 <li>{this.props.item.item} &pound;{this.props.getCurrency(this.props.item.price)}</li>
                 <li>
                     <button onClick={(event) => this.incQuantity(-1, event)}> - </button> 
-                     &nbsp;{this.state.quantity}&nbsp;
+                        &nbsp;{this.state.quantity}&nbsp;
                     <button onClick={(event) => this.incQuantity(1, event)}> + </button> 
                 </li>
                 <li>
