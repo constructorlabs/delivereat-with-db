@@ -13,13 +13,15 @@ function ViewPurchase ({ currentPurchase, getCurrency, menu }) {
                 total += obj.quantity * price;
                 return (
                     <li key={obj.id}>
-                        {obj.quantity} x {menu[obj.id].item} @ &nbsp;{getCurrency(price)} = &nbsp;{getCurrency(Number(obj.quantity * price))}
+                        {obj.quantity} x {menu[obj.id].item} @ {getCurrency(price)} = {getCurrency(Number(obj.quantity * price))}
                     </li>
                 );
             })}
-            <li>Subtotal: {getCurrency(total)}</li>
-            <li><strong>Delivery: {getCurrency(deliveryCharge)}</strong></li>
-            <li><strong>Total: {getCurrency(total + deliveryCharge)}</strong></li>
+                <li><hr className="purchase__hr-black" /></li>
+                <li>Subtotal: {getCurrency(total)}</li>
+                <li>Delivery: {getCurrency(deliveryCharge)}</li>
+                <li><strong>Total: {getCurrency(total + deliveryCharge)}</strong></li>
+                <li><hr className="purchase__hr-white" /></li>
             </ul>
         </section>
         <section className="purchase__checkout">
@@ -32,9 +34,9 @@ function ViewPurchase ({ currentPurchase, getCurrency, menu }) {
     </div>) : 'Your basket is empty';
 
     return (
-        <div className="purchase">
+        <div className="purchase fadein">
             <header className="purchase__header">
-                <h2>Your Basket</h2>
+                <h2>Your Basket<i className="fas fa-1x fa-shopping-basket"></i></h2>
             </header>
             {displayPurchaseItems}
         </div>

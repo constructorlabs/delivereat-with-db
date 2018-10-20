@@ -58,7 +58,7 @@ class MenuItem extends React.Component {
                 </li>
                 <li>
                     <button onClick={this.handleSubmit} type="submit">
-                        Add to order
+                        update order
                     </button>
                 </li>
             </ul>

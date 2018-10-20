@@ -5,16 +5,16 @@ $mid-colour: #ff9e0d;
   color: $mid-colour;
   font-size: 1.5rem;
   letter-spacing: 0.2rem;
-  margin: 1.5rem 0 0.5rem 0;
+  margin: 2.5rem 0 0.5rem 0;
   &__item {
     padding: 0;
     display: flex;
     flex-direction: row;
     background-color: #fff;
-    filter: drop-shadow(0 0 3px unquote('#ab660050'));
+    filter: drop-shadow(0 0 5px unquote('#ab660030'));
+    margin: 0 0 0.5rem 0;
     & ul {
-      margin: 0;
-      padding: 1rem 0 0 0;
+      margin: 1rem 0 0 0;
       width: 70%;
       display: flex;
       flex-direction: column;
@@ -22,13 +22,18 @@ $mid-colour: #ff9e0d;
     }
     img {
       border: 0.25rem solid #fff;
-      width: 60%;
-      height: 60%;
-      min-width: 150px;
-      max-width: 200px;
+      object-fit: cover;
+      height: 150px;
+      width: 150px;
+      min-height: 100px;
+      min-width: 100px;
+      // max-width: 200px;
       margin: 1rem;
-
     }
+    img[class] { 
+      height: 150px;
+      width: 150px;
+    } 
     select {
       margin-bottom: 0.7rem;
       background-color: #fff;

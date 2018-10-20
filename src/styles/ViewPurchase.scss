@@ -8,5 +8,21 @@
     padding: 1rem;
     min-width: 100%;
     left: 0; 
-    filter: drop-shadow(0 0 3px unquote('#30303050'));
+    filter: drop-shadow(0 0 10px unquote('#30303050'));
+    &__header {
+        & h2 {
+            margin: 0.5rem 0;
+        }
+    }
+    &__hr {
+        height: 1px;
+        overflow: visible;
+        margin: 1rem 0;
+        &-black {
+            border: 0.05rem solid #999;
+        }
+        &-white {
+            border: 0.05rem solid white;
+        }
+    }
 }
