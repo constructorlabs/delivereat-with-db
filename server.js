@@ -21,13 +21,17 @@ app.get('/', function(req, res){
   res.render('index');
 });
 
+function indexById(array) {
+  return array.reduce((acc, item) => {
+    acc[item.id] = item
+    return acc
+  }, {})
+}
+
 app.get('/api/menu', function(req, res){
   db.any('SELECT * FROM menu')
     .then(function(data) {
-      const menuObject = data.reduce((acc, item) => {
-        acc[item.id] = item
-        return acc
-      }, {})
+      const menuObject = indexById(data)
         res.json(menuObject);
     })
     .catch(function(error) {
@@ -45,9 +49,7 @@ app.post('/api/order', function(req, res){
     const items = Object.values(req.body);
 
   // 2. insert into "menu_order" table for each item
-
   return Promise.all(items.map(orderItem => {
-    
     const {id, quantity} = orderItem; 
       
     return db.none(`INSERT INTO menu_order (order_id, menu_id, quantity) VALUES ($1, $2, $3)`, [orderId, id, quantity, ]
@@ -62,25 +64,28 @@ app.post('/api/order', function(req, res){
 });
   
 app.get('/api/order', function(req, res){
-  db.any('SELECT * FROM menu_order')
+  db.any('SELECT * from menu_order')
     .then(function(data) {
-        res.json(data);
+      const orderObject = indexById(data)
+      res.json(orderObject);
     })
     .catch(function(error) {
         res.json({error: error.message});
     });
 });
 
-// app.get('/api/order/:id', function(req, res){
-//   const id = req.params.id;
-//   db.any('SELECT menu.name, menu.price, menu_order.order_id, menu_order.quantity, menu_order.menu_id FROM menu_order, menu WHERE menu_order.menu_id = menu.id)
-//       .then(function(data) {
-//           res.json(data);
-//       })
-//       .catch(function(error) {
-//           res.json({error: error.message});
-//       });
-// });
+//  db.any('SELECT menu_order.order_id, menu_order.menu_id, menu_order.quantity, menu.name, menu.price FROM menu_order, menu WHERE menu_order.order_id = menu.id')
+
+app.get('/api/order/:id', function(req, res){
+  const id = req.params.id;
+  db.any('SELECT order_id FROM menu_order WHERE order_id=$1', [id])
+      .then(function(data) {
+          res.json(data);
+      })
+      .catch(function(error) {
+          res.json({error: error.message});
+      });
+});
 
 app.listen(8080, function(){
   console.log('Listening on port 8080');

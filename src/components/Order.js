@@ -35,7 +35,6 @@ function Order({ menu, currentOrder, sendOrderToApi }) {
        />
     })
  
-   
    return (
         <ul className="customerOrder__order menu--settings">
           {ordersRendered}

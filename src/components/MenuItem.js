@@ -92,7 +92,7 @@ class MenuItem extends React.Component {
                 <label className="menuitem__item">{this.props.menuitem.name} 
                 <span className="menuitem__price">&nbsp;&pound; {pricedisplay}</span>
                 </label>
-                <button type="submit" className={buttonclasses}></button>
+                <button type="submit" className={buttonclasses}>Bug</button>
                 <span className={errorclasses}>Please select quantity</span>
               </div>  
 

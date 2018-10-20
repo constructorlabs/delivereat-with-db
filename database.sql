@@ -1,16 +1,16 @@
 -- ORIGIN TABLE (to amend use drop as below)
 
-CREATE DATABASE lemonycafe_db
+--CREATE DATABASE lemonycafe_db
 
---DROP table menu;
---DROP table order;
---DROP table menu-order;
+DROP TABLE IF EXISTS menu_order;
+DROP TABLE IF EXISTS "order";
+DROP TABLE IF EXISTS menu;
 
 -- IMMUTABLE BASE TABLE FOR MENU ITEMS (ONE-)
 CREATE TABLE menu (
 id serial,
 name TEXT NOT NULL UNIQUE,
-price INT NOT NULL,
+price NUMERIC(4,2) NOT NULL,
 PRIMARY KEY (id)
 );
 

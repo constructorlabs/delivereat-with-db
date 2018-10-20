@@ -1,6 +1,7 @@
 import React from 'react';
 import Menu from './Menu';
 import Order from './Order';
+import OrderAdmin from './OrderAdmin';
 
 import '../styles/App.scss';
 
@@ -11,13 +12,12 @@ class App extends React.Component {
     this.state = {
       menu: {},
       currentOrder: null,
-      order: []
+      order: {}
     }
     this.receiveItemOrder = this.receiveItemOrder.bind(this)
     this.removeItemOrder = this.removeItemOrder.bind(this)
     this.fetchMenu = this.fetchMenu.bind(this)
     this.sendOrderToApi = this.sendOrderToApi.bind(this)
-    this.getMenuById = this.getMenuById.bind(this)
     this.fetchOrders = this.fetchOrders.bind(this)
   }
 
@@ -33,6 +33,7 @@ class App extends React.Component {
   }
   componentDidMount(){
     this.fetchMenu()
+    this.fetchOrders()
   }
   receiveItemOrder(menuitem) {
     const updatedOrder = Object.assign({}, this.state.currentOrder, { [menuitem.id]: menuitem } )
@@ -67,13 +68,8 @@ class App extends React.Component {
     fetch(api)
       .then(response => response.json())
       .then(content => {
-        this.setState({orders: content})
+        this.setState({order: content});
       })
-  }
-
-  // Menu by ID function
-  getMenuById(id) {
-    return id
   }
 
   render(){
@@ -87,6 +83,8 @@ class App extends React.Component {
       sendOrderToApi={this.sendOrderToApi}
       />
 
+      const {menu, order} = this.state
+
     return (
       <div className="app container">
         <header className="masthead">
@@ -96,9 +94,14 @@ class App extends React.Component {
           </div>
         </header>
 
+        { Object.values(menu).find(item => typeof item === "object") ? 
+         <OrderAdmin 
+            order={order}
+            menu={menu}
+          />
+        : null }
+
         <main className="maincontent">
-
-
             <Menu 
             menu={this.state.menu}
             receiveItemOrder={this.receiveItemOrder} 
@@ -109,8 +112,8 @@ class App extends React.Component {
             <h2 className="customerOrder__title">Your Basket</h2>
             { currentOrderHasFood ? currentOrderComponent : <p>Your basket is empty</p>}
           </section>
-
           </main>
+
         </div>
     )
   }
