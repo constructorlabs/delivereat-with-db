@@ -50,7 +50,7 @@ render(){
       <input type="text" onChange={this.handleChangeName} value={this.state.name} placeholder="NAME"/>
       <p>Phone number</p>
       <input type="text" onChange={this.handleChangePhone} value= {this.state.phone} placeholder="PHONE NUMBER"/>
-      <p type="button" onClick ={this.handleSubmit}>Submit</p>
+      <p type="button" className="button" onClick ={this.handleSubmit}>Submit</p>
     </div>
     </Modal>
   )

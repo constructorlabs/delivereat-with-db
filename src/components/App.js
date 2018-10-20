@@ -97,7 +97,8 @@ class App extends React.Component {
     this.setState({
       userDetails:userDetails,
       displayUserForm:false
-    },console.log(this.state.userDetails))
+    }, ()=>this.receiveSubmit())
+
   }
 
   receiveSubmit() {
