@@ -19,6 +19,7 @@ handleAdd(event){
   render(){
     const backgroundStyle = {
       backgroundImage: `url(${this.props.menuItem.photo_url})`
+
     }
 
     return(

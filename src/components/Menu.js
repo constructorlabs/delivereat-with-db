@@ -34,7 +34,7 @@ class Menu extends React.Component{
         <div>
 
           <div className="menu__category menu__popular">
-            <h3>Most Popular</h3>
+            <h3 className="menu__category__header">Most Popular</h3>
             <div className="menu__items">
             {popular.map(item => {
               return <MenuItem key={item.id} menuItem={item} addToOrder={this.props.addToOrder}/>
