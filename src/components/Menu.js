@@ -10,8 +10,18 @@ class Menu extends React.Component{
   }
 
 
+  categoriseMenu(menu){
+    const newObj = Object.values(menu).reduce((acc, item) => {
+        acc[item.type] = acc[item.type] || [];
+        acc[item.type].push(item);
+        return acc
+    }, {})
+    return newObj
+  }
+
+
   render(){
-    const menu = Object.values(this.props.menu)
+    const catMenu = this.categoriseMenu(this.props.menu)
     const popular = Object.values(this.props.mostPopular)
     let currentCategory = ""
 
@@ -22,22 +32,24 @@ class Menu extends React.Component{
           <h2>Burger Bar</h2>
         </div>
         <div className="menu__items">
-          <h3>Most Popular</h3>
-          {popular.map(item => {
-            return <MenuItem key={item.id} menuItem={item} addToOrder={this.props.addToOrder}/>
+
+          <div className="menu__category menu__popular">
+            <h3>Most Popular</h3>
+            {popular.map(item => {
+              return <MenuItem key={item.id} menuItem={item} addToOrder={this.props.addToOrder}/>
+            })}
+        </div>
+
+
+          {Object.keys(catMenu).map(item => {
+            return (<div className="menu__category" key={item}>
+              <h3>{item}</h3>
+              {Object.values(catMenu[item].map(item => {
+                return <MenuItem key={item.id} menuItem={item} addToOrder={this.props.addToOrder} />
+              }))}
+            </div>)
           })}
-          {menu.map(item => {
-            if (currentCategory !== item.type){
-              currentCategory = item.type
-              return (
-                    <React.Fragment key={item.type} >
-                      <h3>{item.type}</h3>
-                      <MenuItem key={item.id} menuItem={item} addToOrder={this.props.addToOrder}/>
-                    </React.Fragment>)
-            }else{
-              return <MenuItem key={item.id} menuItem={item} addToOrder={this.props.addToOrder} />
-            }
-          })}
+
 
         </div>
 

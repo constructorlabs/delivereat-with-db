@@ -23,17 +23,6 @@ app.get('/', function(req, res){
 
 
 
-//get menu
-// app.get('/api/menu/', (req, res) => {
-//   db.any('SELECT * FROM menu')
-//   .then(data => {
-//     res.json(data)
-//   })
-//   .catch(error => {
-//     res.json({error: error.message})
-//   })
-// })
-
 app.get('/api/menu/', (req, res) => {
   const menuPromise = db.any('SELECT * FROM MENU')
   const mostPopPromise = db.any(`SELECT menu.*, COUNT(menu.id)

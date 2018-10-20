@@ -54,6 +54,7 @@ class App extends React.Component {
           mostPopular: popularObject
         })
       })
+      console.log
   }
 
   placeOrder(){
