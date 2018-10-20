@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "B:\\MacDocs\\delivereat"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "delivereat-with-db"
+	}
+}
