@@ -30,7 +30,7 @@ app.get('/api/menu/', (req, res) => {
                                  WHERE order_map.menu_id = menu.id
                                  GROUP BY menu.id
                                  ORDER BY count DESC
-                                 LIMIT 5
+                                 LIMIT 4
                                  `)
 
   Promise.all([menuPromise, mostPopPromise])
