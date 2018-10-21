@@ -1,6 +1,6 @@
 import React from "react";
 
-// import "../styles/OrderHistory.scss";
+import "../styles/OrderHistory.scss";
 
 function OrderHistory(props) {
   const orders = props.orders;
@@ -16,14 +16,14 @@ function OrderHistory(props) {
       {idArray.map(id => {
         const itemsFromOneOrder = orders.filter(item => item.order_id == id);
         return (
-          <ul>
+          <ul key={id}>
             <li>Order ID {id}</li>
             {itemsFromOneOrder.map(item => {
               return (
 
-                  <li>{item.name} {item.quantity}</li>
+                  <li key={item.menu_id}>{item.name} {item.quantity}</li>
 
-                
+
               );
             })}
           </ul>

@@ -6,7 +6,7 @@
   background-color: $background-color;
 
   position: relative;
-  top:0px;
+
   bottom:68px;
 
 }
@@ -18,4 +18,11 @@
     grid-template-columns: repeat(2,auto);
   }
 
+}
+
+@media(min-width:960px) {
+  .menu{
+    top:0;
+    bottom: auto;
+  }
 }

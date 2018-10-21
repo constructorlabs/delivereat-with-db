@@ -184,7 +184,7 @@ class App extends React.Component {
     return (
       <div className="wrapper">
         <h1>Food Heaven</h1>
-        <div className="order__history">
+        <div className="history">
           {this.state.displayOrderHistory ? (
             <p type="button" onClick={this.displayOrderHistory}>
               Hide history

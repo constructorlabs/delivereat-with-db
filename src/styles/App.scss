@@ -17,7 +17,7 @@
     height: 35vh;
   }
 
-  .order_history {
+  .history {
     display: none;
   }
 }
@@ -51,12 +51,22 @@ background-size:auto;
 
   }
 
-  .order_history {
-    display: flex;
+  .history {
+    display: grid;
+
     grid-area: o;
     color: white;
     padding: $content-padding;
     margin:0;
+
+    .icon{
+      padding: $content-padding;
+    }
+
+    p{
+      margin: 0;
+      padding: $content-padding;
+    }
   }
   .menu{
     grid-area: m;
