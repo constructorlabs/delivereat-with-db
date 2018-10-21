@@ -24,7 +24,9 @@ class OrderReview extends React.Component{
         <ul>
           {Object.values(order).map(item => {
             return <OrderItem key={menu[item.id].id}
-                              item={menu[item.id]}
+                              item={item}
+                              menuItem={menu[item.id]}
+                              toppings={this.props.toppings}
                               quantity={item.quantity}
                               amendQuantity={this.props.amendQuantity}
                               addToOrder={this.props.addToOrder}
@@ -32,7 +34,7 @@ class OrderReview extends React.Component{
           })}
         </ul>
         <div className="order-confirmation__total">
-          <span>Delivery: £5.00 </span>
+          <span>Delivery: FREE! </span>
           <span>Total to pay: £{this.props.calculateTotal()}</span>
           <button onClick={this.handlePlaceOrder}>Place Order</button>
         </div>

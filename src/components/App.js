@@ -169,13 +169,14 @@ class App extends React.Component {
         }
 
         {this.state.display === 'maximised'
-          ? <MaximisedMenuItem maximised={true} menuItem={this.state.viewing} toppings={this.state.toppings} addTopping={this.addTopping} addToOrder={this.addToOrder}/>
+          ? <MaximisedMenuItem maximised={true} viewing={this.state.viewing} toppings={this.state.toppings} addTopping={this.addTopping} addToOrder={this.addToOrder}/>
           : null
         }
 
         {this.state.display === 'order'
           ? <OrderReview menu={this.state.menu}
                          order={this.state.order}
+                         toppings={this.state.toppings}
                          amendQuantity={this.amendQuantity}
                          calculateTotal={this.calculateTotal}
                          removeFromOrder={this.removeFromOrder}
