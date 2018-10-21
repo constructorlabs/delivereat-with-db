@@ -1,3 +1,25 @@
+@import "defaults";
+
 body {
-  background-color: Cornsilk;
+  margin: 0;
+}
+
+#root {
+  width: 100%;
+}
+
+.header {
+  height: 30vh;
+  background-image: url("/static/img/header.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+
+  &__logo {
+    position: absolute;
+    top: 0;
+    width: 15vh;
+    margin: 0;
+  }
 }

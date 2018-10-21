@@ -1,6 +1,8 @@
 import React from "react";
 import Basket from "./Basket";
 
+import "../styles/Menu.scss";
+
 class Menu extends React.Component {
   constructor() {
     super();
@@ -83,13 +85,38 @@ class Menu extends React.Component {
     return this.props.menu
       .filter(item => item.type === course)
       .map(foodItem => {
+        // console.log(this.state.basket);
+        // let counter = typeof this.state.basket[foodItem.id].quantity === undefined ? 0 : this.state.basket[foodItem.id].quantity;
+        //  const basketQuant =
+
+        // let counter =
+        //   this.state.basket[0].quantity === undefined
+        //     ? 0
+        //     : this.state.basket[0].quantity;
+        // console.log(counter);
+        // foodItem.id
+        // const inBasket = order.items.length && order.items.map(item => item[0]).includes(menuItem.id);
+        // const count = inBasket ? order.items.filter(item => item[0] === menuItem.id)[0][1] : 0;
+
         return (
           <li key={foodItem.id}>
-            <h1>{foodItem.name}</h1>
-            <img src={foodItem.image} />
-            <button onClick={() => this.basketReceiveAdd(foodItem.id)}>
-              Order Me
-            </button>
+            <div className="menuitems">
+              <div className="menuitems__row">
+                <h1>{foodItem.name}</h1>
+                <div className="menuitems__order">
+                  <button onClick={() => this.basketReceiveAdd(foodItem.id)}>
+                    +
+                  </button>
+                  {/* <p>{counter}</p> */}
+                  <button onClick={() => this.basketReceiveAdd(foodItem.id)}>
+                    -
+                  </button>
+                </div>
+              </div>
+              <h2>{foodItem.headline}</h2>
+              <h2>{`£${foodItem.price}`}</h2>
+            </div>
+            <hr />
           </li>
         );
       });
@@ -101,8 +128,7 @@ class Menu extends React.Component {
       console.log({ order });
       console.log("woohooh", this.props.menu[order.menuItemId]);
       return (
-        parseInt(this.props.menu[order.menuItemId - 1].price, 10) *
-        order.quantity
+        parseInt(this.props.menu[order.menuItemId].price, 10) * order.quantity
       );
     });
 

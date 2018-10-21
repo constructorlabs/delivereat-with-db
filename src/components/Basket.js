@@ -1,5 +1,7 @@
 import React from "react";
 
+import "../styles/Basket.scss";
+
 class Basket extends React.Component {
   constructor() {
     super();
@@ -10,12 +12,12 @@ class Basket extends React.Component {
     console.log(this.props.basket);
 
     return (
-      <div>
-        <ul className="basket">
+      <div className="basket">
+        <ul className="basket__contents">
           {this.props.basket.map(item => {
             return (
               <li key={item.menuItemId}>
-                <p>{item.menuItemId}</p>
+                {/* <p>{item.menuItemId}</p> */}
 
                 <span>
                   <button
@@ -28,7 +30,7 @@ class Basket extends React.Component {
                   <p>{item.quantity}</p>
                   <button
                     onClick={() => {
-                        console.log({item})
+                      console.log({ item });
                       this.props.basketReceiveAdd(item.menuItemId);
                     }}
                   >
@@ -36,8 +38,8 @@ class Basket extends React.Component {
                   </button>
                 </span>
 
-                {/* {this.props.menu[item.menuItemId].name} 
-                   {this.props.menu[item.menuItemId].price * item.quantity} */}
+                {this.props.menu[item.menuItemId].name}
+                {this.props.menu[item.menuItemId].price * item.quantity}
               </li>
             );
           })}

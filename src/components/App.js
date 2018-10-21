@@ -23,7 +23,7 @@ class App extends React.Component {
 
   componentDidMount() {
     this.fetchMenuItems();
-    this.postOrder();
+    // this.postOrder();
   }
 
   receiveOrder(orderBasket) {
@@ -64,7 +64,11 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        Delivereat app
+        <div className="main">
+          <div className="header">
+            <img className="header__logo" src="/static/img/logo.png" />
+          </div>
+        </div>
         <Menu menu={this.state.menuItems} receiveOrder={this.receiveOrder} />
       </div>
     );
