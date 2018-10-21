@@ -1,15 +1,11 @@
 import React from 'react';
+import '../styles/components/orderadminitem.scss';
 
-function OrderAdminItem({orderItem, quantity, price}) {
+function OrderAdminItem({order}) {
   
   return (
-      <li>
-        <h2>Order ID: {orderItem.orderId}</h2>
-        <p>Menu Item: {orderItem.name}<br />
-        Quantity: {orderItem.quantity}<br />
-        Price: {orderItem.price}
-        </p> 
-      </li>
+    <li className={order.orderId}>Order {order.orderId}&nbsp;&ndash;&nbsp;
+      {order.quantity} * {order.name}, &pound;{(order.subtotal).toFixed(2)}</li>
     )
   }
 

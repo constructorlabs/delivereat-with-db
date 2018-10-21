@@ -17,15 +17,17 @@ PRIMARY KEY (id)
 -- DYNAMIC TABLE FOR ORDER ITEMS (MANY-)
 CREATE TABLE "order" (
 id serial,
-ordertime TIMESTAMP,
+ordertime TIMESTAMP NOT NULL,
+orderstatus TEXT,
+phone CHAR(13),
 PRIMARY KEY (id)
 );
 
 -- DYNAMIC MAPPING TABLE FOR ORDER-MENU ITEMS (MANY-)
 CREATE TABLE menu_order (
 id serial,
-order_id INT,
-menu_id INT,
+order_id INT NOT NULL,
+menu_id INT NOT NULL,
 quantity INT NOT NULL,
 PRIMARY KEY (id),
 FOREIGN KEY (order_id) REFERENCES "order" (id),

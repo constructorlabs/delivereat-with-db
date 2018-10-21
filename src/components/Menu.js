@@ -1,7 +1,7 @@
 import React from 'react';
 import MenuItem from './MenuItem';
 
-function Menu({menu, receiveItemOrder, removeItemOrder}) {
+function Menu({menu, receiveItemOrder, removeItemFromOrder}) {
 
   function getMenuItem() {
     const menuArr = Object.values(menu)
@@ -11,7 +11,7 @@ function Menu({menu, receiveItemOrder, removeItemOrder}) {
       key={menuitem.id} 
       menu={menu} 
       receiveItemOrder={receiveItemOrder}
-      removeItemOrder={removeItemOrder} />
+      removeItemFromOrder={removeItemFromOrder} />
     })
    };
 

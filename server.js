@@ -17,9 +17,7 @@ app.use(bodyParser.json());
 app.use('/static', express.static('static'));
 app.set('view engine', 'hbs');
 
-app.get('/', function(req, res){
-  res.render('index');
-});
+/* -- INDEX BY ID -- */
 
 function indexById(array) {
   return array.reduce((acc, item) => {
@@ -28,6 +26,12 @@ function indexById(array) {
   }, {})
 }
 
+/* -- ESTABLISH ROUTES -- */
+
+/* base render */
+app.get('/', (req, res) => res.render('index'));
+
+/* get menu items (as object) */
 app.get('/api/menu', function(req, res){
   db.any('SELECT * FROM menu')
     .then(function(data) {
@@ -39,6 +43,14 @@ app.get('/api/menu', function(req, res){
     });
 });
 
+/* get menu items by id */
+app.get('/api/menu/:menuItemId', (req,res) => { 
+  db.one(`SELECT * FROM menu WHERE id=$1`, [req.params.menuItemId])
+    .then(data => res.json(data))
+    .catch(error => res.json({error: error.message}));
+});
+
+/* post order */
 app.post('/api/order', function(req, res){
 
   // 1. insert into "order" table
@@ -52,7 +64,7 @@ app.post('/api/order', function(req, res){
   return Promise.all(items.map(orderItem => {
     const {id, quantity} = orderItem; 
       
-    return db.none(`INSERT INTO menu_order (order_id, menu_id, quantity) VALUES ($1, $2, $3)`, [orderId, id, quantity, ]
+    return db.none(`INSERT INTO menu_order (order_id, menu_id, quantity) VALUES ($1, $2, $3)`, [orderId, id, quantity]
     );
     
     })).then(() => orderId);
@@ -62,12 +74,15 @@ app.post('/api/order', function(req, res){
     .catch(error => res.json({ error: error.message}))
     
 });
+
+/* get orders (as object) */
   
 app.get('/api/order', function(req, res){
   db.any('SELECT * from menu_order')
     .then(function(data) {
       const orderObject = indexById(data)
       res.json(orderObject);
+      // res.json(data);
     })
     .catch(function(error) {
         res.json({error: error.message});
@@ -76,9 +91,11 @@ app.get('/api/order', function(req, res){
 
 //  db.any('SELECT menu_order.order_id, menu_order.menu_id, menu_order.quantity, menu.name, menu.price FROM menu_order, menu WHERE menu_order.order_id = menu.id')
 
-app.get('/api/order/:id', function(req, res){
-  const id = req.params.id;
-  db.any('SELECT order_id FROM menu_order WHERE order_id=$1', [id])
+
+/* get order by id */
+app.get('/api/order/:orderId', function(req, res){
+  const id = req.params.orderId;
+  db.one('SELECT order_id FROM menu_order WHERE order_id=$1', [orderId])
       .then(function(data) {
           res.json(data);
       })

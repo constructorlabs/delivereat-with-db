@@ -1,0 +1,8 @@
+@import '../base/_variables.scss';
+.admin__menu li {
+    padding: $main-padding * 0.5;
+    background-color: lighten($background-color, 20% )
+}
+li[class="1"], li[class="3"], li[class="5"], li[class="7"]  {
+    background-color: lighten($background-color, 10% )
+}

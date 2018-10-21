@@ -1,9 +1,10 @@
 import React from 'react';
 import Menu from './Menu';
-import Order from './Order';
+import Basket from './Basket';
 import OrderAdmin from './OrderAdmin';
 
-import '../styles/App.scss';
+import '../styles/base/base.scss';
+import '../styles/components/app.scss';
 
 class App extends React.Component {
   constructor(){
@@ -15,13 +16,20 @@ class App extends React.Component {
       order: {}
     }
     this.receiveItemOrder = this.receiveItemOrder.bind(this)
-    this.removeItemOrder = this.removeItemOrder.bind(this)
+    this.removeItemFromOrder = this.removeItemFromOrder.bind(this)
     this.fetchMenu = this.fetchMenu.bind(this)
     this.sendOrderToApi = this.sendOrderToApi.bind(this)
     this.fetchOrders = this.fetchOrders.bind(this)
   }
 
-   /* -- FETCH MENU -- */
+  /* -- RUN FETCHES -- */
+
+  componentDidMount(){
+    this.fetchMenu()
+    this.fetchOrders()
+  }
+
+   /* -- MENU DATA -- */
 
    fetchMenu() {
     const api = "/api/menu/"
@@ -31,22 +39,27 @@ class App extends React.Component {
       this.setState({menu: content});
     })
   }
-  componentDidMount(){
-    this.fetchMenu()
-    this.fetchOrders()
-  }
+
+  /* -- ORDERS -- */
   receiveItemOrder(menuitem) {
     const updatedOrder = Object.assign({}, this.state.currentOrder, { [menuitem.id]: menuitem } )
     this.setState({currentOrder: updatedOrder})
   } 
-  removeItemOrder(id) {
-    // const array = [...this.state.currentOrder];
-    // let index = array.indexOf(id);
-    // array.splice(index, 1);
-    // this.setState({currentOrder: array});
-  }  
 
-  /* -- FETCH (post) ORDER - */
+  removeItemFromOrder(menuItemId) {
+    const menuitems = this.state.currentOrder
+    const menuItemsArray = Object.keys(menuitems)
+    /* Logic to remove menuitem when item = menuItemId */
+    let updatedOrderObj = menuItemsArray.filter(item => parseInt(item) !== menuItemId)
+    .reduce((obj, item) => {
+      obj[item] = menuitems[item];
+      return obj;
+    }, {});
+    
+   this.setState({currentOrder: updatedOrderObj});
+  }  
+ 
+  /* -- SUBMIT AN ORDER - */
 
   sendOrderToApi() {
     fetch("/api/order", {
@@ -73,18 +86,38 @@ class App extends React.Component {
   }
 
   render(){
+    // destructuring assignment to this.state
+    const {menu, order, currentOrder} = this.state
 
-    const currentOrderHasFood = this.state.currentOrder && Object.values(this.state.currentOrder).find(item => typeof item === "object");
+    /* -- MENU COMPONENT - */
+    const menuHasItems = menu && Object.values(menu).find(item => typeof item === "object");
 
-      const currentOrderComponent =
-      <Order 
-      menu={this.state.menu}
-      currentOrder={this.state.currentOrder}
+    const menuComponent =
+    <Menu 
+    menu={this.state.menu}
+    receiveItemOrder={this.receiveItemOrder} 
+    removeItemFromOrder={this.removeItemFromOrder} 
+    />
+
+    /* -- BASKET COMPONENT - */
+    const currentOrderHasFood = currentOrder && Object.values(currentOrder).find(item => typeof item === "object");
+
+    const currentOrderComponent =
+      <Basket 
+      menu={menu}
+      currentOrder={currentOrder}
       sendOrderToApi={this.sendOrderToApi}
       />
-
-      const {menu, order} = this.state
-
+    
+    /* -- ORDER ADMIN COMPONENT - */
+    const ordersExist = Object.values(menu).find(item => typeof item === "object"); 
+    
+    const orderAdminComponent = 
+      <OrderAdmin 
+        order={order}
+        menu={menu}
+      />
+  
     return (
       <div className="app container">
         <header className="masthead">
@@ -94,25 +127,17 @@ class App extends React.Component {
           </div>
         </header>
 
-        { Object.values(menu).find(item => typeof item === "object") ? 
-         <OrderAdmin 
-            order={order}
-            menu={menu}
-          />
-        : null }
-
         <main className="maincontent">
-            <Menu 
-            menu={this.state.menu}
-            receiveItemOrder={this.receiveItemOrder} 
-            removeItemOrder={this.removeItemOrder} 
-            />
+        
+          { menuHasItems ? menuComponent : <p>Sorry. Closed for business!</p>}
 
           <section className="customerOrder">
             <h2 className="customerOrder__title">Your Basket</h2>
             { currentOrderHasFood ? currentOrderComponent : <p>Your basket is empty</p>}
           </section>
-          </main>
+
+          { ordersExist ? orderAdminComponent : <p>No Orders</p>}
+        </main>
 
         </div>
     )

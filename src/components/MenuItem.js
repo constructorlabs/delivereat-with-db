@@ -1,4 +1,5 @@
 import React from 'react';
+import '../styles/components/menuitem.scss';
 import cx from 'classnames';
 
 class MenuItem extends React.Component {
@@ -29,9 +30,10 @@ class MenuItem extends React.Component {
           added: !this.state.added
         });
       } else {
-          this.props.removeItemOrder(this.props.menuitem.id);
+          this.props.removeItemFromOrder(this.props.menuitem.id);
           this.setState({
-            added: !this.state.added
+            added: !this.state.added,
+            quantity: 0
           });
       }
     }
@@ -54,7 +56,7 @@ class MenuItem extends React.Component {
     }
   }
 
-  // packaging a menuitem object
+  /* -- package menuitem object --*/
   itemOrder() {
       const menuitem = {
       id: this.props.menuitem.id,
@@ -71,12 +73,8 @@ class MenuItem extends React.Component {
     const errorclasses = cx('menuitem__error', {
       'show--error': this.state.error
     });    
+    const priceDisplay = this.props.menuitem.price;
     
-    let price = (Number(this.props.menuitem.price) * Number(this.state.quantity));
-    const pricedisplay = this.props.menuitem.price;
-   //console.log(this.props.menuitem.name, this.props.menuitem.price)
-    // console.log(typeof pricedisplay)
-
     return (
       <li className="menuitem">
           <form className="menuitem__form" onSubmit={this.handleSubmit}>
@@ -90,9 +88,10 @@ class MenuItem extends React.Component {
             <div className="menuitem__details">
               <div className="menuitem__select">
                 <label className="menuitem__item">{this.props.menuitem.name} 
-                <span className="menuitem__price">&nbsp;&pound; {pricedisplay}</span>
+                <span className="menuitem__price">&nbsp;&pound;{priceDisplay}</span>
                 </label>
-                <button type="submit" className={buttonclasses}>Bug</button>
+                <button type="submit" className={buttonclasses}></button>
+                {/* <button onClick={()=>this.props.removeItemFromOrder(this.props.menuitem.id)}>Remove</button> */}
                 <span className={errorclasses}>Please select quantity</span>
               </div>  
 
