@@ -32,8 +32,9 @@ app.get('/api/menu/', (req, res) => {
                                  ORDER BY count DESC
                                  LIMIT 4
                                  `)
+  const toppingsPromise = db.any('SELECT * FROM TOPPINGS')
 
-  Promise.all([menuPromise, mostPopPromise])
+  Promise.all([menuPromise, mostPopPromise, toppingsPromise])
     .then(data => res.json(data))
     .catch(error => res.json({error: error.message}))
 })

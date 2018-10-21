@@ -67,3 +67,11 @@ CREATE TABLE toppings (
     FOREIGN KEY (toppings_id) REFERENCES toppings (id),
     FOREIGN KEY (order_map_id) REFERENCES order_map (id)
   )
+
+INSERT INTO toppings (name, price) VALUES ('Chorizo', 2.00);
+INSERT INTO toppings (name, price) VALUES ('Cheddar', 2.00);
+INSERT INTO toppings (name, price) VALUES ('Bacon', 2.00);
+INSERT INTO toppings (name, price) VALUES ('Avocado', 2.00);
+INSERT INTO toppings (name, price) VALUES ('Caramelized Onions', 1.00);
+INSERT INTO toppings (name, price) VALUES ('Stilton', 2.00);
+INSERT INTO toppings (name, price) VALUES ('Pickles', 1.00);

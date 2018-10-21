@@ -1,4 +1,5 @@
 import React from 'react'
+import CustomiseBar from './CustomiseBar.js'
 
 import '../styles/MaximisedMenuItem.scss'
 
@@ -24,6 +25,7 @@ handleAdd(event){
     }
 
     return(
+    <div className="customisation-screen">
       <div className="max-menu-item">
       <div onClick={this.maximiseItem} className="transparent-gradient">
       <li style={backgroundStyle} className="max-menu-item"><h5 className="max-menu-item__name">{this.props.menuItem.name}</h5>
@@ -33,6 +35,8 @@ handleAdd(event){
       </li>
     </div>
   </div>
+  <CustomiseBar toppings={this.props.toppings}/>
+</div>
     )
   }
 

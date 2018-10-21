@@ -24,6 +24,7 @@ class App extends React.Component {
     this.state = {
       mostPopular: {},
       menu: {},
+      toppings: {},
       order: {},
       placedOrder: {},
       viewing: {},
@@ -52,9 +53,11 @@ class App extends React.Component {
         console.log(body)
         const menuObject = this.arrayToObject(body[0])
         const popularObject = this.arrayToObject(body[1])
+        const toppings = this.arrayToObject(body[2])
         this.setState({
           menu: menuObject,
-          mostPopular: popularObject
+          mostPopular: popularObject,
+          toppings
         })
       })
       console.log
@@ -142,7 +145,7 @@ class App extends React.Component {
         }
 
         {this.state.display === 'maximised'
-          ? <MaximisedMenuItem maximised={true} menuItem={this.state.viewing} />
+          ? <MaximisedMenuItem maximised={true} menuItem={this.state.viewing} toppings={this.state.toppings} />
           : null
         }
 
