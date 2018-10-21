@@ -20,9 +20,9 @@ class App extends React.Component {
       menu: [],
       orders: [],
       basket: {},
-      userDetails:{},
+      userDetails: {},
       displayUserForm: false,
-      displayOrderHistory:false
+      displayOrderHistory: false
     };
 
     this.receiveAddToBasket = this.receiveAddToBasket.bind(this);
@@ -52,8 +52,8 @@ class App extends React.Component {
   receiveAddToBasket(itemId) {
     const orderItem = this.state.menu.find(item => item.id == itemId);
     orderItem.quantity = 1;
-    let updatedBasket = this.state.basket
-      updatedBasket[itemId] = orderItem;
+    let updatedBasket = this.state.basket;
+    updatedBasket[itemId] = orderItem;
 
     this.setState(
       {
@@ -64,8 +64,8 @@ class App extends React.Component {
   }
 
   receiveRemoveFromBasket(itemId) {
-    let updatedBasket = this.state.basket
-    delete updatedBasket[itemId]
+    let updatedBasket = this.state.basket;
+    delete updatedBasket[itemId];
 
     this.setState(
       {
@@ -76,126 +76,134 @@ class App extends React.Component {
   }
 
   receivePlusQuantity(itemId) {
-    let updatedBasket = this.state.basket
-    updatedBasket[itemId].quantity+=1
+    let updatedBasket = this.state.basket;
+    updatedBasket[itemId].quantity += 1;
 
-    this.setState({
-      basket: updatedBasket
-    },() => localStorage.setItem("basket", JSON.stringify(this.state.basket)));
+    this.setState(
+      {
+        basket: updatedBasket
+      },
+      () => localStorage.setItem("basket", JSON.stringify(this.state.basket))
+    );
   }
 
   receiveMinusQuantity(itemId) {
-    let updatedBasket = this.state.basket
-    updatedBasket[itemId].quantity-=1
-    const deleteKeys = Object.keys(updatedBasket).filter(key => updatedBasket[key].quantity == 0);
-    delete updatedBasket[deleteKeys]
+    let updatedBasket = this.state.basket;
+    updatedBasket[itemId].quantity -= 1;
+    const deleteKeys = Object.keys(updatedBasket).filter(
+      key => updatedBasket[key].quantity == 0
+    );
+    delete updatedBasket[deleteKeys];
 
-    // const updatedBasket = this.state.basket
-    //   .map(item => {
-    //     if (item.id == itemId) {
-    //       item.quantity -= 1;
-    //       return item;
-    //     } else {
-    //       return item;
-    //     }
-    //   })
-    //   .filter(item => item.quantity !== 0);
-    this.setState({
-      basket: updatedBasket
-    },() => localStorage.setItem("basket", JSON.stringify(this.state.basket)));
+    this.setState(
+      {
+        basket: updatedBasket
+      },
+      () => localStorage.setItem("basket", JSON.stringify(this.state.basket))
+    );
   }
 
-  receiveUserDetails(userDetails){
-    this.setState({
-      userDetails:userDetails,
-      displayUserForm:false
-    }, ()=>this.receiveSubmit())
-
+  receiveUserDetails(userDetails) {
+    this.setState(
+      {
+        userDetails: userDetails,
+        displayUserForm: false
+      },
+      () => this.receiveSubmit()
+    );
   }
 
   receiveSubmit() {
-    if (Object.values(this.state.userDetails).length == 0 ) {
+    if (Object.values(this.state.userDetails).length == 0) {
       this.setState({
         displayUserForm: true
-      })
+      });
     } else {
-    let orderDetails={};
-    orderDetails.user= this.state.userDetails;
-    orderDetails.items = {};
+      let orderDetails = {};
+      orderDetails.user = this.state.userDetails;
+      orderDetails.items = {};
 
       Object.keys(this.state.basket).map(id => {
-      return orderDetails.items[id]={
-         menu_id:id,
-         quantity:this.state.basket[id].quantity
-       }
-
-    });
-
-    fetch("/order", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json; charset=utf-8"
-      },
-      body: JSON.stringify(orderDetails)
-    })
-      .then(response => response.json())
-      .then(body => {
-        alert(`Order is accepted with id ${body.order_id}`);
-        this.setState(
-          {
-            basket: {},
-            userDetails:{}
-          },
-          () =>
-            localStorage.setItem("basket", JSON.stringify(this.state.basket))
-        );
-      })
-      .catch(error => {
-        error: error.message;
+        return (orderDetails.items[id] = {
+          menu_id: id,
+          quantity: this.state.basket[id].quantity
+        });
       });
+
+      fetch("/order", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        body: JSON.stringify(orderDetails)
+      })
+        .then(response => response.json())
+        .then(body => {
+          alert(`Order is accepted with id ${body.order_id}`);
+          this.setState(
+            {
+              basket: {},
+              userDetails: {}
+            },
+            () =>
+              localStorage.setItem("basket", JSON.stringify(this.state.basket))
+          );
+        })
+        .catch(error => {
+          error: error.message;
+        });
 
       this.setState({
         displayUserForm: false
-      })
-  }
+      });
+    }
   }
 
-  displayOrderHistory(){
+  displayOrderHistory() {
     fetch("/order")
       .then(response => response.json())
       .then(body => {
-
         this.setState({
           orders: body,
-          displayOrderHistory:!this.state.displayOrderHistory
-        })
+          displayOrderHistory: !this.state.displayOrderHistory
+        });
       });
   }
 
-  clearOrderHistory(){
+  clearOrderHistory() {
     fetch("/order", {
       method: "delete"
     })
       .then(response => response.json())
-      .catch(error => {error: error.message})
+      .catch(error => {
+        error: error.message;
+      });
   }
-
-
 
   render() {
     return (
       <div className="wrapper">
-
         <h1>Food Heaven</h1>
         <div className="order__history">
-          <p type="button" onClick={this.displayOrderHistory}>Order history</p>
-          <FontAwesomeIcon
-              className="icon"
-              icon="bars"
-              onClick={this.displayOrderHistory}
-            />
           {this.state.displayOrderHistory ? (
-            <OrderHistory orders={this.state.orders} clearOrderHistory={this.clearOrderHistory}/>
+            <p type="button" onClick={this.displayOrderHistory}>
+              Hide history
+            </p>
+          ) : (
+            <p type="button" onClick={this.displayOrderHistory}>
+              Order history
+            </p>
+          )}
+          <FontAwesomeIcon
+            className="icon"
+            icon="bars"
+            onClick={this.displayOrderHistory}
+          />
+          {this.state.displayOrderHistory ? (
+            <OrderHistory
+              orders={this.state.orders}
+              clearOrderHistory={this.clearOrderHistory}
+            />
           ) : null}
         </div>
 
@@ -213,11 +221,12 @@ class App extends React.Component {
           receivePlusQuantity={this.receivePlusQuantity}
           receiveMinusQuantity={this.receiveMinusQuantity}
         />
-        {this.state.displayUserForm?
-        <User
-          receiveUserDetails = {this.receiveUserDetails}
-          displayUserForm = {this.state.displayUserForm}
-        />:null}
+        {this.state.displayUserForm ? (
+          <User
+            receiveUserDetails={this.receiveUserDetails}
+            displayUserForm={this.state.displayUserForm}
+          />
+        ) : null}
       </div>
     );
   }

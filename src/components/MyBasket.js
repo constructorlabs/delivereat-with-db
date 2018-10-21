@@ -34,7 +34,7 @@ class MyBasket extends React.Component {
     };
 
     if (Object.getOwnPropertyNames(this.props.basket).length !==0) {
-      console.log(this.props.basket)
+      
       costs.subTotal = Object.values(this.props.basket).reduce((acc, item) => {
         return (acc += item.price * item.quantity);
       }, 0);

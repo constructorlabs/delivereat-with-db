@@ -101,6 +101,7 @@ app.get("/order/:id", function(req, res) {
 });
 
 app.get("/order", function(req, res) {
+  
   db.any(
     `select order_id, menu_id, menu.name, menu.price, quantity
           from menu, menu_order
