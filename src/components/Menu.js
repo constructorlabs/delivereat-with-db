@@ -31,7 +31,7 @@ class Menu extends React.Component{
         <div>
 
           <div className="menu__category menu__popular">
-            <h3 className="menu__category__header">Most Popular</h3>
+            <h6 className="menu__category__header">Most Popular</h6>
             <div className="menu__items">
             {popular.map(item => {
               return <MenuItem key={item.id} menuItem={item} addToOrder={this.props.addToOrder} changeDisplay={this.props.changeDisplay}/>
@@ -42,7 +42,7 @@ class Menu extends React.Component{
 
           {Object.keys(catMenu).map(item => {
             return (<div className="menu__category" key={item}>
-              <h3 className="menu__category__header">{item}</h3>
+              <h6 className="menu__category__header">{item}</h6>
               <div className="menu__items">
               {Object.values(catMenu[item].map(item => {
                 return <MenuItem key={item.id} menuItem={item} addToOrder={this.props.addToOrder} changeDisplay={this.props.changeDisplay}/>
