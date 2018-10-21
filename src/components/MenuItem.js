@@ -14,15 +14,12 @@ class MenuItem extends React.Component {
         }
     }
 
-    // componentDidUpdate() {
-    //     console.log(111)
-    // }
-
     incQuantity (amount, event) {
         event.preventDefault();
         const keepPositive = n => (n < 0 ? 0 : n);
         this.setState({
-            quantity: keepPositive(this.state.quantity + amount)
+            quantity: keepPositive(this.state.quantity + amount),
+            clicked: true
         })
     }
 
@@ -48,12 +45,17 @@ class MenuItem extends React.Component {
         this.props.receiveCurrentPurchase(currentPurchase);
         }
 
-        validateQuantity () {
-            if (this.props.currentPurchase) {
-                return this.state.quantity;
+        validateQuantity (n) {
+            if (this.state.quantity > 0 && !this.props.currentPurchase) {
+                this.setState({ quantity: 0 });
+                return n;
             } else {
-                return 0;
-            } 
+                return this.state.quantity;
+            }
+        }
+
+        shouldComponentUpdate() {
+            return true;
         }
 
     render () {

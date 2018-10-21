@@ -29,9 +29,10 @@ class App extends React.Component {
       purchaseIdFromSuccess: null,
       displayPurchaseById: null,
       currentPurchase: null,
-      purchaseBasketVisible: false
+      purchaseBasketVisible: false,
+      viewPurchaseId: window.location.search.split('viewPurchaseId=')[1]
     }
-  }
+  }  
 
   // Main features
   ///////////////////////////////////////////
@@ -87,8 +88,12 @@ class App extends React.Component {
   // get purchase by id
   ///////////////////////////////////////////
  
-  handlePurchaseId (event) { // update purchaseId
-    this.setState({ purchaseId: event.target.value  })
+  handlePurchaseId (e) { // update purchaseId
+    if (typeof e === 'string') {
+      this.setState({ purchaseId: e })
+    } else {
+      this.setState({ purchaseId: e.target.value })
+    }
   }
 
   getPurchaseById (event) { // fetch from /api/purchase/$id
@@ -164,11 +169,14 @@ class App extends React.Component {
     />  
 
     // customer views their purchase
-    const viewPurchaseById = 
+    const viewPurchaseById = this.state.viewPurchaseId &&
     <ViewPurchaseById 
+      viewPurchaseId={this.state.viewPurchaseId}
       getPurchaseById={this.getPurchaseById}
       handlePurchaseId={this.handlePurchaseId}
       displayPurchaseById={this.state.displayPurchaseById}
+      getCurrency={this.getCurrency}
+      menu={this.state.menu}
     />    
     
     // view basket (currentPurchase)
@@ -195,7 +203,7 @@ class App extends React.Component {
     return (
       <React.Fragment>
         { header }
-          {/* { viewPurchaseById } */}
+          { viewPurchaseById }
           { viewPurchase }
           { menuItems }
       </React.Fragment>

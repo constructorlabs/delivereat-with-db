@@ -51,8 +51,9 @@ class MenuItems extends React.Component {
                 return itemObject.course === course;
             })
             .map(itemObj => {
+                const id = `${itemObj.course}-${itemObj.id}`;
                 return <MenuItem
-                        key={itemObj.id}
+                        key={id}
                         item={itemObj}
                         getCurrency={this.props.getCurrency}
                         currentPurchase={this.props.currentPurchase}

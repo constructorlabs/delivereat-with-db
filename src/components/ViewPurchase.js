@@ -65,7 +65,10 @@ function ViewPurchase ({ resetPurchaseId, purchaseIdFromSuccess, receiveFormInpu
             </header>
             <section className="purchase__checkout">
             <ul>
-                <li>Success! your order ID is {purchaseIdFromSuccess.orderId}</li>
+                <li>Success! your order ID is {purchaseIdFromSuccess.orderId}. 
+                Please keep a record of it.</li>
+                <li><a href={`/?viewPurchaseId=${purchaseIdFromSuccess.orderId}`}>See a summary of your order</a></li>
+                <li>&nbsp;</li>
                 <li><button onClick={resetPurchaseId}>OK</button></li>
             </ul>
         </section>
