@@ -1,5 +1,6 @@
 import React from "react";
 import Basket from "./Basket";
+import MoreInfo from "./MoreInfo";
 
 import "../styles/Menu.scss";
 
@@ -75,11 +76,6 @@ class Menu extends React.Component {
     this.calculate();
   }
 
-  //
-
-  // basketSend(){
-
-  // }
 
   getCourse(course) {
     return this.props.menu
@@ -88,12 +84,12 @@ class Menu extends React.Component {
         // console.log(this.state.basket);
         // let counter = typeof this.state.basket[foodItem.id].quantity === undefined ? 0 : this.state.basket[foodItem.id].quantity;
         //  const basketQuant =
+        // let counter = typeof this.state.basket[foodItem.id] === undefined ? 0: this.state.basket[0].quantity;
+        let counter = typeof this.state.basket[foodItem.id] === 'undefined' ? 0: this.state.basket[foodItem.id].quantity;
+        // console.log(this.state.basket[0].quantity);
 
-        // let counter =
-        //   this.state.basket[0].quantity === undefined
-        //     ? 0
-        //     : this.state.basket[0].quantity;
-        // console.log(counter);
+        
+        console.log(counter)
         // foodItem.id
         // const inBasket = order.items.length && order.items.map(item => item[0]).includes(menuItem.id);
         // const count = inBasket ? order.items.filter(item => item[0] === menuItem.id)[0][1] : 0;
@@ -102,31 +98,27 @@ class Menu extends React.Component {
           <li key={foodItem.id}>
             <div className="menuitems">
               <div className="menuitems__row">
-                <h1>{foodItem.name}</h1>
-                <div className="menuitems__order">
-                  <div
-                    onClick={() => this.basketReceiveAdd(foodItem.id)}
-                    class="menuitems__minus"
-                  >
-                    &#8211;
-                  </div>
-                  <div
-                    onClick={() => this.basketReceiveAdd(foodItem.id)}
-                    class="menuitems__plus"
-                  >
-                    &#43;
-                  </div>
+                <h2>{foodItem.name}</h2>
+                <div className="menuitem__order">
 
-                  <button onClick={() => this.basketReceiveAdd(foodItem.id)}>
+                  <button
+                    className="orderbutton__plus"
+                    onClick={() => this.basketReceiveAdd(foodItem.id)}
+                  >
                     +
                   </button>
-                  {/* <p>{counter}</p> */}
-                  <button onClick={() => this.basketReceiveAdd(foodItem.id)}>
+                  {/* <h3>0</h3> */}
+                  <p>{counter}</p>
+
+                  <button
+                    className="orderbutton__minus"
+                    onClick={() => this.basketReceiveAdd(foodItem.id)}
+                  >
                     -
                   </button>
                 </div>
               </div>
-              <h2 className="menuitems__info">{foodItem.headline}</h2>
+              <h3 className="menuitems__info">{foodItem.headline}</h3>
               <h2>{`£${foodItem.price}`}</h2>
             </div>
             <hr />
@@ -135,39 +127,62 @@ class Menu extends React.Component {
       });
   }
 
-  calculate() {
-    let delivery = 5;
-    let calc = this.state.basket.map(order => {
-      console.log({ order });
-      console.log("woohooh", this.props.menu[order.menuItemId]);
-      return (
-        parseInt(this.props.menu[order.menuItemId].price, 10) * order.quantity
-      );
-    });
+  // calculate() {
+  //   let delivery = 2.5;
+  //   let calc = this.state.basket.map(order => {
+  //     console.log("hi there", { order });
+  //     console.log(this.props.menu[order.menuItemId]);
+  //     // return parseInt(this.props.menu[order.menuItemId].price, 10 * order.quantity);
+  //     return this.props.menu[order.menuItemId].price * order.quantity;
+  //   });
+  //   let calcTotal = calc.reduce((total, amount) => total + amount);
 
-    console.log(calc);
+  //   //
+
+  //   console.log("calculate", calc, calcTotal);
+  // }
+  
+  calculate() {
+    const menu = this.props.menu;
+    console.log(menu);
+    const calcTotal = this.state.basket
+      .map(
+        order =>
+          menu.find(menuItem => menuItem.id === order[0]).price * order[1]
+      )
+      .reduce((total, amount) => total + amount);
+    return calcTotal;
+    console.log(calcTotal);
   }
 
   render() {
     return (
       <div>
         <ul className="menu">
-          <h1>Brunch</h1>
+          <h1>BRUNCH</h1>
           {this.getCourse("brunch")}
 
-          <h1>Drinks</h1>
+          <h1>DRINKS</h1>
           {this.getCourse("drinks")}
 
-          <h1>Dessert</h1>
+          <h1>DESSERT</h1>
           {this.getCourse("dessert")}
         </ul>
-
+        <MoreInfo
+          basket={this.state.basket}
+          menu={this.props.menu}
+          />
+        
         <Basket
           basket={this.state.basket}
           menu={this.props.menu}
           receiveOrder={this.props.receiveOrder}
           basketReceiveRemove={this.basketReceiveRemove}
           basketReceiveAdd={this.basketReceiveAdd}
+          calculate={this.calculate}
+          closeBasket={this.props.closeBasket}
+          showBasket={this.props.showBasket}
+         
         />
       </div>
     );

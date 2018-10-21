@@ -1,5 +1,6 @@
 import React from "react";
 import Menu from "./Menu";
+import Nav from "./Nav";
 
 import "../styles/App.scss";
 
@@ -15,15 +16,26 @@ class App extends React.Component {
         postcode: "E8 3FS",
         email: "chrisphillers@gmail.com",
         phone: "07714205581"
-      }
+      },
+      showBasket: false
     };
     this.fetchMenuItems = this.fetchMenuItems.bind(this);
     this.receiveOrder = this.receiveOrder.bind(this);
+    this.closeBasket = this.closeBasket.bind(this);
+    this.openBasket = this.openBasket.bind(this);
   }
 
   componentDidMount() {
     this.fetchMenuItems();
-    // this.postOrder();
+   
+  }
+
+  openBasket(){
+    this.setState({showBasket: true});
+  }
+
+  closeBasket() {
+    this.setState({ showBasket: false });
   }
 
   receiveOrder(orderBasket) {
@@ -34,6 +46,7 @@ class App extends React.Component {
     console.log({ finalOrder });
     this.postOrder(finalOrder);
   }
+
 
   fetchMenuItems() {
     fetch("/api/menu")
@@ -64,12 +77,11 @@ class App extends React.Component {
   render() {
     return (
       <div>
+        <Nav  openBasket={this.openBasket}/>
         <div className="main">
-          <div className="header">
-            <img className="header__logo" src="/static/img/logo.png" />
-          </div>
+          <div className="header" />
         </div>
-        <Menu menu={this.state.menuItems} receiveOrder={this.receiveOrder} />
+        <Menu menu={this.state.menuItems} receiveOrder={this.receiveOrder} closeBasket={this.closeBasket} showBasket={this.state.showBasket} />
       </div>
     );
   }
