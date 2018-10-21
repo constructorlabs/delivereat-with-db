@@ -104,6 +104,19 @@ class Menu extends React.Component {
               <div className="menuitems__row">
                 <h1>{foodItem.name}</h1>
                 <div className="menuitems__order">
+                  <div
+                    onClick={() => this.basketReceiveAdd(foodItem.id)}
+                    class="menuitems__minus"
+                  >
+                    &#8211;
+                  </div>
+                  <div
+                    onClick={() => this.basketReceiveAdd(foodItem.id)}
+                    class="menuitems__plus"
+                  >
+                    &#43;
+                  </div>
+
                   <button onClick={() => this.basketReceiveAdd(foodItem.id)}>
                     +
                   </button>
@@ -113,7 +126,7 @@ class Menu extends React.Component {
                   </button>
                 </div>
               </div>
-              <h2>{foodItem.headline}</h2>
+              <h2 className="menuitems__info">{foodItem.headline}</h2>
               <h2>{`£${foodItem.price}`}</h2>
             </div>
             <hr />
