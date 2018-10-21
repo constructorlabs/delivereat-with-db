@@ -59,7 +59,7 @@ app.post("/order", function(req, res) {
             .catch(error => console.log(error.message));
 
           return Promise.all(
-            orderItems.items.map(item => {
+            Object.values(orderItems.items).map(item => {
               const { menu_id, quantity } = item;
               return db.none(
                 `insert into menu_order(menu_id, order_id,quantity)

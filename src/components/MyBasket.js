@@ -33,8 +33,9 @@ class MyBasket extends React.Component {
       total: 0
     };
 
-    if (this.props.basket.length !== 0) {
-      costs.subTotal = this.props.basket.reduce((acc, item) => {
+    if (Object.getOwnPropertyNames(this.props.basket).length !==0) {
+      console.log(this.props.basket)
+      costs.subTotal = Object.values(this.props.basket).reduce((acc, item) => {
         return (acc += item.price * item.quantity);
       }, 0);
       if (costs.subTotal >50){
@@ -55,9 +56,9 @@ class MyBasket extends React.Component {
 
     let totalQuantity =0;
 
-    if(this.props.basket.length !== 0){
+    if(this.props.basket !== undefined){
 
-      return totalQuantity=this.props.basket.reduce((acc, item) => {
+      return totalQuantity=Object.values(this.props.basket).reduce((acc, item) => {
         return (acc += item.quantity)
       },0)
 
@@ -80,8 +81,8 @@ class MyBasket extends React.Component {
         ) : (
           <div>
             <div className="basketItems">
-              {this.props.basket
-                ? this.props.basket.map(item => {
+              {this.props.basket !== undefined
+                ? Object.values(this.props.basket).map(item => {
                     return (
                       <BasketItem
                         key={item.id}
@@ -113,8 +114,8 @@ class MyBasket extends React.Component {
         </div>
         <div className="basketItemsAside">
           <div className="basketItems">
-          {this.props.basket
-            ? this.props.basket.map(item => {
+            {this.props.basket !== undefined
+              ? Object.values(this.props.basket).map(item => {
                 return (
                   <BasketItem
                     key={item.id}

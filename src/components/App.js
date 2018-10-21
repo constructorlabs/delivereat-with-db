@@ -19,7 +19,7 @@ class App extends React.Component {
     this.state = {
       menu: [],
       orders: [],
-      basket: [],
+      basket: {},
       userDetails:{},
       displayUserForm: false,
       displayOrderHistory:false
@@ -37,7 +37,7 @@ class App extends React.Component {
 
   componentDidMount() {
     const localBasketString = window.localStorage.getItem("basket");
-    const localBasket = !localBasketString ? [] : JSON.parse(localBasketString);
+    const localBasket = !localBasketString ? {} : JSON.parse(localBasketString);
 
     fetch("/menu")
       .then(response => response.json())
@@ -52,49 +52,54 @@ class App extends React.Component {
   receiveAddToBasket(itemId) {
     const orderItem = this.state.menu.find(item => item.id == itemId);
     orderItem.quantity = 1;
+    let updatedBasket = this.state.basket
+      updatedBasket[itemId] = orderItem;
 
     this.setState(
       {
-        basket: this.state.basket.concat(orderItem)
+        basket: updatedBasket
       },
       () => localStorage.setItem("basket", JSON.stringify(this.state.basket))
     );
   }
 
   receiveRemoveFromBasket(itemId) {
+    let updatedBasket = this.state.basket
+    delete updatedBasket[itemId]
+
     this.setState(
       {
-        basket: this.state.basket.filter(item => item.id !== itemId)
+        basket: updatedBasket
       },
       () => localStorage.setItem("basket", JSON.stringify(this.state.basket))
     );
   }
 
   receivePlusQuantity(itemId) {
-    const updatedBasket = this.state.basket.map(item => {
-      if (item.id == itemId) {
-        item.quantity += 1;
-        return item;
-      } else {
-        return item;
-      }
-    });
+    let updatedBasket = this.state.basket
+    updatedBasket[itemId].quantity+=1
+
     this.setState({
       basket: updatedBasket
     },() => localStorage.setItem("basket", JSON.stringify(this.state.basket)));
   }
 
   receiveMinusQuantity(itemId) {
-    const updatedBasket = this.state.basket
-      .map(item => {
-        if (item.id == itemId) {
-          item.quantity -= 1;
-          return item;
-        } else {
-          return item;
-        }
-      })
-      .filter(item => item.quantity !== 0);
+    let updatedBasket = this.state.basket
+    updatedBasket[itemId].quantity-=1
+    const deleteKeys = Object.keys(updatedBasket).filter(key => updatedBasket[key].quantity == 0);
+    delete updatedBasket[deleteKeys]
+
+    // const updatedBasket = this.state.basket
+    //   .map(item => {
+    //     if (item.id == itemId) {
+    //       item.quantity -= 1;
+    //       return item;
+    //     } else {
+    //       return item;
+    //     }
+    //   })
+    //   .filter(item => item.quantity !== 0);
     this.setState({
       basket: updatedBasket
     },() => localStorage.setItem("basket", JSON.stringify(this.state.basket)));
@@ -116,11 +121,14 @@ class App extends React.Component {
     } else {
     let orderDetails={};
     orderDetails.user= this.state.userDetails;
-    orderDetails.items = this.state.basket.map(item => {
-      return {
-        menu_id: item.id,
-        quantity: item.quantity
-      };
+    orderDetails.items = {};
+
+      Object.keys(this.state.basket).map(id => {
+      return orderDetails.items[id]={
+         menu_id:id,
+         quantity:this.state.basket[id].quantity
+       }
+
     });
 
     fetch("/order", {
@@ -135,7 +143,7 @@ class App extends React.Component {
         alert(`Order is accepted with id ${body.order_id}`);
         this.setState(
           {
-            basket: [],
+            basket: {},
             userDetails:{}
           },
           () =>

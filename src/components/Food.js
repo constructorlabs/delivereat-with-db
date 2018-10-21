@@ -9,7 +9,7 @@ class Food extends React.Component {
   }
 
   handleClick(event) {
-    if (this.props.basket.find(item => item.id == this.props.id)) {
+    if (Object.values(this.props.basket).find(item => item.id == this.props.id)) {
       this.props.receiveRemoveFromBasket(this.props.id)
 
     } else {
@@ -30,8 +30,8 @@ class Food extends React.Component {
             currency: "GBP"
           })}
         </p>
-        {this.props.basket !== undefined ?
-        (this.props.basket.find(item => item.id==this.props.id)
+        {Object.getOwnPropertyNames(this.props.basket).length !==0?
+        (Object.values(this.props.basket).find(item => item.id==this.props.id)
           ? (
           <p type="button" onClick={this.handleClick}>
             Remove from cart
@@ -40,7 +40,9 @@ class Food extends React.Component {
           <p type="button" onClick={this.handleClick}>
             Add to cart
           </p>
-        ) ): null
+        ) ): <p type="button" onClick={this.handleClick}>
+          Add to cart
+        </p>
       }
       </div>
     );
