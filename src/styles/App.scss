@@ -15,6 +15,7 @@ html {
   overflow: auto;
   padding: 0;
   margin: 0;
+  line-height: 2rem;
 }
 
 body {
@@ -25,7 +26,6 @@ body {
   font-family: 'Open Sans', Arial, Helvetica, sans-serif;
   letter-spacing: 0.05rem;
   font-size: 1rem;
-  line-height: 1.7rem;  
 }
 
 #root {
@@ -35,6 +35,7 @@ body {
 
 .main {
   margin: 0 1rem 1rem 1rem;
+  // overflow-y: auto;
 }
 
 label {
@@ -43,8 +44,7 @@ label {
 
 input, button {
   font-size: 1rem;
-  margin: 0 0 1rem 0;
-  letter-spacing: 0.1rem;
+  letter-spacing: 0.05rem;
 }
 
 input {
@@ -58,7 +58,6 @@ button {
   background-color: $mid-colour;
   border: 0;
   color: white;
-  border-radius: 0.2rem;
   padding: 0.5rem 0.7rem;
   &:hover {
     cursor: pointer;
@@ -70,6 +69,18 @@ ul {
   list-style: none;
   margin: 0;
   padding: 0;
+}
+
+.hr-black {
+  border: 0.05rem solid #999;
+}
+
+.hr-white {
+    border: 0.05rem solid white;
+}
+
+.fas-padding-right {
+  padding-right: 0.5rem;
 }
 
 .fadein {

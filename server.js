@@ -48,7 +48,7 @@ const menu_purchases = {
     }
   },
   name: "Matt",
-  tel: "07901 972 811"
+  telephone: "07901 972 811"
 }
 
 app.get('/', function(req, res){
@@ -87,9 +87,9 @@ app.get('/api/purchases', function(req, res){
 
 // add a single purchase to menu_purchase table
 app.post('/api/purchase', (req, res) =>{
-  // 1. insert items, name, tel and time from body request into "purchase" table
-  const { items, name, tel } = req.body; 
-  db.one(`INSERT INTO purchase (name, tel, created_at) VALUES($1, $2, NOW()) RETURNING id`, [name, tel]) 
+  // 1. insert items, name, telephone and time from body request into "purchase" table
+  const { items, name, telephone } = req.body; 
+  db.one(`INSERT INTO purchase (name, telephone, created_at) VALUES($1, $2, NOW()) RETURNING id`, [name, telephone]) 
   .then(result => {
     // set RETURNING id from INSERT INTO
     const orderId = result.id; 

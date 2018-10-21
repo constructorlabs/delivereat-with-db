@@ -35,13 +35,15 @@ class MenuItems extends React.Component {
     menuSelectionCheckboxes() {
         return Object.keys(this.state.courses).map(course => {
           const input = 
-          <React.Fragment key={course} >
-            <label htmlFor={course}>{this.state.courses[course]}:</label>
-            <input type="checkbox" id={course} defaultChecked="true" onChange={(event) => this.handleMenuSelection(course, event)} />&nbsp;
-          </React.Fragment>
+          <div className="menu__checkbox" key={course} >
+            <label className="container" key={course}>{this.state.courses[course]}
+                <input type="checkbox" id={course} defaultChecked="true"  onChange={(event) => this.handleMenuSelection(course, event)} />
+                <span className="checkmark"></span>
+            </label>
+          </div>
           return input;
         })
-      }
+    }
 
     createMenuSection () {
         return Object.keys(this.state.coursesSelected).sort().reverse().map(course => {
@@ -70,8 +72,14 @@ class MenuItems extends React.Component {
 
         const menuItems = this.state.loaded &&
         <React.Fragment>
-            {this.menuSelectionCheckboxes()}
-            {this.createMenuSection()}
+            <div className="menu__selection">
+                Browse our menu {this.menuSelectionCheckboxes()}
+            </div>
+            <main className="main">
+                <div className="menu__sections">
+                    {this.createMenuSection()}
+                </div>
+            </main>
         </React.Fragment>
 
         return (

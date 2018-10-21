@@ -17,6 +17,8 @@ class App extends React.Component {
     this.getPurchaseById = this.getPurchaseById.bind(this);
     this.getAllPurchases = this.getAllPurchases.bind(this);
     this.addSinglePurchase = this.addSinglePurchase.bind(this);
+    this.resetPurchaseId = this.resetPurchaseId.bind(this);
+    this.receiveFormInput = this.receiveFormInput.bind(this);
     this.togglePurchaseBasket = this.togglePurchaseBasket.bind(this);
 
 
@@ -108,7 +110,7 @@ class App extends React.Component {
   ///////////////////////////////////////////
 
   addSinglePurchase (event) {
-    //event.preventDefault();
+    event.preventDefault();
     fetch('/api/purchase', {
       method: 'post',
       body: JSON.stringify(this.state.currentPurchase),
@@ -116,10 +118,22 @@ class App extends React.Component {
     }
     ).then(response => response.json()
     ).then(orderId => {
-      this.setState({ purchaseIdFromSuccess: orderId})
+      this.setState({ purchaseIdFromSuccess: orderId })
       this.getAllPurchases();
     })
     .catch(error => res.json({ error: error.message }));
+  }
+
+  resetPurchaseId () {
+    this.setState({ 
+      purchaseIdFromSuccess: null,
+      currentPurchase: null
+    })
+  }
+
+  receiveFormInput (event) {
+    const currentPurchase = Object.assign({}, this.state.currentPurchase, {[event.target.name]: event.target.value})
+    this.setState({ currentPurchase })
   }
 
   // get all purchases
@@ -160,6 +174,10 @@ class App extends React.Component {
     // view basket (currentPurchase)
     const viewPurchase = this.state.currentPurchase && this.state.purchaseBasketVisible &&
     <ViewPurchase 
+      resetPurchaseId={this.resetPurchaseId}
+      purchaseIdFromSuccess={this.state.purchaseIdFromSuccess}
+      receiveFormInput={this.receiveFormInput}
+      addSinglePurchase={this.addSinglePurchase}
       currentPurchase={this.state.currentPurchase}
       getCurrency={this.getCurrency}
       menu={this.state.menu}
@@ -177,11 +195,9 @@ class App extends React.Component {
     return (
       <React.Fragment>
         { header }
-        <main className="main">
           {/* { viewPurchaseById } */}
           { viewPurchase }
           { menuItems }
-        </main>
       </React.Fragment>
     )
   }

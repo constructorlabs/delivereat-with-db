@@ -6,40 +6,84 @@ $mid-colour: #ff9e0d;
   font-size: 1.5rem;
   letter-spacing: 0.2rem;
   margin: 2.5rem 0 0.5rem 0;
+  &__selection {
+    padding: 1rem;
+    background-color: #fff;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+  &__sections {
+    // overflow-y: auto;
+  }
+  &__checkbox {
+    padding-left: 1rem;
+    &-choice {
+      background-color: #ab6600;
+    }
+  }
   &__item {
     padding: 0;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     background-color: #fff;
-    filter: drop-shadow(0 0 5px unquote('#ab660030'));
+    filter: drop-shadow(0 0 0.3rem unquote('#ab660030'));
     margin: 0 0 0.5rem 0;
-    & ul {
-      margin: 1rem 0 0 0;
-      width: 70%;
+    max-width: 24rem;
+    min-width: 18rem;
+    &-details {
+      margin: 1rem 1rem 1rem 0.5rem;
       display: flex;
       flex-direction: column;
       list-style: none;
     }
+    &-amount {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      & li {
+        min-width: 2rem;
+        text-align: center;
+      }
+      border: 0.05rem solid $mid-colour;
+      margin: 0 0 1rem 0;
+    }
     img {
       border: 0.25rem solid #fff;
       object-fit: cover;
-      height: 150px;
-      width: 150px;
-      min-height: 100px;
-      min-width: 100px;
+      height: 9rem;
+      width: 12rem;
+      min-height: 6rem;
+      min-width: 8rem;
       // max-width: 200px;
-      margin: 1rem;
+      margin: 1rem 0.5rem 1rem 1rem;
     }
     img[class] { 
-      height: 150px;
-      width: 150px;
-    } 
-    select {
-      margin-bottom: 0.7rem;
-      background-color: #fff;
-    }  
+      height: 9rem;
+      width: 12rem;
+    }
     button {
+      min-width: 2rem;
       font-size: 1rem;
     }  
   }
 }
+
+// .menu input[type='checkbox']{
+//   width: 30px !important;
+//   height: 30px !important;
+//   margin: 5px;
+//   -webkit-appearance: none;
+//   -moz-appearance: none;
+//   -o-appearance: none;
+//   appearance:none;
+//   outline: 2px solid lightblue;
+//   box-shadow: none;
+//   font-size: 2em;
+// }
+
+// .menu input[type="checkbox"] { 
+//   filter: invert(100%) hue-rotate(18deg) brightness(1.7);
+// }
