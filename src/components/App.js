@@ -141,7 +141,8 @@ class App extends React.Component {
                 toppings: []}
     }))
     : (this.setState({
-      display
+      display,
+      viewing: {}
     }))
   }
 

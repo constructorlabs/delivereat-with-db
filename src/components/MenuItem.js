@@ -17,7 +17,9 @@ handleAdd(event){
 
 handleMaximise(event){
   event.preventDefault()
-  this.props.changeDisplay('maximised', this.props.menuItem)
+  if (this.props.menuItem.type === 'Burgers'){
+    this.props.changeDisplay('maximised', this.props.menuItem)
+  }
 }
 
   render(){
@@ -30,7 +32,10 @@ handleMaximise(event){
       <div onClick={this.handleMaximise} className="transparent-gradient">
       <li style={backgroundStyle} className="menu-item"><h5 className="menu-item__name">{this.props.menuItem.name}</h5>
          <span className="menu-item__price-add"> <span className="menu-item__price">£{this.props.menuItem.price}    </span>
-          <a href="" onClick={this.handleAdd}><i className="fas fa-plus-circle plus-menu"></i></a>
+         {this.props.menuItem.type !== 'Burgers'
+          ? <a href="" onClick={this.handleAdd}><i className="fas fa-plus-circle plus-menu"></i></a>
+          : null
+        }
         </span>
       </li>
     </div>
