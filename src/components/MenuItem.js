@@ -12,7 +12,7 @@ class MenuItem extends React.Component{
 
 handleAdd(event){
   event.preventDefault()
-  this.props.addToOrder(this.props.menuItem, 1)
+  this.props.addToOrder(this.props.menuItem, [], 1)
 }
 
 handleMaximise(event){

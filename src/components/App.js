@@ -118,15 +118,15 @@ class App extends React.Component {
     })
   }
 
-  calculateItemTotal(){
-
-  }
 
   calculateTotal(){
     const total = Object.values(this.state.order).reduce((acc, item) => {
-      const toppingsPrice = item.toppings.reduce((acc, item) => {
-        return acc + (item.quantity * this.state.toppings[item.toppingId].price)
-      }, 0)
+      let toppingsPrice = 0
+      if (item.toppings.length){
+         toppingsPrice = item.toppings.reduce((acc, item) => {
+          return acc + (item.quantity * this.state.toppings[item.toppingId].price)
+        }, 0)
+    }
       return acc + (item.quantity * this.state.menu[item.id].price + toppingsPrice)
     }, 0)
      return total.toFixed(2)
