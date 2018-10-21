@@ -28,16 +28,13 @@ class Menu extends React.Component{
 
     return(
       <div className="menu">
-        {/* <div className="menu__restaurant">
-          <h2>Burger Bar</h2>
-        </div> */}
         <div>
 
           <div className="menu__category menu__popular">
             <h3 className="menu__category__header">Most Popular</h3>
             <div className="menu__items">
             {popular.map(item => {
-              return <MenuItem key={item.id} menuItem={item} addToOrder={this.props.addToOrder}/>
+              return <MenuItem key={item.id} menuItem={item} addToOrder={this.props.addToOrder} changeDisplay={this.props.changeDisplay}/>
             })}
           </div>
         </div>
@@ -48,7 +45,7 @@ class Menu extends React.Component{
               <h3 className="menu__category__header">{item}</h3>
               <div className="menu__items">
               {Object.values(catMenu[item].map(item => {
-                return <MenuItem key={item.id} menuItem={item} addToOrder={this.props.addToOrder} />
+                return <MenuItem key={item.id} menuItem={item} addToOrder={this.props.addToOrder} changeDisplay={this.props.changeDisplay}/>
               }))}
             </div>
             </div>)

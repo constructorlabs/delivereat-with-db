@@ -1,9 +1,11 @@
 import React from 'react';
 import Menu from './Menu.js'
+import MenuItem from './MenuItem.js'
 import Header from './Header.js'
 import SeeOrder from './SeeOrder.js'
 import OrderReview from './OrderReview.js'
 import OrderConfirmation from './OrderConfirmation.js'
+import MaximisedMenuItem from './MaximisedMenuItem.js'
 import '../styles/App.scss';
 
 class App extends React.Component {
@@ -24,7 +26,8 @@ class App extends React.Component {
       menu: {},
       order: {},
       placedOrder: {},
-      display: 'menu' ///'menu' or 'order' or 'confirmation'
+      viewing: {},
+      display: 'menu' ///'menu' or 'order' or 'confirmation' or 'maximised'
     }
 
 
@@ -118,10 +121,15 @@ class App extends React.Component {
 
   }
 
-  changeDisplay(display){
-    this.setState({
+  changeDisplay(display, menuItem = null){
+    display === 'maximised'
+    ? (this.setState({
+      display,
+      viewing: menuItem,
+    }))
+    : (this.setState({
       display
-    })
+    }))
   }
 
   render(){
@@ -129,7 +137,12 @@ class App extends React.Component {
       <div>
       <Header changeDisplay={this.changeDisplay} />
         {this.state.display === 'menu'
-          ? <Menu addToOrder={this.addToOrder} menu={this.state.menu} mostPopular={this.state.mostPopular}/>
+          ? <Menu addToOrder={this.addToOrder} menu={this.state.menu} mostPopular={this.state.mostPopular} changeDisplay={this.changeDisplay}/>
+          : null
+        }
+
+        {this.state.display === 'maximised'
+          ? <MaximisedMenuItem maximised={true} menuItem={this.state.viewing} />
           : null
         }
 
