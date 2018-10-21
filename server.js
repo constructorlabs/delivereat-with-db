@@ -50,7 +50,16 @@ app.post('/api/orders', (req, res) => {
     return Promise.all(orderKeys.map(item => {
       const menuId = order[item].id
       const quantity = order[item].quantity
-      return db.none('INSERT INTO order_map (menu_id, quantity, orders_id)VALUES($1, $2, $3)', [menuId, quantity, orderId])
+      const toppings = order[item].toppings
+      return db.one('INSERT INTO order_map (menu_id, quantity, orders_id)VALUES($1, $2, $3) RETURNING id', [menuId, quantity, orderId])
+      .then(orderMapResponse => {
+        return Promise.all(toppings.map((item) => {
+          const toppingId = item.toppingId
+          const toppingQuantity = item.quantity
+          const orderMapId = orderMapResponse.id
+          return db.none('INSERT INTO toppings_map (toppings_id, quantity, order_map_id) VALUES ($1, $2, $3)', [toppingId, toppingQuantity, orderMapId])
+        }))
+      })
     }))
       .then(() => orderId)
   })
