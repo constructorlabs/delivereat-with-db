@@ -17,10 +17,10 @@ class SeeOrder extends React.Component{
 
   render(){
     return(
-      <div className="footer">
+      <header className="footer">
         <span>Current Total: £{this.props.calculateTotal()}</span>
         <button onClick={this.handleSeeOrder} className="footer__see-order-btn">See Order</button>
-      </div>
+      </header>
     )
   }
 }

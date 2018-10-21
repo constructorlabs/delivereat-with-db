@@ -7,9 +7,14 @@ import "../styles/CustomiseBar.scss"
 class CustomiseBar extends React.Component{
   constructor(){
     super()
+
+    this.handleAddCustomOrder = this.handleAddCustomOrder.bind(this)
   }
 
-
+handleAddCustomOrder(){
+  event.preventDefault()
+  this.props.addToOrder(this.props.baseItem, this.props.viewing.toppings, 1)
+}
 
 
   render(){
@@ -17,9 +22,9 @@ class CustomiseBar extends React.Component{
       <footer>
         <h4>Customise your burger</h4>
         {Object.values(this.props.toppings).map(item => {
-          return <ToppingItem item={item}/>
+          return <ToppingItem key={item.id} baseItem={this.props.baseItem} item={item} addTopping={this.props.addTopping} />
         })}
-        <button>Add to order</button>
+        <button onClick={this.handleAddCustomOrder}>Add to order</button>
       </footer>
 
     )

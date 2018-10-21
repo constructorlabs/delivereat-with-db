@@ -19,6 +19,7 @@ class App extends React.Component {
     this.amendQuantity = this.amendQuantity.bind(this)
     this.removeFromOrder = this.removeFromOrder.bind(this)
     this.placeOrder = this.placeOrder.bind(this)
+    this.addTopping = this.addTopping.bind(this)
 
 
     this.state = {
@@ -83,12 +84,13 @@ class App extends React.Component {
   }
 
 
-  addToOrder(menuItem, quantity){
+  addToOrder(menuItem, toppings, quantity){
     if (!this.state.order[menuItem.id]){
       const orderItem = {
         [menuItem.id]: {
           id: menuItem.id,
-          quantity
+          quantity,
+          toppings
         }
       }
       this.setState({
@@ -116,11 +118,18 @@ class App extends React.Component {
     })
   }
 
+  calculateItemTotal(){
+
+  }
+
   calculateTotal(){
     const total = Object.values(this.state.order).reduce((acc, item) => {
-      return acc + (item.quantity * this.state.menu[item.id].price)
+      const toppingsPrice = item.toppings.reduce((acc, item) => {
+        return acc + (item.quantity * this.state.toppings[item.toppingId].price)
+      }, 0)
+      return acc + (item.quantity * this.state.menu[item.id].price + toppingsPrice)
     }, 0)
-    return total.toFixed(2)
+     return total.toFixed(2)
 
   }
 
@@ -128,24 +137,39 @@ class App extends React.Component {
     display === 'maximised'
     ? (this.setState({
       display,
-      viewing: menuItem,
+      viewing: {baseItem: menuItem,
+                toppings: []}
     }))
     : (this.setState({
       display
     }))
   }
 
+  addTopping(baseItem, toppingItem){
+    const itemWithToppings = {
+      baseItem: this.state.viewing.baseItem,
+      toppings: this.state.viewing.toppings.concat({toppingId: toppingItem.id, quantity: 1})
+    }
+    this.setState({
+      viewing: itemWithToppings
+    })
+  }
+
   render(){
     return (
       <div>
-      <Header changeDisplay={this.changeDisplay} />
+      {this.state.display !== 'maximised'
+        ? <Header changeDisplay={this.changeDisplay} />
+        : null
+      }
+
         {this.state.display === 'menu'
           ? <Menu addToOrder={this.addToOrder} menu={this.state.menu} mostPopular={this.state.mostPopular} changeDisplay={this.changeDisplay}/>
           : null
         }
 
         {this.state.display === 'maximised'
-          ? <MaximisedMenuItem maximised={true} menuItem={this.state.viewing} toppings={this.state.toppings} />
+          ? <MaximisedMenuItem maximised={true} menuItem={this.state.viewing} toppings={this.state.toppings} addTopping={this.addTopping} addToOrder={this.addToOrder}/>
           : null
         }
 
@@ -166,7 +190,7 @@ class App extends React.Component {
 
 
 
-        {Object.values(this.state.order).length && this.state.display === 'menu'
+        {Object.values(this.state.order).length && this.state.display === 'maximised'
           ? <SeeOrder changeDisplay={this.changeDisplay} calculateTotal={this.calculateTotal}/>
           : null
         }
