@@ -8,26 +8,6 @@ class BasketDisplay extends React.Component {
 
   }
 
-  // calculation() {
-  //   const costs = {
-  //     subTotal: 0,
-  //     deliveryFee: 0,
-  //     total: 0
-  //   };
-  //   if (this.props.basket.length !== 0) {
-  //     costs.subTotal = this.props.basket.reduce((acc, item) => {
-  //       return (acc += item.price * item.quantity);
-  //     }, 0);
-  //     costs.deliveryFee = costs.subTotal * 0.2;
-  //     costs.total = costs.subTotal + costs.deliveryFee;
-  //
-  //     return costs;
-  //   } else {
-  //     return costs;
-  //   }
-  //
-  //
-  // }
 
   render() {
     const { subTotal, deliveryFee, total } = this.props.costs;

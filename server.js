@@ -102,12 +102,23 @@ app.get("/order/:id", function(req, res) {
 
 app.get("/order", function(req, res) {
   db.any(
-    `select order_id, menu_id, menu.name, menu.price, menu.image_name, quantity
+    `select order_id, menu_id, menu.name, menu.price, quantity
           from menu, menu_order
           where menu.id = menu_order.menu_id`
   )
     .then(data => res.json(data))
     .catch(error => res.status(404).json({ error: error.message }));
+});
+
+app.delete("/order", function(req, res) {
+  db.none(`delete from menu_order`)
+    .then(() => {
+      db.none(`delete from "order"`).then(response =>
+        res.status(204).json({ order: `Order table is empty` })
+          .catch(error => res.status(400).json({ error: error.message }))
+      );
+    })
+    .catch(error => res.status(400).json({ error: error.message }));
 });
 
 app.listen(8080, function() {

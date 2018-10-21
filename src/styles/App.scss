@@ -17,10 +17,8 @@
     height: 35vh;
   }
 
-  .nav {
-    color: $button-color;
-
-    padding: $content-padding;
+  .order_history {
+    display: none;
   }
 }
 
@@ -31,4 +29,46 @@ background-size:auto;
     background-repeat: repeat;
   }
 
+}
+
+@media(min-width:960px) {
+  .wrapper{
+    display: grid;
+    grid-template-columns: 2fr 2fr 1fr;
+    grid-template-rows: auto;
+
+    grid-template-areas:
+      'h h h'
+      'o o o'
+     'm m a'
+     'm m a'
+     'm m a'
+     'm m a'
+     'm m a';
+  h1{
+
+    grid-area: h;
+    margin-bottom:  0;
+
+  }
+
+  .order_history {
+    display: flex;
+    grid-area: o;
+    color: white;
+    padding: $content-padding;
+    margin:0;
+  }
+  .menu{
+    grid-area: m;
+  }
+  .myBasket{
+
+      // display: grid;
+      // grid-template-columns: 1fr;
+
+      grid-area: a;
+  }
+
+}
 }

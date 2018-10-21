@@ -6,7 +6,11 @@ import React from "react";
 import Menu from "./Menu";
 import MyBasket from "./MyBasket";
 import User from "./User";
-
+import OrderHistory from "./OrderHistory";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
+library.add(faBars);
 import "../styles/App.scss";
 
 class App extends React.Component {
@@ -14,10 +18,11 @@ class App extends React.Component {
     super();
     this.state = {
       menu: [],
-      order: [],
+      orders: [],
       basket: [],
       userDetails:{},
-      displayUserForm: false
+      displayUserForm: false,
+      displayOrderHistory:false
     };
 
     this.receiveAddToBasket = this.receiveAddToBasket.bind(this);
@@ -26,6 +31,8 @@ class App extends React.Component {
     this.receiveMinusQuantity = this.receiveMinusQuantity.bind(this);
     this.receiveSubmit = this.receiveSubmit.bind(this);
     this.receiveUserDetails = this.receiveUserDetails.bind(this);
+    this.displayOrderHistory = this.displayOrderHistory.bind(this);
+    this.clearOrderHistory = this.clearOrderHistory.bind(this);
   }
 
   componentDidMount() {
@@ -145,17 +152,54 @@ class App extends React.Component {
   }
   }
 
+  displayOrderHistory(){
+    fetch("/order")
+      .then(response => response.json())
+      .then(body => {
+
+        this.setState({
+          orders: body,
+          displayOrderHistory:!this.state.displayOrderHistory
+        })
+      });
+  }
+
+  clearOrderHistory(){
+    fetch("/order", {
+      method: "delete"
+    })
+      .then(response => response.json())
+      .catch(error => {error: error.message})
+  }
+
+
+
   render() {
     return (
       <div className="wrapper">
+
         <h1>Food Heaven</h1>
+        <div className="order__history">
+          <p type="button" onClick={this.displayOrderHistory}>Order history</p>
+          <FontAwesomeIcon
+              className="icon"
+              icon="bars"
+              onClick={this.displayOrderHistory}
+            />
+          {this.state.displayOrderHistory ? (
+            <OrderHistory orders={this.state.orders} clearOrderHistory={this.clearOrderHistory}/>
+          ) : null}
+        </div>
+
         <Menu
+          className="menu"
           menu={this.state.menu}
           basket={this.state.basket}
           receiveAddToBasket={this.receiveAddToBasket}
           receiveRemoveFromBasket={this.receiveRemoveFromBasket}
         />
         <MyBasket
+          className="myBasket"
           basket={this.state.basket}
           receiveSubmit={this.receiveSubmit}
           receivePlusQuantity={this.receivePlusQuantity}

@@ -62,6 +62,8 @@ class MyBasket extends React.Component {
       },0)
 
 
+    }else{
+      return totalQuantity;
     }
   }
 
@@ -70,6 +72,7 @@ class MyBasket extends React.Component {
     const totalQuantity = this.quantity();
     return (
       <div className="myBasket">
+        <div className="basketItemsBottom">
         {this.state.showBasket ? (
           <p type="button" className="display" onClick={this.showBasket}>
             View basket
@@ -107,6 +110,37 @@ class MyBasket extends React.Component {
           </p>
             <p>Items: {totalQuantity}</p>
         </div>
+        </div>
+        <div className="basketItemsAside">
+          <div className="basketItems">
+          {this.props.basket
+            ? this.props.basket.map(item => {
+                return (
+                  <BasketItem
+                    key={item.id}
+                    id={item.id}
+                    name={item.name}
+                    quantity={item.quantity}
+                    price={item.price}
+                    receivePlusQuantity={this.props.receivePlusQuantity}
+                    receiveMinusQuantity={this.props.receiveMinusQuantity}
+                  />
+                );
+              })
+            : null}
+
+          <BasketDisplay basket={this.props.basket} costs={costs} />
+          </div>
+          <div className="checkout">
+            <p>Total: £{costs.total}</p>
+
+            <p type="button" onClick={this.handleSubmit}>
+              Checkout
+            </p>
+              <p>Items: {totalQuantity}</p>
+          </div>
+        </div>
+
       </div>
     );
   }

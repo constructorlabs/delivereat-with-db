@@ -4,3 +4,11 @@
   border-top: white solid 2px;
   padding:  0 $margin;
 }
+
+@media(min-width:960px) {
+  .calcs{
+    border-top: 0;
+  
+  }
+
+}
