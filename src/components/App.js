@@ -1,8 +1,10 @@
 import React from "react";
 import Menu from "./Menu";
 import Nav from "./Nav";
+import Oops from "./Oops";
 
 import "../styles/App.scss";
+// import { Route, Switch, BrowserRouter } from 'react-router-dom';
 
 class App extends React.Component {
   constructor() {
@@ -17,17 +19,27 @@ class App extends React.Component {
         email: "chrisphillers@gmail.com",
         phone: "07714205581"
       },
-      showBasket: false
+      showBasket: false,
+      basketStatus: false
     };
     this.fetchMenuItems = this.fetchMenuItems.bind(this);
     this.receiveOrder = this.receiveOrder.bind(this);
     this.closeBasket = this.closeBasket.bind(this);
     this.openBasket = this.openBasket.bind(this);
+    this.basketStatus = this.basketStatus.bind(this);
   }
+
+
+  
+ 
 
   componentDidMount() {
     this.fetchMenuItems();
    
+  }
+
+  basketStatus(){
+    this.setState({basketStatus: true});
   }
 
   openBasket(){
@@ -46,6 +58,8 @@ class App extends React.Component {
     console.log({ finalOrder });
     this.postOrder(finalOrder);
   }
+
+  
 
 
   fetchMenuItems() {
@@ -70,18 +84,29 @@ class App extends React.Component {
       })
       .then(data => {
         console.log(data);
+        alert("15 mins to Kale o'clock!")
         // handle response
       });
   }
 
   render() {
+    
+
+
     return (
       <div>
-        <Nav  openBasket={this.openBasket}/>
+        <Nav  
+        openBasket={this.openBasket} 
+        basketStatus={this.state.basketStatus} />
         <div className="main">
           <div className="header" />
         </div>
-        <Menu menu={this.state.menuItems} receiveOrder={this.receiveOrder} closeBasket={this.closeBasket} showBasket={this.state.showBasket} />
+        <Menu 
+        menu={this.state.menuItems} 
+        receiveOrder={this.receiveOrder} 
+        closeBasket={this.closeBasket} 
+        showBasket={this.state.showBasket} 
+        basketStatus={this.basketStatus} />
       </div>
     );
   }

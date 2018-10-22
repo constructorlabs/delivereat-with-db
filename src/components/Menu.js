@@ -14,12 +14,12 @@ class Menu extends React.Component {
     this.calculate = this.calculate.bind(this);
   }
 
+  
+
   basketReceiveAdd(id) {
+    this.props.basketStatus();
+
     const existingItem = this.state.basket.find(element => {
-      console.log(
-        "addtihs",
-        element.menuItemId === id ? element.menuItemId : "nope"
-      );
       return element.menuItemId === id;
     });
     if (existingItem) {
@@ -44,7 +44,7 @@ class Menu extends React.Component {
         () => console.log(this.state.basket)
       );
     }
-    this.calculate();
+    this.calculate()
   }
 
   basketReceiveRemove(id) {
@@ -74,6 +74,7 @@ class Menu extends React.Component {
       );
     }
     this.calculate();
+    
   }
 
 
@@ -99,7 +100,7 @@ class Menu extends React.Component {
             <div className="menuitems">
               <div className="menuitems__row">
                 <h2>{foodItem.name}</h2>
-                <div className="menuitem__order">
+                <div className="menuitems__order">
 
                   <button
                     className="orderbutton__plus"
@@ -108,11 +109,11 @@ class Menu extends React.Component {
                     +
                   </button>
                   {/* <h3>0</h3> */}
-                  <p>{counter}</p>
+                  <h3>{counter}</h3>
 
                   <button
                     className="orderbutton__minus"
-                    onClick={() => this.basketReceiveAdd(foodItem.id)}
+                    onClick={() => this.basketReceiveRemove(foodItem.id)}
                   >
                     -
                   </button>
@@ -127,33 +128,33 @@ class Menu extends React.Component {
       });
   }
 
-  // calculate() {
-  //   let delivery = 2.5;
-  //   let calc = this.state.basket.map(order => {
-  //     console.log("hi there", { order });
-  //     console.log(this.props.menu[order.menuItemId]);
-  //     // return parseInt(this.props.menu[order.menuItemId].price, 10 * order.quantity);
-  //     return this.props.menu[order.menuItemId].price * order.quantity;
-  //   });
-  //   let calcTotal = calc.reduce((total, amount) => total + amount);
-
-  //   //
-
-  //   console.log("calculate", calc, calcTotal);
-  // }
-  
   calculate() {
-    const menu = this.props.menu;
-    console.log(menu);
-    const calcTotal = this.state.basket
-      .map(
-        order =>
-          menu.find(menuItem => menuItem.id === order[0]).price * order[1]
-      )
-      .reduce((total, amount) => total + amount);
-    return calcTotal;
-    console.log(calcTotal);
+    let delivery = 2.5;
+    let calc = this.state.basket.map(order => {
+      console.log("hi there", { order });
+      console.log(this.props.menu[order.menuItemId]);
+      // return parseInt(this.props.menu[order.menuItemId].price, 10 * order.quantity);
+      return this.props.menu[order.menuItemId].price * order.quantity;
+    });
+    let calcTotal = calc.reduce((total, amount) => total + amount);
+
+    //
+
+    console.log("calculate", calc, calcTotal);
   }
+  
+  // calculate() {
+  //   const menu = this.props.menu;
+  //   console.log(menu);
+  //   const calcTotal = this.state.basket
+  //     .map(
+  //       order =>
+  //         menu.find(menuItem => menuItem.id === order[0]).price * order[1]
+  //     )
+  //     .reduce((total, amount) => total + amount);
+  //   return calcTotal;
+  //   console.log(calcTotal);
+  // }
 
   render() {
     return (
@@ -182,7 +183,7 @@ class Menu extends React.Component {
           calculate={this.calculate}
           closeBasket={this.props.closeBasket}
           showBasket={this.props.showBasket}
-         
+          basketStatus={this.basketStatus}
         />
       </div>
     );

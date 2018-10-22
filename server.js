@@ -31,6 +31,7 @@ app.get('/api/menu', function(req, res){
     })
 })
 
+
 app.post("/api/order",(req,res) => {
   const {items, name, email, address, postcode, phone} = req.body;
   db.one("INSERT INTO order_basket(cust_name, cust_address, email, postcode, phone) VALUES ($1, $2, $3, $4, $5) RETURNING id", [name, address, email, postcode, phone]).then(
@@ -50,7 +51,7 @@ app.post("/api/order",(req,res) => {
   )
   .then(orderId =>  {
     console.log('catch 3');
-    res.json({orderId: orderId, success: true, message: 'Listen out for the doorbell'})
+    res.json({orderId: orderId, success: true, message: 'Brace yourself for the Kale'})
   })
   .catch(error => {
     console.log(error);
@@ -58,7 +59,14 @@ app.post("/api/order",(req,res) => {
   });
 });
 
-
+app.use(function(req, res, next) {
+  return res.status(404).send({ message: `Route ${req.url} not found.` });
+});
+  // Handle 404
+//   app.use(function(req, res) {
+//     res.status(400);
+//    res.render('404.jade', {title: '404: File Not Found'});
+// });
 
 
 

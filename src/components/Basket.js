@@ -9,6 +9,8 @@ class Basket extends React.Component {
     this.state = { order: {}};
   }
 
+  
+
   render() {
     console.log(this.props.basket);
 
