@@ -221,9 +221,9 @@ class App extends React.Component {
     return (
       <React.Fragment>
         { header }
-          { viewPurchaseById }
-          { viewPurchase }
-          { menuItems }
+        { viewPurchaseById }
+        { viewPurchase }
+        { menuItems }
       </React.Fragment>
     )
   }

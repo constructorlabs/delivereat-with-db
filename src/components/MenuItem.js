@@ -18,8 +18,7 @@ class MenuItem extends React.Component {
         event.preventDefault();
         const keepPositive = n => (n < 0 ? 0 : n);
         this.setState({
-            quantity: keepPositive(this.state.quantity + amount),
-            clicked: true
+            quantity: keepPositive(this.state.quantity + amount)
         })
     }
 

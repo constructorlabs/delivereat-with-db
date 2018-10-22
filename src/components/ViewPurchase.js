@@ -1,24 +1,6 @@
 import React from 'react';
 import '../styles/ViewPurchase.scss';
 
-// const sendSMS = (customerId, content) => {
-//     const accountSid = process.env.twilio_accountSid;
-//     const authToken = process.env.twilio_authToken;
-//     const client = require('twilio')(accountSid, authToken);
-//     console.log('sendSMS')
-//       db.one('SELECT * FROM customer WHERE id = $1', [customerId])
-//         .then(function(data){
-//           client.messages
-//           .create({
-//             body: content,
-//             from: process.env.twilio_number,
-//             to: data.telephone
-//           })
-//           .then(message => console.log(message.sid))
-//           .done();
-//         })
-//     }
-
 function ViewPurchase ({ resetPurchaseId, purchaseIdFromSuccess, receiveFormInput, addSinglePurchase, currentPurchase, getCurrency, menu }) {
     
     function getButtonClass() {
