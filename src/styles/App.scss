@@ -1,3 +1,84 @@
-body {
-  background-color: Cornsilk;
+@import "parameters";
+
+.wrapper {
+  background-image: url( "/static/cover.jpg");
+  background-repeat: no-repeat;
+  background-size:contain;
+  background-position: top;
+  display: flex;
+  flex-flow: column wrap;
+  font-family: "Open Sans", sans-serif;
+
+
+  h1 {
+    color: $header-font-color;
+    display: flex;
+    justify-content: center;
+    height: 35vh;
+  }
+
+  .history {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .wrapper{
+    background-image: url( "/static/environment2.jpg");
+background-size:auto;
+    background-repeat: repeat;
+  }
+
+}
+
+@media(min-width:960px) {
+  .wrapper{
+    display: grid;
+    grid-template-columns: 2fr 2fr 1fr;
+    grid-template-rows: auto;
+
+    grid-template-areas:
+      'h h h'
+      'o o o'
+     'm m a'
+     'm m a'
+     'm m a'
+     'm m a'
+     'm m a';
+  h1{
+    grid-area: h;
+    margin-bottom:  0;
+
+  }
+
+  .history {
+    display: grid;
+
+    grid-area: o;
+    color: white;
+    padding: $content-padding;
+    padding-bottom: 7px;
+    margin:0;
+
+    .icon{
+      padding: $content-padding;
+    }
+
+    p{
+      margin: 0;
+      padding: $content-padding;
+    }
+  }
+  .menu{
+    grid-area: m;
+  }
+  .myBasket{
+
+      // display: grid;
+      // grid-template-columns: 1fr;
+
+      grid-area: a;
+  }
+
+}
 }

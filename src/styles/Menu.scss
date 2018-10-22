@@ -1,0 +1,28 @@
+@import 'parameters';
+
+.menu{
+  display: grid;
+  grid-gap: $card-gap;
+  background-color: $background-color;
+
+  position: relative;
+
+  bottom:68px;
+
+}
+
+@media(min-width:768px){
+  .menu{
+
+    display: grid;
+    grid-template-columns: repeat(2,auto);
+  }
+
+}
+
+@media(min-width:960px) {
+  .menu{
+    top:0;
+    bottom: auto;
+  }
+}

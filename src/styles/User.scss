@@ -1,0 +1,7 @@
+@import "parameters";
+
+.button{
+  @extend %button;
+
+  padding:$content-padding; 
+}
