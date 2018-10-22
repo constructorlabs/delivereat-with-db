@@ -101,7 +101,7 @@ class App extends React.Component {
   getPurchaseById (event) { // fetch from /api/purchase/$id
     event.preventDefault();
     const id = this.state.purchaseId;
-    if (!id.length || id === "0") return;
+    if (!id.length || id === "0" || isNaN(id)) return;
     fetch(`/api/purchase/${id}`)
     .then(response => response.json())
     .then(purchase => {

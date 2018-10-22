@@ -49,6 +49,12 @@ $mid-colour: #ff9e0d;
       }
       border: 0.05rem solid $mid-colour;
       margin: 0 0 1rem 0;
+      input {
+        width: 4.5rem;
+        height: 1.8rem;
+        text-align: center;
+        border: 0;
+      }
     }
     img {
       border: 0.25rem solid #fff;
@@ -70,20 +76,3 @@ $mid-colour: #ff9e0d;
     }  
   }
 }
-
-// .menu input[type='checkbox']{
-//   width: 30px !important;
-//   height: 30px !important;
-//   margin: 5px;
-//   -webkit-appearance: none;
-//   -moz-appearance: none;
-//   -o-appearance: none;
-//   appearance:none;
-//   outline: 2px solid lightblue;
-//   box-shadow: none;
-//   font-size: 2em;
-// }
-
-// .menu input[type="checkbox"] { 
-//   filter: invert(100%) hue-rotate(18deg) brightness(1.7);
-// }

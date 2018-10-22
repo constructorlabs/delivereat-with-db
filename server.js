@@ -115,7 +115,7 @@ app.post('/api/purchase', (req, res) =>{
       .then(() => orderId); // orderId is return when Promise.all is complete
     })
   .then(orderId => {
-    // sendSMS() here
+    sendSMS(orderId, name, telephone);
     return res.json({ orderId, name, telephone })
   })
   .catch(error => res.json({ error: error.message }));
@@ -136,18 +136,16 @@ app.get('/api/purchase/:id', function(req, res){
     });
 });
 
-function sendSMS(orderId, customerTel) {
-  // https://www.twilio.com/docs/libraries/node
-
-  var accountSid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'; // Your Account SID from www.twilio.com/console
-  var authToken = 'your_auth_token';   // Your Auth Token from www.twilio.com/console
-
-  var twilio = require('twilio');
-  var client = new twilio(accountSid, authToken);
-
+// https://www.twilio.com/docs/libraries/node
+function sendSMS(orderId, customerName, customerTel) {
+  const accountSid = process.env.TWILIO_SID_LIVE // Your Account SID from www.twilio.com/console
+  const authToken = process.env.TWILIO_AUTH_LIVE; // Your Auth Token from www.twilio.com/console
+  const twilio = require('twilio');
+  const client = new twilio(accountSid, authToken);
+  const baseUrl = 'www.heroku.com';
   client.messages.create({
-      body: `Thank you. Your ID is ${orderId}`,
-      to: customerTel,  // Text this number
+      body: `Dear ${customerName}, thank you for your order. Your ID is ${orderId}. To view your order details, please visit ${baseUrl}/?viewPurchaseId=${orderId}`,
+      to: customerTel, // Text this number
       from: '+447446494074' // From a valid Twilio number
   })
   .then((message) => console.log(message.sid));

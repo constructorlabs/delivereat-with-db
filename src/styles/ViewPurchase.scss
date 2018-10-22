@@ -49,9 +49,9 @@ $mid-colour: #ff9e0d;
     }
     &__id {
         button {
-            width: 11.5rem;
-            min-width: 5.5rem;
-            max-width: 11.5rem;
+            width: 11rem;
+            min-width: 5rem;
+            max-width: 11rem;
             margin-bottom: 1em;
             &.cancel {
                 margin-right: 0.5rem;
@@ -59,6 +59,6 @@ $mid-colour: #ff9e0d;
             &.details {
                 margin-left: 0.5rem;
             }
-        }
+        } 
     }
 }
