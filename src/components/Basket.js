@@ -38,13 +38,15 @@ function Basket({ menu, currentOrder, sendOrderToApi}) {
         <ul className="customerOrder__order menu--settings">
           {ordersRendered}
           <li><em>&pound;10&#43; qualifies for free delivery</em></li>
-          <li>{deliveryText} &pound;{(deliveryCharge).toFixed(2)}</li>
-          <li><strong>Order Total: &pound;{(deliveryCharge + totalPrice).toFixed(2)}</strong></li>
-          <li>
-          <button className="customerOrder__submit" onClick={sendOrderToApi} type="submit">Place order</button>
+          <li className="customerOrder__delivery">{deliveryText} &pound;{(deliveryCharge).toFixed(2)}</li>
+          <li className="customerOrder__total"><strong>Order Total: &pound;{(deliveryCharge + totalPrice).toFixed(2)}</strong></li>
+          <li className="customerOrder__phone">
+            <input className='customerOrder__input' type='text' placeholder='Enter your phone number'></input>
           </li>
+          <li><button className="customerOrder__submit" onClick={sendOrderToApi} type="submit">Place order</button></li>
         </ul>
         )
   }
 export default Basket;
 
+// onChange={(event)=>getPhoneNumber(event.target.value)}

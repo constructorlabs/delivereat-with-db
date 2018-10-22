@@ -9,6 +9,16 @@
         color: $background-color; 
         margin-top: 0;
     }
+    &__phone {
+        color: $background-color; 
+        margin: $main-padding * 1.5 0 $main-padding;
+        input {
+            width: 80%;
+            border: none;
+            padding: $main-padding * 0.8;
+            background-color: lighten($primary-color, 40% );
+        }
+    }
 
     &__submit {
         color:  $text-color;
