@@ -74,7 +74,7 @@ class MenuItems extends React.Component {
         const menuItems = this.state.loaded &&
         <React.Fragment>
             <div className="menu__selection">
-                Browse our menu {this.menuSelectionCheckboxes()}
+                {this.menuSelectionCheckboxes()}
             </div>
             <main className="main">
                 <div className="menu__sections">

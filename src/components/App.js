@@ -4,6 +4,7 @@ import MenuItems from './MenuItems';
 import ViewPurchase from './ViewPurchase';
 import ViewPurchaseById from './ViewPurchaseById'; 
 import '../styles/App.scss';
+import '../styles/Tooltip.scss';
 
 class App extends React.Component {
   constructor(){
@@ -15,6 +16,7 @@ class App extends React.Component {
     this.receiveCurrentPurchase = this.receiveCurrentPurchase.bind(this);
     this.handlePurchaseId = this.handlePurchaseId.bind(this);
     this.getPurchaseById = this.getPurchaseById.bind(this);
+    this.getAllMenuPurchases = this.getAllMenuPurchases.bind(this);
     this.getAllPurchases = this.getAllPurchases.bind(this);
     this.addSinglePurchase = this.addSinglePurchase.bind(this);
     this.resetPurchaseId = this.resetPurchaseId.bind(this);
@@ -24,7 +26,7 @@ class App extends React.Component {
 
     this.state = { 
       menu: null,
-      purchases: {},
+      menuPurchases: {},
       purchaseIdForGet: null,
       purchaseIdFromSuccess: null,
       displayPurchaseById: null,
@@ -46,8 +48,8 @@ class App extends React.Component {
  
   componentDidMount () {
     this.getAllMenuItems();
+    this.getAllMenuPurchases();
     this.getAllPurchases();
-    // this.addSinglePurchase();
   }
 
   // utilities
@@ -90,15 +92,16 @@ class App extends React.Component {
  
   handlePurchaseId (e) { // update purchaseId
     if (typeof e === 'string') {
-      this.setState({ purchaseId: e })
+      this.setState({ purchaseId: e });
     } else {
-      this.setState({ purchaseId: e.target.value })
+      this.setState({ purchaseId: e.target.value });
     }
   }
 
   getPurchaseById (event) { // fetch from /api/purchase/$id
     event.preventDefault();
     const id = this.state.purchaseId;
+    if (!id.length || id === "0") return;
     fetch(`/api/purchase/${id}`)
     .then(response => response.json())
     .then(purchase => {
@@ -116,6 +119,7 @@ class App extends React.Component {
 
   addSinglePurchase (event) {
     event.preventDefault();
+    if (!this.state.currentPurchase.name || !this.state.currentPurchase.telephone) return;
     fetch('/api/purchase', {
       method: 'post',
       body: JSON.stringify(this.state.currentPurchase),
@@ -124,6 +128,7 @@ class App extends React.Component {
     ).then(response => response.json()
     ).then(orderId => {
       this.setState({ purchaseIdFromSuccess: orderId })
+      this.getAllMenuPurchases();
       this.getAllPurchases();
     })
     .catch(error => res.json({ error: error.message }));
@@ -141,6 +146,18 @@ class App extends React.Component {
     this.setState({ currentPurchase })
   }
 
+  // get all menu_purchases
+  ///////////////////////////////////////////
+ 
+  getAllMenuPurchases () {
+    fetch(`/api/menu_purchases`)
+    .then(response => response.json())
+    .then(menuPurchases => {
+      this.setState({ menuPurchases })
+    })
+    .catch(error => res.json({ error: error.message }));
+  }  
+  
   // get all purchases
   ///////////////////////////////////////////
  
@@ -171,6 +188,7 @@ class App extends React.Component {
     // customer views their purchase
     const viewPurchaseById = this.state.viewPurchaseId &&
     <ViewPurchaseById 
+      purchases={this.state.purchases}
       viewPurchaseId={this.state.viewPurchaseId}
       getPurchaseById={this.getPurchaseById}
       handlePurchaseId={this.handlePurchaseId}

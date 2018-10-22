@@ -70,9 +70,24 @@ app.get('/api/menu', function(req, res){
     });
 });
 
-// get all purchases from menu_purchase table
-app.get('/api/purchases', function(req, res){
+// get all menu purchases from menu_purchase table
+app.get('/api/menu_purchases', function(req, res){
   db.any('SELECT * FROM menu_purchase')
+    .then(menuPurchases => {
+      const purchasesObject = menuPurchases.reduce((acc, item) => {
+          acc[item.id] = item
+          return acc;
+        }, {})
+      return res.json(purchasesObject);
+    })
+    .catch(function(error) {
+        res.json({error: error.message});
+    });
+});
+
+// get all purchases from purchase table
+app.get('/api/purchases', function(req, res){
+  db.any('SELECT * FROM purchase')
     .then(purchases => {
       const purchasesObject = purchases.reduce((acc, item) => {
           acc[item.id] = item
@@ -101,7 +116,7 @@ app.post('/api/purchase', (req, res) =>{
     })
   .then(orderId => {
     // sendSMS() here
-    return res.json({ orderId: orderId })
+    return res.json({ orderId, name, telephone })
   })
   .catch(error => res.json({ error: error.message }));
 });

@@ -20,6 +20,12 @@ import '../styles/ViewPurchase.scss';
 //     }
 
 function ViewPurchase ({ resetPurchaseId, purchaseIdFromSuccess, receiveFormInput, addSinglePurchase, currentPurchase, getCurrency, menu }) {
+    
+    function getButtonClass() {
+        const className = currentPurchase.name && currentPurchase.telephone ? "" : "inactive";
+        return className;
+    }
+
     const purchaseItems = Object.values(currentPurchase.items) || null;
     let total = 0;
     const deliveryCharge = 3;
@@ -32,7 +38,12 @@ function ViewPurchase ({ resetPurchaseId, purchaseIdFromSuccess, receiveFormInpu
                 return (
                     <li key={obj.id}>
                         {obj.quantity} x {menu[obj.id].item} @ {getCurrency(price)} = {getCurrency(Number(obj.quantity * price))}
-                        <i className="fas fa-1x fa-image fa-icon-style"></i>
+                        <div className="tooltip">
+                            <i className="fas fa-1x fa-image fa-icon-style"></i>
+                            <div className="tooltip-content">
+                                <img src={`../static/images/${menu[obj.id].img}`} />
+                            </div>
+                        </div>
                     </li>
                 );
             })}
@@ -47,7 +58,7 @@ function ViewPurchase ({ resetPurchaseId, purchaseIdFromSuccess, receiveFormInpu
             <ul>
                 <li><input type="text" name="name" onChange={receiveFormInput} placeholder="Name" /></li>
                 <li><input type="text" name="telephone" onChange={receiveFormInput} placeholder="Telephone" /></li>
-                <li><button onClick={addSinglePurchase}>PLACE YOUR ORDER</button></li>
+                <li><button className={getButtonClass()} onClick={addSinglePurchase}>PLACE YOUR ORDER</button></li>
             </ul>
         </section>
     </div>) : 'Your basket is empty';
@@ -67,7 +78,7 @@ function ViewPurchase ({ resetPurchaseId, purchaseIdFromSuccess, receiveFormInpu
             <ul>
                 <li>Success! your order ID is {purchaseIdFromSuccess.orderId}. 
                 Please keep a record of it.</li>
-                <li><a href={`/?viewPurchaseId=${purchaseIdFromSuccess.orderId}`}>See a summary of your order</a></li>
+                <li><a href={`/?viewPurchaseId=${purchaseIdFromSuccess.orderId}`}>See a summary of your order &raquo;</a></li>
                 <li>&nbsp;</li>
                 <li><button onClick={resetPurchaseId}>OK</button></li>
             </ul>
@@ -76,10 +87,6 @@ function ViewPurchase ({ resetPurchaseId, purchaseIdFromSuccess, receiveFormInpu
 
     return (
         <div className="purchase fadein">
-            {/* <header className="purchase__header">
-                <h2>Your Basket<i className="fas fa-1x fa-shopping-basket"></i></h2>
-            </header>
-            {displayPurchaseItems} */}
             {state}
         </div>
     )
