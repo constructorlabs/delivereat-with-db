@@ -3,7 +3,7 @@ import Splash from './Splash';
 import Menu from './Menu';
 import Basket from './Basket';
 import Checkout from './Checkout';
-import { CSSTransitionGroup } from 'react-transition-group';
+import {CSSTransitionGroup} from 'react-transition-group';
 import '../styles/App.scss';
 
 class App extends React.Component {
@@ -119,40 +119,60 @@ class App extends React.Component {
 
     return (
       <div className='app'>
-        {(stage === 'splash') && 
-        <Splash 
-          changeStage={this.changeStage}/>}
-        {(stage === 'menu' || stage === 'basket') &&
-        <div className='main'>
-          <div className='header'>
-            <p className='header__logo'>Zing</p>
-          </div>
-          <div className='content'>
-            {(this.state.menu) && 
-            <Menu 
-              stage={stage} 
-              order={this.state.order} 
-              menu={this.state.menu} 
-              addToOrder={this.addToOrder} 
-              removeFromOrder={this.removeFromOrder}/>}
-            {(!!this.state.order.items.length) && 
-            <Basket 
-              total={total}
-              stage={stage}
-              menu={this.state.menu} 
-              changeStage={this.changeStage} 
-              order={this.state.order} 
-              addToOrder={this.addToOrder} 
-              removeFromOrder={this.removeFromOrder} 
-              checkout={this.checkout}
-              getInput={this.getInput}
-              readyToCheckout={this.state.readyToCheckout}/>}
-          </div>
-        </div>}
-        {(stage === 'checkout') && 
-        <Checkout 
-          orderId={this.state.order.id}
-          changeStage={this.changeStage}/>}
+        <CSSTransitionGroup
+          transitionName='splash-transition'
+          transitionEnterTimeout={300}
+          transitionLeaveTimeout={300}>
+          {(stage === 'splash') &&
+            <Splash 
+              changeStage={this.changeStage}/>}
+        </CSSTransitionGroup>
+        <CSSTransitionGroup
+          transitionName='menu-transition'
+          transitionEnterTimeout={300}
+          transitionLeaveTimeout={300}>
+          {(stage === 'menu' || stage === 'basket') &&
+          <div className='main'>
+            <div className='header'>
+              <p className='header__logo'>Zing</p>
+            </div>
+            <div className='content'>
+              {(this.state.menu) && 
+              <Menu 
+                stage={stage} 
+                order={this.state.order} 
+                menu={this.state.menu} 
+                addToOrder={this.addToOrder} 
+                removeFromOrder={this.removeFromOrder}/>}
+              <CSSTransitionGroup
+                transitionName='basket-transition'
+                transitionEnterTimeout={200}
+                transitionLeaveTimeout={200}>
+                {(!!this.state.order.items.length) && 
+                <Basket 
+                  total={total}
+                  stage={stage}
+                  menu={this.state.menu} 
+                  changeStage={this.changeStage} 
+                  order={this.state.order} 
+                  addToOrder={this.addToOrder} 
+                  removeFromOrder={this.removeFromOrder} 
+                  checkout={this.checkout}
+                  getInput={this.getInput}
+                  readyToCheckout={this.state.readyToCheckout}/>}
+              </CSSTransitionGroup>
+            </div>
+          </div>}
+        </CSSTransitionGroup>
+        <CSSTransitionGroup
+          transitionName='checkout-transition'
+          transitionEnterTimeout={300}
+          transitionLeaveTimeout={300}>
+          {(stage === 'checkout') && 
+          <Checkout 
+            orderId={this.state.order.id}
+            changeStage={this.changeStage}/>}
+        </CSSTransitionGroup>
       </div>
     );
   }
