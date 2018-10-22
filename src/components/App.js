@@ -15,9 +15,9 @@ class App extends React.Component {
       currentOrder: null,
       order: {}
     }
+    this.fetchMenu = this.fetchMenu.bind(this)
     this.receiveItemOrder = this.receiveItemOrder.bind(this)
     this.removeItemFromOrder = this.removeItemFromOrder.bind(this)
-    this.fetchMenu = this.fetchMenu.bind(this)
     this.sendOrderToApi = this.sendOrderToApi.bind(this)
     this.fetchOrders = this.fetchOrders.bind(this)
   }
@@ -58,6 +58,7 @@ class App extends React.Component {
     
    this.setState({currentOrder: updatedOrderObj});
   }  
+
  
   /* -- SUBMIT AN ORDER - */
 
@@ -71,11 +72,13 @@ class App extends React.Component {
     })
       .then(response => response.json())
       .then(order => {
+        this.setState({currentOrder: null});
         alert(`We are making stuff for you! Your order ID is ${order.orderId}`)
       });
   }
 
   /* -- FETCH ALL ORDERS - */
+
   fetchOrders() {
     const api = "/api/order/"
     fetch(api)
@@ -86,7 +89,6 @@ class App extends React.Component {
   }
 
   render(){
-    // destructuring assignment to this.state
     const {menu, order, currentOrder} = this.state
 
     /* -- MENU COMPONENT - */
@@ -94,29 +96,30 @@ class App extends React.Component {
 
     const menuComponent =
     <Menu 
-    menu={this.state.menu}
-    receiveItemOrder={this.receiveItemOrder} 
-    removeItemFromOrder={this.removeItemFromOrder} 
+      menu={menu}
+      receiveItemOrder={this.receiveItemOrder} 
+      removeItemFromOrder={this.removeItemFromOrder} 
     />
 
     /* -- BASKET COMPONENT - */
-    const currentOrderHasFood = currentOrder && Object.values(currentOrder).find(item => typeof item === "object");
+    const currentOrderHasItems = currentOrder && Object.values(currentOrder).find(item => typeof item === "object");
 
     const currentOrderComponent =
-      <Basket 
+    <Basket 
       menu={menu}
       currentOrder={currentOrder}
       sendOrderToApi={this.sendOrderToApi}
-      />
+      clearBasket={this.clearBasket}
+    />
     
     /* -- ORDER ADMIN COMPONENT - */
     const ordersExist = Object.values(menu).find(item => typeof item === "object"); 
     
     const orderAdminComponent = 
-      <OrderAdmin 
-        order={order}
-        menu={menu}
-      />
+    <OrderAdmin 
+      order={order}
+      menu={menu}
+    />
   
     return (
       <div className="app container">
@@ -133,7 +136,7 @@ class App extends React.Component {
 
           <section className="customerOrder">
             <h2 className="customerOrder__title">Your Basket</h2>
-            { currentOrderHasFood ? currentOrderComponent : <p>Your basket is empty</p>}
+            { currentOrderHasItems ? currentOrderComponent : <p>Your basket is empty</p>}
           </section>
 
           { ordersExist ? orderAdminComponent : <p>No Orders</p>}

@@ -2,7 +2,7 @@ import React from 'react';
 import BasketItem from './BasketItem';
 import '../styles/components/basket.scss';
 
-function Basket({ menu, currentOrder, sendOrderToApi }) {
+function Basket({ menu, currentOrder, sendOrderToApi}) {
   
   const orderItems = [];
   const orderValues = Object.values(currentOrder);
