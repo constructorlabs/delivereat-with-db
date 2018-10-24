@@ -1,0 +1,15 @@
+@import '../base/_variables.scss';
+.admin__menu li {
+    padding: $main-padding * 0.5;
+    background-color: lighten($background-color, 20% )
+}
+
+@for $i from 1 through 100 {
+    @if $i % 2 == 0 { 
+        li[class="#{$i}"] {
+            background-color: lighten($background-color, 10% )
+        }
+    }
+}
+
+
