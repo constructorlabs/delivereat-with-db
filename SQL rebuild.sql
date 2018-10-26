@@ -7,6 +7,7 @@ price numeric (4,2) default 0 NOT NULL,
 quantity numeric (5) default 0 NOT NULL,
 type TEXT NOT NULL,
 image TEXT,
+header TEXT,
 description TEXT,
 more_info TEXT,
 PRIMARY KEY (id)
@@ -58,19 +59,14 @@ INSERT INTO menu VALUES (12, 'ORANGE JUICE', 3, 100, 'drinks', 'https://media.bl
 INSERT INTO menu VALUES (13, 'APPLE JUICE', 3, 100, 'drinks', 'https://media.blueapron.com/recipes/2121/square_newsletter_images/1490637106-4-0003-6001/403_2PRE07-steak-frites-18311_WEB_SQ_hi_res.jpg');
 INSERT INTO menu VALUES (14, 'CLEANSE', 3, 100, 'drinks', 'https://media.blueapron.com/recipes/2121/square_newsletter_images/1490637106-4-0003-6001/403_2PRE07-steak-frites-18311_WEB_SQ_hi_res.jpg', 'carrot, lemon and ginger');
 INSERT INTO menu VALUES (15, 'FUEL', 3, 100, 'drinks', 'https://media.blueapron.com/recipes/2121/square_newsletter_images/1490637106-4-0003-6001/403_2PRE07-steak-frites-18311_WEB_SQ_hi_res.jpg', 'beetroot, apple and celery');
-INSERT INTO menu VALUES (16, 'BLONDIE', 3.5, 100, 'dessert', 'https://media.blueapron.com/recipes/2121/square_newsletter_images/1490637106-4-0003-6001/403_2PRE07-steak-frites-18311_WEB_SQ_hi_res.jpg', 'Matcha and White Chocolate' );
-INSERT INTO menu VALUES (16, 'BROWNIE', 3.5, 100, 'dessert', 'https://media.blueapron.com/recipes/2121/square_newsletter_images/1490637106-4-0003-6001/403_2PRE07-steak-frites-18311_WEB_SQ_hi_res.jpg');
+INSERT INTO menu VALUES (17, 'BLONDIE', 3.5, 100, 'dessert', 'https://media.blueapron.com/recipes/2121/square_newsletter_images/1490637106-4-0003-6001/403_2PRE07-steak-frites-18311_WEB_SQ_hi_res.jpg', 'Matcha and White Chocolate' );
+INSERT INTO menu VALUES (18, 'BROWNIE', 3.5, 100, 'dessert', 'https://media.blueapron.com/recipes/2121/square_newsletter_images/1490637106-4-0003-6001/403_2PRE07-steak-frites-18311_WEB_SQ_hi_res.jpg');
 
+ALTER SEQUENCE menu_id_seq RESTART WITH 19 INCREMENT BY 1;
 
-
-
-
-
-ALTER SEQUENCE menu_id_seq RESTART WITH 5 INCREMENT BY 1;
-
-INSERT INTO order_basket VALUES (1, '2011-05-16 15:36:38');
-INSERT INTO order_basket VALUES (2, '2011-05-16 15:36:38');
-INSERT INTO order_basket VALUES (3, '2011-05-16 15:36:38');
+INSERT INTO order_basket VALUES (1, '2011-05-16 15:36:38', 'Chris P','15 Dekker','E8 3FS', '07714205581');
+INSERT INTO order_basket VALUES (2, '2011-05-16 15:36:38','Chris P','15 Dekker','E8 3FS', '07714205581');
+INSERT INTO order_basket VALUES (3, '2011-05-16 15:36:38','Chris P','15 Dekker','E8 3FS', '07714205581');
 ALTER SEQUENCE order_basket_id_seq RESTART WITH 4 INCREMENT BY 1;
 
 INSERT INTO anorder VALUES (1, 2, 1, 1);
@@ -78,6 +74,9 @@ INSERT INTO anorder VALUES (2, 4, 3, 1);
 INSERT INTO anorder VALUES (3, 3, 2, 2);
 INSERT INTO anorder VALUES (4, 1, 2, 3);
 ALTER SEQUENCE anorder_id_seq RESTART WITH 5 INCREMENT BY 1;
+
+
+
 
 
 

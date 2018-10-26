@@ -7,8 +7,13 @@
     "test": "jest",
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
-    "start": "node server.js"
+    "start": "node server.js",
+    "heroku-postbuild": "npm run build"
   },
+  "engines":{
+    "node":"10.10.0",
+    "npm":"6.4.1"
+ },
   "author": "",
   "license": "ISC",
   "babel": {

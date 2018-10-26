@@ -5,7 +5,7 @@ const pgp = require('pg-promise')();
 const express = require('express');
 const app = express();
 const db = pgp({
-    host: 'localhost',
+    host: process.env.DB_HOST || "localhost",
     port: 5432,
     database: process.env.DB_NAME,
     user: process.env.DB_USERNAME,
@@ -70,6 +70,6 @@ app.use(function(req, res, next) {
 
 
 
-app.listen(8080, function(){
+app.listen(process.env.PORT||8080, function(){
   console.log('Listening on port 8080');
 });
