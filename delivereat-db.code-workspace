@@ -1,0 +1,16 @@
+{
+  "folders": [
+    {
+      "path": "."
+    },
+    {
+      "path": "B:\\MacDocs\\delivereat"
+    },
+    {
+      "path": "B:\\MacDocs\\react-cinema"
+    }
+  ],
+  "settings": {
+    "liveServer.settings.multiRootWorkspaceName": "delivereat-with-db"
+  }
+}
