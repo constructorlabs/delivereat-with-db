@@ -59,7 +59,7 @@ Food delivery apps are everywhere - but what if you wanted your artisanal coffee
 
 - SMS notifications: Successful checkout will be confirmed by an SMS with the order ID
 
-- Design: Fade in-out transitions and conditional rendering of basket summary
+- Design: Fade in-out transitions, parallax, conditional rendering of basket summary
 
 ## Questions / Comments?
 
