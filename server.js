@@ -2,14 +2,11 @@
 require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
-const Telegraf = require('telegraf');
 const twilioClient = require('twilio')(process.env.TWILIO_SID, process.env.TWILIO_AUTH_TOKEN);
 const pgp = require('pg-promise')();
 
 const app = express();
 app.use(bodyParser.json());
-const bot = new Telegraf(process.env.BOT_TOKEN);
-bot.startPolling();
 const db = pgp({
   host: 'localhost',
   port: 5432,
@@ -65,10 +62,9 @@ app.post('/api/order', (req, res) => {
     })
     .then((data) => {
       const checkoutMsg = `
-        Thank you for placing an order with Zing. Your order number is ${data}. 
+        Thank you for placing an order with Zing. Your order number is ${data}.
         One of our surprisingly attractive baristas is preparing your coffee now.
         `;
-      bot.telegram.sendMessage(process.env.CHAT_ID, checkoutMsg);
       twilioClient.messages
         .create({
           body: checkoutMsg,

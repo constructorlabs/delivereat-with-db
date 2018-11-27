@@ -1,83 +1,66 @@
-# Delivereat
+# **Zing**
 
-In this project we will create a database backed version of Delivereat. We will build it as a new project, but feel free to use your original Delivereat project as reference. Be aware that because the data structures we will be working with here are likely to be different, it may not be possible to directly re-use your UI components.
+Zing is a sleek and minimalistic web application for ordering coffee.
 
-A few notes before we get started
+<p float="left">
+  <img src="./static/assets/readme-splash.png?raw=true" alt="Splash" width=200px>
+  <img src="./static/assets/readme-menu.png?raw=true" alt="Menu" width=200px>
+  <img src="./static/assets/readme-order.png?raw=true" alt="Order" width=200px>
+  <img src="./static/assets/readme-checkout.png?raw=true" alt="Checkout" width=200px>
+</p>
 
-* Fork and clone this repo
-* Start by building the simplest thing that works. Add to it as you go along. Test your application as frequently as possible to make sure it does what you expect
-* Commit frequently and push to Github
-* Implement features one at a time
-* Make sure your app is responsive
-* You may want to design the API first, before implementing the UI that uses and API
+## Summary
+
+Food delivery apps are everywhere - but what if you wanted your artisanal coffee delivered to your door as well? Zing is the answer: Simply go through our carefully curated menu of third-wave coffee drinks, add them to your basket, enter your mobile number and wait for the SMS confirmation!
+
+## Technologies used
+
+**Front End**
+
+- React
+- SCSS
+- Handlebars
+
+**Back End**
+
+- Node.js
+- Express
+- Twilio
+- Postgres
+
+**Unit Testing**
+
+- Jest
+
+**Build**
+
+- webpack
+
+## Installation
+
+- Fork and clone this repo.
+- Run `npm install` to install dependencies.
+- Create a `.env` file to store your database credentials and Twilio user ID and token.
+- Create a local database using the supplied queries in [database.sql](database.sql).
+- Run `npm start` to start the Node server with Nodemon.
+- Run `npm run dev` to create a development build with webpack.
+
+- This app was built with mobile-use in mind, it is advised that browser dev tools are used to replicate a mobile or a tablet browser window.
+
+**Tests**
+
+- Run `npm test` to execute the test suite.
 
 ## Features
 
-**Database and API**
+- Basket functionality: Users can add or remove items from inside the menu or inside the basket
 
-* Design a database that will allow you to store a menu and orders. Start out with pen and paper first sketching out the tables and columns you will need, as well as the relationships between the tables.
-* The database will need to store a menu which will contain item name and price. We will also need to store orders. Each order can have multiple menu items and each menu item can appear in multiple orders. Each menu item ordered will also need to have a quantity.
-* Store the SQL commands used to create database and populate with initial data in a `database.sql` file in your repo. It will allow us to review your database code and also make it easy for you to rebuild database.
-* Create a RESTful API that will allow you to get the menu and save new orders
-* Test the API using Postman
+- Dynamic delivery charge: £2 for orders below £10, free delivery above £10
 
-**Menu**
-* Design and build a front end UI that will load the menu from the API and display it to the user
+- SMS notifications: Successful checkout will be confirmed by an SMS with the order ID
 
-**Order**
+- Design: Fade in-out transitions and conditional rendering of basket summary
 
-* Update the menu page to make it an order page
-* It should allow the user to specify quantities of items to order
-* It should add a delivery charge and display the total order cost
-* Create functionality to submit orders to the API and display a notification to the user with order id
+## Questions / Comments?
 
-## Stretch goals
-
-**Own feature**
-
-* Design and implement a feature of your choosing
-
-**SMS notification**
-
-* Add a phone number input to your UI and a column in orders table to store it.
-* Update the API to receive the phone number as part of the order
-* Sign up for an account with Twilio. It's an API that allows you to send SMS messages and do lots of other cool things with phones. Use the signup code WELOVECODE to receive $20 credit.
-* Implement SMS notification using Twilio to send an SMS notification to a user letting them know that the order has been received.
-
-**Unit tests**
-
-* Add unit tests to your application where appropriate
-
-## Technical notes
-
-* Run `npm install` after cloning to download all dependencies
-* Use `npm run dev -- --watch` to build React
-* You will need to create a `.env` file to store your database credentials. Make sure you add it to `.gitignore` file so that the credentials do not get commit to git and end up in public.
-* Use `node server.js` to run the Node server in another tab
-* Place all static files such as images and CSS in the `static` folder. When requesting those files from the server use `/static` at the beginning of the URL. For example `<link rel="stylesheet" type="text/css" href="/static/styles.css">`
-* `bundle.js` produced by webpack will be output in the `static` folder
-* To send data server using a POST, PUT or PATCH request you can do something the example below, where `order` is an object we want to send to the server and `http://localhost:8080/api/order` is URL we want to send it to.
-
-```js
-fetch('http://localhost:8080/api/order', {
-    method: 'post',
-    body: JSON.stringify(order),
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  }).then(function(response) {
-    return response.json();
-  }).then(data => {
-    // handle response
-  });
-```
-
-* Check out [Nodemon](https://nodemon.io/) to automatically rebuild and restart your server when changes are saved.
-
-## README
-
-* Produce a README.md which explains
-  * what the project does
-  * what technologies it uses
-  * how to build it and run it
-  * any unresolved issues the user should be aware of
+- Let us know by opening an issue on GitHub!
