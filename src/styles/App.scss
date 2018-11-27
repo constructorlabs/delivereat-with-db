@@ -50,11 +50,11 @@ body {
   }
 }
 
-.splash-transition-enter {
+.splash-transition-appear {
   opacity: 0.01;
 }
 
-.splash-transition-enter.splash-transition-enter-active {
+.splash-transition-appear.splash-transition-appear-active {
   opacity: 1;
   transition: opacity 0.3s ease-in;
 }
