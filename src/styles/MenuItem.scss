@@ -4,10 +4,11 @@
   border-bottom: 1px solid #cccccc;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
-  border-left: 6px solid white; 
-  
+  margin-right: 0.5rem;
+  border-left: 6px solid white;
+
   &--in-basket {
-    border-left: 6px solid $my-green;  
+    border-left: 6px solid $my-green;
   }
 
   &--greyed-out * {
@@ -57,12 +58,11 @@
     &--in-basket {
       color: black;
     }
-
   }
 
   &__remove-button {
     color: #cccccc;
-  
+
     &--in-basket {
       color: black;
     }
@@ -74,9 +74,8 @@
 }
 
 @media screen and (min-width: 768px) {
-
   .menu-item {
-    width: 50%;
+    width: 48%;
 
     &__name {
       font-size: 1.1rem;
