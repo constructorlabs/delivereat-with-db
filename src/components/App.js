@@ -76,8 +76,8 @@ class App extends React.Component {
   }
 
   removeFromOrder(menuItemId) {
-    const { items } = this.state.order;
-    items
+    let { items } = this.state.order;
+    items = items
       .map((item) => {
         if (item[0] === menuItemId) {
           return [item[0], item[1] - 1];
