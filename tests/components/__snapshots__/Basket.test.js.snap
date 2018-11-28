@@ -1,0 +1,144 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Basket matches the snapshot 1`] = `
+<div
+  className="basket"
+>
+  <div
+    className="basket-details"
+  >
+    <button
+      className="basket-details__close"
+      onClick={[Function]}
+      type="button"
+    >
+      ×
+    </button>
+    <div
+      className="basket-item"
+    >
+      <div
+        className="basket-item__title"
+      >
+        <div
+          className="basket-item__name"
+        >
+          Espresso
+        </div>
+        <div
+          className="basket-item__buttons"
+        >
+          <button
+            className="basket-item__remove-button"
+            onClick={[Function]}
+            type="button"
+          >
+            <i
+              className="fas fa-minus-circle"
+            />
+          </button>
+          <div
+            className="basket-item__count"
+          >
+            5
+          </div>
+          <button
+            className="basket-item__add-button"
+            onClick={[Function]}
+            type="button"
+          >
+            <i
+              className="fas fa-plus-circle"
+            />
+          </button>
+          <div
+            className="basket-item__line-total"
+          >
+            £10.00
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="basket-details__delivery"
+    >
+      <div
+        className="basket-details__delivery-text"
+      >
+        Free delivery
+      </div>
+      <div
+        className="basket-details__delivery-price"
+      >
+        £0.00
+      </div>
+    </div>
+    <div
+      className="basket-details__total"
+    >
+      <div
+        className="basket-details__total-text"
+      >
+        Order total
+      </div>
+      <div
+        className="basket-details__total-price"
+      >
+        £12.00
+      </div>
+    </div>
+    <div
+      className="basket-details__phone"
+    >
+      <div
+        className="basket-details__phone-text"
+      >
+        Enter phone number:
+      </div>
+      <div
+        className="basket-details__phone-number"
+      >
+        <div
+          className="basket-details__phone-country"
+        >
+          +44
+        </div>
+        <input
+          className="basket-details__phone-input"
+          onChange={[Function]}
+          placeholder="Phone number"
+          type="text"
+        />
+      </div>
+    </div>
+  </div>
+  <button
+    className="basket-summary basket-summary--visible"
+    onClick={[Function]}
+    type="button"
+  >
+    <div
+      className="basket-summary__count"
+    >
+      5
+    </div>
+    <div
+      className="basket-summary__text"
+    >
+      View Basket
+    </div>
+    <div
+      className="basket-summary__total"
+    >
+      £12.00
+    </div>
+  </button>
+  <button
+    className="basket-checkout"
+    onClick={[Function]}
+    type="button"
+  >
+    Checkout
+  </button>
+</div>
+`;

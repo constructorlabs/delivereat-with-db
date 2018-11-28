@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Splash matches the snapshot 1`] = `
+<div
+  className="splash"
+  onClick={[Function]}
+  role="link"
+  tabIndex={0}
+>
+  <p
+    className="splash__logo"
+  >
+    Zing
+  </p>
+  <p
+    className="splash__text"
+  >
+    Artisan coffee, delivered to your door
+  </p>
+</div>
+`;

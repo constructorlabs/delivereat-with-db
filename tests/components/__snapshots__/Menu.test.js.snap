@@ -1,0 +1,158 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Menu matches the snapshot 1`] = `
+<div
+  className="menu"
+>
+  <div
+    className="menu-item menu-item--in-basket menu-item--greyed-out"
+  >
+    <div
+      className="menu-item__title"
+    >
+      <div
+        className="menu-item__name"
+      >
+        Espresso
+      </div>
+      <div
+        className="menu-item__buttons"
+      >
+        <button
+          className="menu-item__remove-button menu-item__remove-button--in-basket"
+          onClick={[Function]}
+          type="button"
+        >
+          <i
+            className="fas fa-minus-circle"
+          />
+        </button>
+        <div
+          className="menu-item__count menu-item__count--in-basket"
+        >
+          1
+        </div>
+        <button
+          className="menu-item__add-button"
+          onClick={[Function]}
+          type="button"
+        >
+          <i
+            className="fas fa-plus-circle"
+          />
+        </button>
+      </div>
+    </div>
+    <div
+      className="menu-item__description"
+    >
+      Single shot, 30ml
+    </div>
+    <div
+      className="menu-item__price"
+    >
+      £2.00
+    </div>
+  </div>
+  <div
+    className="menu-item menu-item--in-basket menu-item--greyed-out"
+  >
+    <div
+      className="menu-item__title"
+    >
+      <div
+        className="menu-item__name"
+      >
+        Ristretto
+      </div>
+      <div
+        className="menu-item__buttons"
+      >
+        <button
+          className="menu-item__remove-button menu-item__remove-button--in-basket"
+          onClick={[Function]}
+          type="button"
+        >
+          <i
+            className="fas fa-minus-circle"
+          />
+        </button>
+        <div
+          className="menu-item__count menu-item__count--in-basket"
+        >
+          3
+        </div>
+        <button
+          className="menu-item__add-button"
+          onClick={[Function]}
+          type="button"
+        >
+          <i
+            className="fas fa-plus-circle"
+          />
+        </button>
+      </div>
+    </div>
+    <div
+      className="menu-item__description"
+    >
+      Concentrated espresso, 22ml
+    </div>
+    <div
+      className="menu-item__price"
+    >
+      £2.00
+    </div>
+  </div>
+  <div
+    className="menu-item menu-item--greyed-out"
+  >
+    <div
+      className="menu-item__title"
+    >
+      <div
+        className="menu-item__name"
+      >
+        Macchiato
+      </div>
+      <div
+        className="menu-item__buttons"
+      >
+        <button
+          className="menu-item__remove-button"
+          onClick={[Function]}
+          type="button"
+        >
+          <i
+            className="fas fa-minus-circle"
+          />
+        </button>
+        <div
+          className="menu-item__count"
+        >
+          0
+        </div>
+        <button
+          className="menu-item__add-button"
+          onClick={[Function]}
+          type="button"
+        >
+          <i
+            className="fas fa-plus-circle"
+          />
+        </button>
+      </div>
+    </div>
+    <div
+      className="menu-item__description"
+    >
+      60ml espresso + a dab of milk foam
+    </div>
+    <div
+      className="menu-item__price"
+    >
+      £2.20
+    </div>
+  </div>
+</div>
+`;
