@@ -14,4 +14,4 @@ EXPOSE 8080
 
 RUN npm run build 
 
-CMD ["node", "index.js"]
+CMD ["node", "server.js"]
