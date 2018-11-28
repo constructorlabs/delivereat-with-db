@@ -8,8 +8,8 @@ const pgp = require('pg-promise')();
 const app = express();
 app.use(bodyParser.json());
 const db = pgp({
-  host: 'localhost',
-  port: 5432,
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
   database: process.env.DB_NAME,
   user: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
@@ -41,7 +41,7 @@ app.post('/api/order', (req, res) => {
   const date = new Date();
   const { items, phone } = req.body;
   db.one(
-    `INSERT INTO "order" (status, time, phone) 
+    `INSERT INTO "order" (status, time, phone)
           VALUES ($1, $2, $3)
           RETURNING id`,
     [status, date.toLocaleString(), phone],
