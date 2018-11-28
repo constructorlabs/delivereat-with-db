@@ -17,6 +17,6 @@ COPY . .
 
 EXPOSE 8080
 
-RUN npm run build
+RUN npm run build 
 
-RUN npm start
+CMD ["node", "index.js"]
