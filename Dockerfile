@@ -15,8 +15,8 @@ RUN npm install
 # Bundle app source
 COPY . .
 
-RUN npm run dev
-
 EXPOSE 8080
 
-CMD [ "npm", "start" ]
+RUN npm run dev
+
+RUN npm start
