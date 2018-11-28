@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "An app which allows customers to order food online",
   "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ytknrgn/delivereat-with-db.git"
+  },
   "scripts": {
     "test": "jest",
     "dev": "webpack --mode development",
