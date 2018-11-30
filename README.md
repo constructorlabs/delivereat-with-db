@@ -8,9 +8,7 @@
 --- 
 
 ## Objective > what does it do?
-**Lovely Grubbly** is a basic version of Deliveroo,  
-
-is an online restaurant which brings the best local food to your doorstep. It allows you to browse the menu and dishes to the shopping basket which shows a full breakdown of costs including dellivery. To place your order you enter your details and immediatly receive confirmation by text with an order ID.
+**Lovely Grubbly** is an online restaurant which brings the best local food to your doorstep. It allows you to browse the menu and dishes to the shopping basket which shows a full breakdown of costs including dellivery. To place your order you enter your details and immediatly receive confirmation by text with an order ID.
 
 ## Installation and set up
 + Clone the project and run `npm install`
