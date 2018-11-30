@@ -1,14 +1,13 @@
 ![Screenshot](./static/images/lovely-grubbly-screen-shots.png) 
 
 # Lovely Grubbly
+
 ## Order takeaway food for delivery
+**Lovely Grubbly** is an online restaurant which brings the best local food to your doorstep. It allows you to browse the menu and add dishes to the shopping basket which shows a full breakdown of costs including dellivery. To place your order you enter your details and immediatly receive confirmation by text with an order ID.
 
 > [View the repo on Github](https://github.com/OurBnB/OurBnB)
 
 --- 
-
-## Objective > what does it do?
-**Lovely Grubbly** is an online restaurant which brings the best local food to your doorstep. It allows you to browse the menu and dishes to the shopping basket which shows a full breakdown of costs including dellivery. To place your order you enter your details and immediatly receive confirmation by text with an order ID.
 
 ## Installation and set up
 + Clone the project and run `npm install`
