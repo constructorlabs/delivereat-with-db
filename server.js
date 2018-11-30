@@ -1,12 +1,14 @@
+// server.js
+const express = require('express');
+const bodyParser = require('body-parser');
+const app = express();
 require('dotenv').config();
 
-const bodyParser = require('body-parser');
-const pgp = require('pg-promise')();
-const express = require('express');
-const app = express();
+app.use(bodyParser.json());
 app.use('/static', express.static('static')); 
 app.set('view engine', 'hbs');
 
+const pgp = require('pg-promise')();
 const db = pgp({
     host: 'localhost',
     port: 5432,
@@ -14,8 +16,6 @@ const db = pgp({
     user: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD
 });
-
-app.use(bodyParser.json());
 
 // dummy menu object to show object structure
 const menu = {
