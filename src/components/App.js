@@ -29,13 +29,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    console.log(process.env.TWILIO_SID);
-    console.log(process.env.DB_HOST);
-    console.log(process.env.DB_PORT);
-    console.log(process.env.DB_NAME);
-    console.log(process.env.DB_USERNAME);
-    console.log(process.env.DB_PASSWORD);
-    console.log(process.env.TWILIO_AUTH_TOKEN);
+    console.log(process.env);
 
     fetch('/api/menu')
       .then((response) => response.json())
@@ -77,7 +71,6 @@ class App extends React.Component {
             },
             readyToCheckout: false,
           });
-          console.log('Success:', JSON.stringify(response));
         })
         .catch((error) => console.error('Error:', error));
     }
