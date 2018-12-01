@@ -15,7 +15,6 @@ const db = pgp({
   password: process.env.DB_PASSWORD,
 });
 
-console.log(process.env);
 app.use('/static', express.static('static'));
 app.set('view engine', 'hbs');
 
