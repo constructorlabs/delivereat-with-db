@@ -29,8 +29,6 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    console.log(process.env);
-
     fetch('/api/menu')
       .then((response) => response.json())
       .then((menu) => this.setState({ menu }));
