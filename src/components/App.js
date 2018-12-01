@@ -30,6 +30,13 @@ class App extends React.Component {
 
   componentDidMount() {
     console.log(process.env.TWILIO_SID);
+    console.log(process.env.DB_HOST);
+    console.log(process.env.DB_PORT);
+    console.log(process.env.DB_NAME);
+    console.log(process.env.DB_USERNAME);
+    console.log(process.env.DB_PASSWORD);
+    console.log(process.env.TWILIO_AUTH_TOKEN);
+
     fetch('/api/menu')
       .then((response) => response.json())
       .then((menu) => this.setState({ menu }));
