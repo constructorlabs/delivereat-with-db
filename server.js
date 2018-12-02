@@ -10,7 +10,7 @@ app.set('view engine', 'hbs');
 
 const pgp = require('pg-promise')();
 const db = pgp({
-    host: 'localhost',
+    host: process.env.DB_HOST,
     port: 5432,
     database: process.env.DB_NAME,
     user: process.env.DB_USERNAME,
