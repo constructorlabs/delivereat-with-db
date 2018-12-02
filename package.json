@@ -1,13 +1,17 @@
 {
-  "name": "deliveat-with-db",
+  "engines": {
+    "node": "10.9.0"
+  },
+  "name": "lovely-grubbly",
   "version": "1.0.0",
-  "description": "An app which allows customers to order food online",
+  "description": "Order takeaway food online for delivery",
   "main": "server.js",
   "scripts": {
     "test": "jest",
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "heroku-postbuild": "npm run build"
   },
   "author": "",
   "license": "ISC",
@@ -52,10 +56,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rolandjlevy/delivereat-with-db.git"
+    "url": "git+https://github.com/rolandjlevy/lovely-grubbly.git"
   },
   "bugs": {
-    "url": "https://github.com/rolandjlevy/delivereat-with-db/issues"
+    "url": "https://github.com/rolandjlevy/lovely-grubbly/issues"
   },
-  "homepage": "https://github.com/rolandjlevy/delivereat-with-db#readme"
+  "homepage": "https://github.com/rolandjlevy/lovely-grubbly#readme"
 }
