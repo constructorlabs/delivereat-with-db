@@ -5,6 +5,8 @@
 ## Order takeaway food online for delivery
 **Lovely Grubbly** is an online restaurant which brings the best local food to your doorstep. It allows you to browse the menu and add dishes to the shopping basket which shows a full breakdown of costs including dellivery. To place your order you enter your details and immediatly receive confirmation by text with an order ID.
 
+> [View the live demo](https://lovely-grubbly.herokuapp.com)
+
 > [View the repo on Github](https://github.com/rolandjlevy/lovely-grubbly)
 
 --- 
