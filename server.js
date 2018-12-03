@@ -142,7 +142,7 @@ function sendSMS(orderId, customerName, customerTel) {
   const authToken = process.env.TWILIO_AUTH_LIVE; // Your Auth Token from www.twilio.com/console
   const twilio = require('twilio');
   const client = new twilio(accountSid, authToken);
-  const baseUrl = 'www.heroku.com';
+  const baseUrl = 'https://lovely-grubbly.herokuapp.com';
   client.messages.create({
       body: `Dear ${customerName}, thank you for your order. Your ID is ${orderId}. To view your order details, please visit ${baseUrl}/?viewPurchaseId=${orderId}`,
       to: customerTel, // Text this number
