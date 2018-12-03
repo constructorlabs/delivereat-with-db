@@ -160,27 +160,27 @@ class App extends React.Component {
                     removeFromOrder={this.removeFromOrder}
                   />
                 )}
-                <CSSTransitionGroup
-                  transitionName="basket-transition"
-                  transitionEnterTimeout={200}
-                  transitionLeaveTimeout={200}
-                >
-                  {!!this.state.order.items.length && (
-                    <Basket
-                      total={total}
-                      stage={stage}
-                      menu={this.state.menu}
-                      changeStage={this.changeStage}
-                      order={this.state.order}
-                      addToOrder={this.addToOrder}
-                      removeFromOrder={this.removeFromOrder}
-                      checkout={this.checkout}
-                      getInput={this.getInput}
-                      readyToCheckout={this.state.readyToCheckout}
-                    />
-                  )}
-                </CSSTransitionGroup>
               </div>
+              <CSSTransitionGroup
+                transitionName="basket-transition"
+                transitionEnterTimeout={200}
+                transitionLeaveTimeout={200}
+              >
+                {!!this.state.order.items.length && (
+                  <Basket
+                    total={total}
+                    stage={stage}
+                    menu={this.state.menu}
+                    changeStage={this.changeStage}
+                    order={this.state.order}
+                    addToOrder={this.addToOrder}
+                    removeFromOrder={this.removeFromOrder}
+                    checkout={this.checkout}
+                    getInput={this.getInput}
+                    readyToCheckout={this.state.readyToCheckout}
+                  />
+                )}
+              </CSSTransitionGroup>
             </div>
           )}
         </CSSTransitionGroup>

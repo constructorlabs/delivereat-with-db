@@ -1,13 +1,14 @@
 @import 'defaults';
 
 .basket {
-  position: sticky;
+  position: fixed;
   bottom: 0;
   width: 100%;
   background: white;
   display: flex;
   flex-direction: column;
   align-items: center;
+  z-index: 10;
 
   &-details {
     display: none;
@@ -124,8 +125,8 @@
 @media screen and (min-width: 768px) {
   .basket-summary {
     &--visible {
-      margin-top: 12rem;
       justify-content: space-between;
+      width: 40%;
     }
 
     &__count {
@@ -136,14 +137,7 @@
       padding-right: 2rem;
     }
   }
-}
-
-@media screen and (min-width: 960px) {
-  .basket {
-    &-summary {
-      &--visible {
-        height: 3rem;
-      }
-    }
+  .basket-checkout {
+    width: 40%;
   }
 }
