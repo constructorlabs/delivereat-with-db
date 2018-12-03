@@ -137,3 +137,13 @@
     }
   }
 }
+
+@media screen and (min-width: 960px) {
+  .basket {
+    &-summary {
+      &--visible {
+        height: 3rem;
+      }
+    }
+  }
+}

@@ -71,7 +71,6 @@ app.post('/api/order', (req, res) => {
           from: '+447481339376',
           to: phone,
         })
-        .then((message) => console.log(message.sid))
         .done();
       res.json(data);
     })

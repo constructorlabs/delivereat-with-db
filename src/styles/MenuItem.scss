@@ -98,3 +98,25 @@
     font-size: 1.2rem;
   }
 }
+
+@media screen and (min-width: 960px) {
+  .menu-item {
+    width: 30%;
+
+    &__name {
+      font-size: 0.8rem;
+    }
+
+    &__description {
+      font-size: 0.7rem;
+    }
+
+    &__price {
+      font-size: 0.8rem;
+    }
+
+    &__count {
+      font-size: 0.8rem;
+    }
+  }
+}

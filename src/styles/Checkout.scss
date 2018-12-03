@@ -4,7 +4,7 @@
   height: 100vh;
   background-image: url('/static/assets/checkout-small.jpg');
   background-position: center;
-  background-repeat: no-repeat; 
+  background-repeat: no-repeat;
   background-size: cover;
 
   &__logo {
@@ -49,7 +49,6 @@
 }
 
 @media screen and (min-width: 768px) {
-
   .checkout {
     background-image: url('/static/assets/checkout-medium.jpg');
 
@@ -68,5 +67,17 @@
 }
 
 @media screen and (min-width: 960px) {
+  .checkout {
+    &__logo {
+      font-size: 2.5rem;
+      bottom: 3rem;
+      left: 3rem;
+    }
 
+    &__text {
+      font-size: 0.8rem;
+      bottom: 2rem;
+      left: 3rem;
+    }
+  }
 }
