@@ -56,6 +56,9 @@ app.post('/api/order', function(req, res){
   // 1. insert into "order" table
   db.one(`INSERT INTO "order"(id, ordertime) VALUES (DEFAULT, NOW()) RETURNING id, ordertime`)
 
+// Post to order route when set up to go  
+//  db.one(`INSERT INTO "order"(id, ordertime, phone, orderstatus) VALUES (DEFAULT, NOW(), $1, $2) RETURNING id, ordertime`, [phone, orderstatus] )
+
   .then(result => {
     const orderId = result.id;
     const items = Object.values(req.body);
