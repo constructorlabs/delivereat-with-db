@@ -73,6 +73,9 @@ class MenuItems extends React.Component {
 
         const menuItems = this.state.loaded &&
         <React.Fragment>
+            <div className="hero-container">
+                <img src="../static/images/homepage-hero.png" className="hero"/>
+            </div>
             <div className="menu__selection">
                 {this.menuSelectionCheckboxes()}
             </div>
