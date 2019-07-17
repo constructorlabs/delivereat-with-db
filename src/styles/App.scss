@@ -1,3 +1,43 @@
-body {
-  background-color: Cornsilk;
+@import './Header.scss';
+@import './Menu.scss';
+@import './TotalPrice.scss';
+@import './reset.scss';
+@import url('https://fonts.googleapis.com/css?family=Varela+Round');
+html {
+    font-family: 'Varela Round', sans-serif;
+    font-size: 18px;
+}
+
+.container {
+    margin: 0 0.8rem;
+    background-color: #fff;
+}
+
+.app {
+    // background-color: red;
+    width: 100vw;
+    padding-right: 0.8rem;
+    margin-bottom: $heightButton; //as button is sticked to bottom of page so content of app must have additional space
+}
+
+@media (min-width: 768px) {
+    .singleProduct {
+        &__form {
+            display: grid;
+            grid-template-rows: min-content min-content 10rem;
+            grid-template-columns: 20rem repeat(3, min-content);
+            grid-template-areas: 
+            'imgage name name name name' 
+            'imgage price minus quantity add' 
+            'imgage des des des des';
+            align-items: center;
+            grid-gap: 1rem;
+            background-color: $backgroundColor;
+        }
+        &__description {
+          display: grid;
+          grid-gap: 0.4rem;
+          align-self: flex-start;
+      }
+    }
 }

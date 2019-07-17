@@ -1,0 +1,18 @@
+$heightButton: 3rem;
+.totalPrice {
+    position: fixed;
+    bottom:   0;
+
+    display: grid;
+    height: $heightButton;
+    width: calc(100% - 1.5rem);
+    &__button {
+
+        height: 9rem;
+        color: white;
+        background-color: #266abd;
+        font-size: 1.2rem;
+        width: auto;
+        height: 100%;
+    }
+}

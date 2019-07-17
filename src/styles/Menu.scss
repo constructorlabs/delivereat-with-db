@@ -1,0 +1,29 @@
+@import './SingleProduct.scss';
+
+@mixin liElements {
+    display: grid;
+    grid-gap: 3.3rem;
+}
+
+.menu {
+
+    &__listOfAllProducts {
+        display: grid;
+        grid-gap: 0.5rem;
+
+        li {
+            font-size: 2rem;
+
+            display: grid;
+            grid-gap: 0.2rem;
+        }
+    }
+
+    &__burgers{
+        @include liElements;
+    }
+    &__drinks {
+        @include liElements;
+    }
+   
+}

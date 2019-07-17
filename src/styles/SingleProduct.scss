@@ -1,0 +1,100 @@
+$fontSize: 1.5rem;
+$backgroundColor: #ebebeb;
+$borderRadius: 0.5rem;
+@mixin buttons {
+    display: grid;
+    align-content: center;
+    -webkit-border-radius: 999px;
+    -moz-border-radius: 999px;
+    border-radius: 999px;
+    width: $fontSize;
+    height: $fontSize;
+    padding: 0px;
+    background: #779BCA;
+    border: 1px solid #003580;
+    color: #003580;
+    text-align: center;
+    -webkit-transition: background 0.2s linear;
+    -moz-transition: background 0.2s linear;
+    -ms-transition: background 0.2s linear;
+    -o-transition: background 0.2s linear;
+    transition: background 0.2s linear;
+    transition: color 0.2s linear;
+    outline: none;
+    font: $fontSize Arial, sans-serif;
+}
+
+@mixin buttonsHover {
+    color: white;
+    background: #3F69A0;
+    cursor: pointer;
+}
+
+.singleProduct {
+    &__form {
+        display: grid;
+        grid-template-rows: $fontSize * 2;
+        grid-template-columns: ($fontSize * 2.6) repeat(4, min-content) 1fr;
+        grid-template-areas: 'imgage price minus quantity add name';
+        align-items: center;
+        grid-gap: 0.2rem;
+        background-color: $backgroundColor;
+        border-radius: $borderRadius;
+
+    }
+    &__image {
+        grid-area: imgage;
+        width: auto;
+        border-top-left-radius: $borderRadius;
+        border-bottom-left-radius: $borderRadius;
+        // background-color: white;
+        height: 100%; // display: none;
+    }
+    &__name {
+        grid-area: name;
+        font-size: $fontSize - 0.2rem;
+        width: auto;
+    }
+    &__price {
+        grid-area: price;
+        font-size: $fontSize - 0.2rem;
+    }
+    &__buttonSubtractingQuantity {
+        grid-area: minus;
+        @include buttons;
+        line-height: 0.2rem;
+        margin-bottom: 1px;
+    }
+    &__buttonSubtractingQuantity:hover {
+        @include buttonsHover;
+        display: grid;
+        align-items: center;
+    }
+    &__quantityInput {
+        grid-area: quantity;
+        width: 1.5rem + 0.5rem;
+        text-align: center;
+        border: none;
+        height: 100%;
+        font-size: $fontSize;
+        outline: none;
+        background-color: $backgroundColor;
+    } //Turn Off Number Input Spinners
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    &__buttonAddQuantity {
+        grid-area: add;
+        @include buttons;
+    }
+    &__buttonAddQuantity:hover {
+        @include buttonsHover;
+    }
+    &__description {
+        grid-area: des;
+        display: none;
+        margin-right: 0.5rem;
+    }
+}
