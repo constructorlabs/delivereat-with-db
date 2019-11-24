@@ -1,0 +1,66 @@
+
+$header-colour: #ff9e0d;
+$mid-colour: #fff5dc;
+$light-colour: white;
+
+.fas {
+    margin-left: 0.5rem;
+}
+
+.header {
+    background-color: $header-colour;
+    padding: 0 1rem;
+    margin: 0;
+    display: block;
+    min-width: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    & a {
+      color: white;
+      text-decoration: none;
+      opacity: 1;
+      &:hover {
+        cursor: pointer;
+        opacity: 0.8;
+      }
+    }
+    &__title {
+        padding: 0;
+        margin: 0.5rem 0 0 0;
+        letter-spacing: 0.3rem;
+        color: $light-colour;
+        font-family: 'Luckiest Guy', cursive;
+        font-size: 1.5rem;
+        filter: drop-shadow(0 0 3px unquote('#ab660050'));
+    }
+    &__items {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      filter: drop-shadow(0 0 3px unquote('#ab660050'));
+      margin: 0;
+      padding: 0;
+      font-size: 1rem;
+      &-count {
+        font-size: 1rem;
+        opacity: 1;
+        color: $light-colour;
+        margin: 0 0 1.5rem 0;
+        padding: 0;
+      }
+      &-toggle {
+        font-size: 1.5rem;
+        color: $light-colour;
+        opacity: 1;
+        margin: 0;
+        padding: 0;
+        &:hover {
+          cursor: pointer;
+          opacity: 0.8;
+        }
+      }
+    }
+  }

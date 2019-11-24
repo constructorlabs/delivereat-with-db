@@ -1,3 +1,103 @@
+$border-thickness: 0.05rem;
+$light-colour: #fffae8;
+$mid-colour: #ff9e0d;
+$mid-dark-colour: #ff7700;
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  padding: 0;
+  margin: 0;
+  line-height: 2rem;
+}
+
 body {
-  background-color: Cornsilk;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  background-color: $light-colour;
+  font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+  letter-spacing: 0.05rem;
+  font-size: 1rem;
+}
+
+#root {
+  padding: 0;
+  margin: 0;
+}
+
+.main {
+  margin: 0 1rem 1rem 1rem;
+  // overflow-y: auto;
+}
+
+label {
+  cursor: pointer;
+}
+
+input, button {
+  font-size: 1rem;
+  letter-spacing: 0.05rem;
+}
+
+input {
+  border: 0.05rem solid #ccc;
+  color: #333;
+  padding: 0.5rem 0.7rem;
+}
+
+button {
+  font-weight: 700;
+  background-color: $mid-colour;
+  border: 0;
+  color: white;
+  padding: 0.5rem 0.7rem;
+  &:hover {
+    cursor: pointer;
+    background-color: $mid-dark-colour;
+  }
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.hr-black {
+  background-color: #ccc;
+  border: 0 none;
+  color: #eee;
+  height: 1px;
+}
+
+.hr-white {
+    border: 0.05rem solid white;
+    height: 0.05rem;
+    border: 0;
+}
+
+.fas-padding-right {
+  padding-right: 0.5rem;
+}
+
+.fadein {
+  opacity: 1;
+  @-webkit-keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
+  @-moz-keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
+  @-ms-keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
+  @-o-keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
+  -webkit-animation: fadein 0.5s;
+  -moz-animation: fadein 0.5s; 
+  -ms-animation: fadein 0.5s;
+  -o-animation: fadein 0.5s;
+  animation: fadein 0.5s;
 }

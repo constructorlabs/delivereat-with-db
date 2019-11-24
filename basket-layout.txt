@@ -1,0 +1,16 @@
+Your Basket
+==============
+
+- 1 +   Grilled Mexican Chicken
+- 1 +   Vegetarian - Tastiest Grilled Fajita 
+- 1 +   Veggies to Ever Grace Your Burrito Meal
+- 1 +   Southwest, BBQ, Diet Coke, Sprite, Guacamole
+
+Subtotal        £39.99
+Delivery Fee    £2.99
+Total           £42.97
+
+Name:           ____________
+Tel:            ____________
+
+[ Place Order ]
