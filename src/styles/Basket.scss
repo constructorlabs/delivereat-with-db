@@ -1,0 +1,143 @@
+@import 'defaults';
+
+.basket {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10;
+
+  &-details {
+    display: none;
+
+    &--visible {
+      display: flex;
+      flex-direction: column;
+      background: white;
+    }
+
+    &__close {
+      text-align: right;
+      padding-right: 1rem;
+      font-size: 1.5rem;
+      border-top: 2px solid black;
+    }
+
+    &__delivery {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #cccccc;
+      padding: 0.5rem 1rem 0.5rem 0;
+      border-left: 6px solid white;
+
+      &-text {
+        padding-left: 1rem;
+      }
+    }
+
+    &__total {
+      color: black;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #cccccc;
+      padding: 0.5rem 1rem 0.5rem 0;
+      border-left: 6px solid white;
+
+      &-text {
+        padding-left: 1rem;
+      }
+    }
+
+    &__phone {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #cccccc;
+      padding: 0.5rem 1rem 0.5rem 0;
+      border-left: 6px solid white;
+
+      &-number {
+        display: flex;
+        align-items: center;
+      }
+
+      &-text {
+        padding-left: 1rem;
+      }
+
+      &-input {
+        margin-left: 0.5rem;
+        padding-left: 0.5rem;
+        border: 1px solid #cccccc;
+        height: 20px;
+        width: 130px;
+        font-size: inherit;
+        color: inherit;
+      }
+    }
+  }
+
+  &-summary {
+    display: none;
+
+    &--visible {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      height: 3rem;
+      width: 90%;
+      color: white;
+      margin: 10px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      border-radius: 5px;
+      background: $my-green;
+    }
+  }
+
+  &-checkout {
+    display: none;
+
+    &--visible {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      height: 3rem;
+      width: 90%;
+      color: white;
+      margin: 10px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      border-radius: 5px;
+      background: rgb(216, 88, 38);
+    }
+
+    &--ready {
+      background: $my-green;
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .basket-summary {
+    &--visible {
+      justify-content: space-between;
+      width: 40%;
+    }
+
+    &__count {
+      padding-left: 2rem;
+    }
+
+    &__total {
+      padding-right: 2rem;
+    }
+  }
+  .basket-checkout {
+    width: 40%;
+  }
+}

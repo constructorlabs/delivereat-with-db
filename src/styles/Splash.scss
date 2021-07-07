@@ -1,0 +1,86 @@
+@import 'defaults';
+
+.splash {
+  height: 100vh;
+  background-image: url('/static/assets/splash-small.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  &__logo {
+    position: absolute;
+    bottom: 6rem;
+    left: 2rem;
+    color: white;
+    font-size: 3rem;
+    margin: 0;
+    font-family: 'Sedgwick Ave Display', cursive;
+  }
+
+  &__text {
+    font-family: 'Roboto';
+    font-size: 1rem;
+    position: absolute;
+    bottom: 4rem;
+    left: 2rem;
+    color: white;
+  }
+}
+
+.splash-appear {
+  opacity: 0.01;
+}
+
+.splash-appear.splash-appear-active {
+  opacity: 1;
+  transition: opacity 1s ease-in;
+}
+
+.splash-leave {
+  opacity: 1;
+}
+
+.splash-leave.splash-leave-active {
+  opacity: 0.01;
+  transition: opacity 1s ease-in;
+}
+
+@media screen and (min-width: 768px) {
+  .splash {
+    &__logo {
+      font-size: 5rem;
+      bottom: 11rem;
+      left: 3rem;
+    }
+
+    &__text {
+      font-size: 1.4rem;
+      bottom: 8rem;
+      left: 3rem;
+    }
+  }
+}
+
+@media screen and (min-width: 960px) {
+  .splash {
+    background-image: url('/static/assets/splash-medium.jpg');
+    &__logo {
+      position: absolute;
+      bottom: 5rem;
+      left: 2.5rem;
+      color: white;
+      font-size: 2.5rem;
+      margin: 0;
+      font-family: 'Sedgwick Ave Display', cursive;
+    }
+
+    &__text {
+      font-family: 'Roboto';
+      font-size: 0.8rem;
+      position: absolute;
+      bottom: 3.5rem;
+      left: 2.5rem;
+      color: white;
+    }
+  }
+}

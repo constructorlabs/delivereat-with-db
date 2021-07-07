@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Checkout matches the snapshot 1`] = `
+<div
+  className="checkout"
+  onClick={[Function]}
+  role="button"
+  tabIndex={0}
+>
+  <p
+    className="checkout__logo"
+  >
+    Zing
+  </p>
+  <p
+    className="checkout__text"
+  >
+    Thank you for placing an order with Zing. Your order number is 
+    10
+    . One of our surprisingly attractive baristas is preparing your coffee now.
+  </p>
+</div>
+`;

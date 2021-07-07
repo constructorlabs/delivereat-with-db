@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Basket Item matches the snapshot 1`] = `
+<div
+  className="basket-item"
+>
+  <div
+    className="basket-item__title"
+  >
+    <div
+      className="basket-item__name"
+    >
+      Espresso
+    </div>
+    <div
+      className="basket-item__buttons"
+    >
+      <button
+        className="basket-item__remove-button"
+        onClick={[Function]}
+        type="button"
+      >
+        <i
+          className="fas fa-minus-circle"
+        />
+      </button>
+      <div
+        className="basket-item__count"
+      >
+        2
+      </div>
+      <button
+        className="basket-item__add-button"
+        onClick={[Function]}
+        type="button"
+      >
+        <i
+          className="fas fa-plus-circle"
+        />
+      </button>
+      <div
+        className="basket-item__line-total"
+      >
+        £4.00
+      </div>
+    </div>
+  </div>
+</div>
+`;
